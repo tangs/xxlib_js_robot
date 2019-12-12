@@ -25,7 +25,6 @@ function ReadZigZagNumber(view, idx, isInt32) {
     }
 
     const dest = isInt32 ? zz.decode32(num) : zz.decode64(num);
-    // console.log(`number1:${num}, zz:${dest}`);
     return [dest, idx]
 }
 

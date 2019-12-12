@@ -17,8 +17,6 @@
   },
   "homepage": "https://github.com/tangs/xxlib_js_robot#readme",
   "dependencies": {
-    "int64": "0.0.5",
-    "node-int64": "^0.4.0",
     "zigzag": "0.0.3"
   }
 }
