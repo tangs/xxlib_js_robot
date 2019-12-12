@@ -42,6 +42,8 @@ class MsgDispatcher {
             const pong = new Pong();
             pong.decode(msg.buffer);
             console.dir(pong);
+            const now = BigInt(new Date().getTime());
+            console.log(`ping:${now - pong.ticks}`);
         }
     }
 }

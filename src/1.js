@@ -48,8 +48,14 @@ client.connect(45621, '192.168.1.240', function() {
 	const updatePing = () => {
 		const ping = new Ping();
 		ping.ticks = BigInt(new Date().getTime());
-		const enterPing = ping.encode();
-		print(enterPing);
+		const buffer = new ArrayBuffer(16);
+		const len = ping.encode(buffer, 4);
+		const view = new DataView(buffer);
+		view.setUint32(0, len - 4, true);
+
+		const enterPing = new Uint8Array(buffer, 0, len);
+		// print(enterPing);
+		// console.dir(ping);
 		// arr[0] = 0;
 		sendMsg(enterPing);
 		setTimeout(updatePing, 5000);
