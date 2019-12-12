@@ -1,0 +1,24 @@
+{
+  "name": "xxlib_robot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tangs/xxlib_js_robot.git"
+  },
+  "author": "tangs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tangs/xxlib_js_robot/issues"
+  },
+  "homepage": "https://github.com/tangs/xxlib_js_robot#readme",
+  "dependencies": {
+    "int64": "0.0.5",
+    "node-int64": "^0.4.0",
+    "zigzag": "0.0.3"
+  }
+}
