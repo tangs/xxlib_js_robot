@@ -1,4 +1,3 @@
-// const Tools = require("./Tools")
 const { PkgBase, DataType } = require("./PkgBase")
 
 class Pong extends PkgBase {
