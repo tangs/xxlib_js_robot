@@ -37,6 +37,7 @@ class MsgDispatcher {
 
         const unType = dv.getUint8(idx++);
         const pkgId = dv.getUint8(idx++);
+        console.log(`pkgId:${pkgId}, len:${len}.`);
 
         if (pkgId == 6) {
             const pong = new Pong();
