@@ -18,7 +18,7 @@ class Pong {
         const serialNum = view.getUint8(idx++);
         this.typeId = view.getUint8(idx++);
         ++idx; // idx
-        [this.ticks, idx] = Tools.ReadZigZagNumber(view, idx, false)
+        [this.ticks, idx] = Tools.ReadZigZagNumber64(view, idx, false)
     }
 
     encode() {
@@ -33,7 +33,7 @@ class Pong {
         // idx
         view.setUint8(idx++, idx - 4 - 2);
 
-        idx = Tools.WriteZigZagNumber(view, idx, this.ticks, false);
+        idx = Tools.WriteZigZagNumber64(view, idx, this.ticks, false);
         view.setUint32(0, idx - 4, true);
         // buffer.length = idx;
         return buffer.slice(0, idx);

@@ -28,7 +28,7 @@ client.connect(45621, '192.168.1.240', function() {
 	console.log('Connected');
 
 	const sendMsg = (bin) => {
-		console.log('' + bin.length);
+		console.log('send:' + bin.length);
 		client.write(bin, (err) => {
 			if (err)
 				console.log(err);
@@ -58,6 +58,7 @@ client.connect(45621, '192.168.1.240', function() {
 });
 
 client.on('data', function(data) {
+	// console.log("recived:");
 	md.onRecivedMsg(data);
 });
 

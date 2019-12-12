@@ -26,7 +26,7 @@ class Ping {
         view.setUint8(idx++, this.typeId);
         // idx
         view.setUint8(idx++, idx - 4 - 2);
-        idx = Tools.WriteZigZagNumber(view, idx, this.ticks, false);
+        idx = Tools.WriteZigZagNumber64(view, idx, this.ticks, false);
         view.setUint32(0, idx - 4, true);
         // buffer.length = idx;
         return buffer.slice(0, idx);
