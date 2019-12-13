@@ -1,5 +1,5 @@
 const net = require('net');
-const zz = require('zigzag')
+const zz = require('./tools/zigzag')
 
 const MsgDispatcher = require('./MsgDispatcher')
 const Ping = require('./pkg/Ping')
@@ -65,13 +65,10 @@ client.connect(45621, '192.168.1.240', function() {
 
 client.on('data', function(data) {
 	// console.log("recived:");
+	print(data);
 	md.onRecivedMsg(data);
 });
 
 client.on('close', function() {
 	console.log('Connection closed');
 });
-
-// console.log(zz.encode32(1))
-// console.log(zz.encode32(3))
-// console.log(zz.encode64high())

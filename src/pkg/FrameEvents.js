@@ -2,7 +2,7 @@ const { PkgBase, DataType } = require("./PkgBase")
 class FrameEvents extends PkgBase {
     typeId = 11;
     frameNumber = 0; // int32
-    events = [];
+    events = null;
 
     datas = [
         {

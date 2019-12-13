@@ -2,6 +2,8 @@ const { Buffer } = require("./Buffer")
 
 const Ping = require("../pkg/Ping")
 const Pong = require("../pkg/Pong")
+const FrameEvents = require("../pkg/FrameEvents")
+const Events = require("../pkg/Events")
 
 const print = (data) => {
 	if (typeof(data) == 'string') {
@@ -27,13 +29,15 @@ class MsgDecoder {
     constructor() {
         this.register(5, Ping);
         this.register(6, Pong);
+        this.register(11, FrameEvents);
+        this.register(12, Events);
     }
 
-    register(id, pkgClass) {
+    register = (id, pkgClass) => {
         this.pkgMap.set(id, pkgClass);
     }
 
-    _createPkg(buffer) {
+    _createPkg = (buffer) => {
         const pkgId = buffer.readUInt8();
 
         if (this.pkgMap.has(pkgId)) {
@@ -45,7 +49,7 @@ class MsgDecoder {
             } else {
                 const obj = new class1();
                 buffer.setObj(idx, obj);
-                obj.decode(buffer);
+                obj.decode(buffer, this._createPkg);
                 return obj;
             }
         } else {
@@ -53,7 +57,7 @@ class MsgDecoder {
         }
     }
 
-    decode(msg) {
+    decode = (msg) => {
         const bytes = msg.buffer;
         const buffer = this.buffer;
 

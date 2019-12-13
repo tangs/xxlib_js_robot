@@ -17,6 +17,5 @@
   },
   "homepage": "https://github.com/tangs/xxlib_js_robot#readme",
   "dependencies": {
-    "zigzag": "0.0.3"
   }
 }
