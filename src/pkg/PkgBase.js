@@ -1,4 +1,5 @@
 const Tools = require("./Tools")
+const Buffer = require("../msg/Buffer")
 
 const DataType = Object.freeze({
     INT8: Symbol("INT8"),
@@ -14,24 +15,47 @@ class PkgBase {
     datas = [
     ];
 
+    // decode(buffer) {
+    //     const view = new DataView(buffer);
+    //     let idx = 4;
+    //     const serialNum = view.getUint8(idx++);
+    //     this.typeId = view.getUint8(idx++);
+    //     ++idx; // idx
+
+    //     // [this.ticks, idx] = Tools.ReadZigZagNumber64(view, idx, false)
+    //     for (const {type, key} of this.datas) {
+    //         console.log(key);
+    //         switch (type) {
+    //             case DataType.INT64: {
+    //                 [this[key], idx] = Tools.ReadZigZagNumber64(view, idx);
+    //             }
+    //             break;
+    //         }
+    //     }
+    //     return idx;
+    // }
+
     decode(buffer) {
-        const view = new DataView(buffer);
-        let idx = 4;
-        const serialNum = view.getUint8(idx++);
-        this.typeId = view.getUint8(idx++);
-        ++idx; // idx
+        // const view = new DataView(buffer);
+        // let idx = 4;
+        // const serialNum = view.getUint8(idx++);
+        // this.typeId = view.getUint8(idx++);
+        // ++idx; // idx
+
+
 
         // [this.ticks, idx] = Tools.ReadZigZagNumber64(view, idx, false)
         for (const {type, key} of this.datas) {
             console.log(key);
             switch (type) {
                 case DataType.INT64: {
-                    [this[key], idx] = Tools.ReadZigZagNumber64(view, idx, false);
+                    // [this[key], idx] = Tools.ReadZigZagNumber64(view, idx);
+                    this[key] = buffer.readZigzagInt64();
                 }
                 break;
             }
         }
-        return idx;
+        // return idx;
     }
 
     encode(buffer, idx) {
@@ -51,7 +75,7 @@ class PkgBase {
         for (const {type, key} of this.datas) {
             switch (type) {
                 case DataType.INT64: {
-                    idx = Tools.WriteZigZagNumber64(view, idx, this.ticks, false);
+                    idx = Tools.WriteZigZagNumber64(view, idx, this.ticks);
                 }
                 break;
             }

@@ -55,7 +55,7 @@ client.connect(45621, '192.168.1.240', function() {
 
 		const enterPing = new Uint8Array(buffer, 0, len);
 		// print(enterPing);
-		// console.dir(ping);
+		console.dir(ping);
 		// arr[0] = 0;
 		sendMsg(enterPing);
 		setTimeout(updatePing, 5000);

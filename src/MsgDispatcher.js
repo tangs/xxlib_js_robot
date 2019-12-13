@@ -1,7 +1,9 @@
 const Pong = require("./pkg/Pong")
+const { MsgDecoder } = require("./msg/MsgDecoder")
 
 class MsgDispatcher {
     infos = [];
+    md = new MsgDecoder();
 
     register = (type, target, cb) => {
         // this.infos.push([cb, type, target]);
@@ -30,21 +32,11 @@ class MsgDispatcher {
     }
 
     onRecivedMsg = (msg) => {
-        const dv = new DataView(msg.buffer);
-        let idx = 0;
-        const len = dv.getInt32(idx, true);
-        idx += 4;
-
-        const unType = dv.getUint8(idx++);
-        const pkgId = dv.getUint8(idx++);
-        console.log(`pkgId:${pkgId}, len:${len}.`);
-
-        if (pkgId == 6) {
-            const pong = new Pong();
-            pong.decode(msg.buffer);
-            console.dir(pong);
-            const now = BigInt(new Date().getTime());
-            console.log(`ping:${now - pong.ticks}`);
+        const pkg = this.md.decode(msg);
+        if (pkg) {
+            console.dir(pkg);
+        } else {
+            // console.log("pkg is null");
         }
     }
 }

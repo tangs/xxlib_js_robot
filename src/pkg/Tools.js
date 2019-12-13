@@ -21,9 +21,9 @@ function WriteZigZagNumber64(view, idx, number) {
 }
 
 function ReadZigZagNumber(view, idx, bits) {
-    let num = BigInt(0);
-    for (let i = 0; i < 64; i += 7) {
-        const b = BigInt(view.getUint8(idx++));
+    let num = 0;
+    for (let i = 0; i < bits * 8; i += 7) {
+        const b = view.getUint8(idx++);
         num |= (b & 0x7f) << i;
         if ((b & 0x80) == 0) {
             break;
