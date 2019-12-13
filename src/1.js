@@ -5,6 +5,9 @@ const MsgDispatcher = require('./MsgDispatcher')
 const { MsgEncoder } = require('./msg/MsgEncoder')
 const Ping = require('./pkg/Ping')
 
+const OpenAutoLock = require("./pkg/CatchFish/Events/Event/OpenAutoLock")
+const CloseAutoLock = require("./pkg/CatchFish/Events/Event/CloseAutoLock")
+
 const client = new net.Socket();
 const md = new MsgDispatcher();
 const msgEncoder = new MsgEncoder();
@@ -42,6 +45,7 @@ client.connect(45621, '192.168.1.240', function() {
 
 	const sendMsg = (bin) => {
 		console.log('send:' + bin.length);
+		print(bin);
 		client.write(bin, (err) => {
 			if (err)
 				console.log(err);
@@ -58,21 +62,19 @@ client.connect(45621, '192.168.1.240', function() {
 	// arr[0] = 0;
 	sendMsg(enterBin);
 
+	// let ifOpen = false;
+
 	const updatePing = () => {
 		const ping = new Ping();
 		ping.ticks = BigInt(new Date().getTime());
 		const enterPing = msgEncoder.encode(ping);
-		// const buffer = new ArrayBuffer(32);
-		// const len = ping.encode(buffer, 4);
-		// const view = new DataView(buffer);
-		// view.setUint32(0, len - 4, true);
 
-		// const enterPing = new Uint8Array(buffer, 0, len);
-		// print(enterPing);
-		// console.dir(ping);
-		// arr[0] = 0;
 		sendMsg(enterPing);
-		print(enterPing);
+		// const obj = ifOpen ? new CloseAutoLock() : new OpenAutoLock();
+		// obj.playerId = 145;
+		// ifOpen != ifOpen;
+		// sendMsg(msgEncoder.encode(obj))
+		// print(enterPing);
 		setTimeout(updatePing, 5000);
 	};
 	setTimeout(updatePing, 1000);

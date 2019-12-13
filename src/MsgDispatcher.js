@@ -35,8 +35,9 @@ class MsgDispatcher {
     onRecivedMsg = (msg) => {
         const pkg = this.md.decode(msg);
         if (pkg) {
+            console.log(pkg.typeId);
             // console.dir(pkg);
-            console.log(util.inspect(pkg, false, null, true));
+            // console.log(util.inspect(pkg, false, null, true));
         } else {
             // console.log("pkg is null");
         }

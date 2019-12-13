@@ -10,6 +10,8 @@ const Events = require("../pkg/Events")
 
 const Fire = require("../pkg/CatchFish/Events/Event/Fire")
 const FishDead = require("../pkg/CatchFish/Events/Event/FishDead")
+const OpenAutoLock = require("../pkg/CatchFish/Events/Event/OpenAutoLock")
+const CloseAutoLock = require("../pkg/CatchFish/Events/Event/CloseAutoLock")
 
 class MsgDecoder {
     buffer = new Buffer();
@@ -23,6 +25,8 @@ class MsgDecoder {
         this.register(Events);
         this.register(Fire);
         this.register(FishDead);
+        this.register(OpenAutoLock);
+        this.register(CloseAutoLock);
     }
 
     register = (pkgClass) => {

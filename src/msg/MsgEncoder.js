@@ -1,5 +1,6 @@
 const { Buffer } = require("./Buffer")
 
+let seralId = 1;
 class MsgEncoder {
     buffer = new Buffer();
     
@@ -32,7 +33,7 @@ class MsgEncoder {
         // len
         buffer.skip(4);
         // seral id
-        buffer.writeUInt8(1);
+        buffer.writeUInt8((seralId++));
 
         this._encode(pkg);
 
