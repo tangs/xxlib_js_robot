@@ -1,7 +1,10 @@
 const zz = require('zigzag')
 
-function WriteZigZagNumber(view, idx, number, bits) {
-    let dest = zz.encode(number, bits);
+function WriteVarintNumber(view, idx, number, bits, isZigzag = true) {
+    let dest = number;
+    if (isZigzag) {
+        dest = zz.encode(number, bits);
+    }
     while (dest >= 1 << 7) {
         view.setUint8(idx++, Number((dest & 0x7f) | 0x80));
         dest >>= 7;
@@ -10,8 +13,11 @@ function WriteZigZagNumber(view, idx, number, bits) {
     return idx;
 }
 
-function WriteZigZagNumber64(view, idx, number) {
-    let dest = zz.encode64(number);
+function WriteVarintNumber64(view, idx, number, isZigzag = true) {
+    let dest = number;
+    if (isZigzag) {
+        dest = zz.encode64(number);
+    }
     while (dest >= 1 << 7) {
         view.setUint8(idx++, Number((dest & 0x7fn) | 0x80n));
         dest >>= 7n;
@@ -20,7 +26,7 @@ function WriteZigZagNumber64(view, idx, number) {
     return idx;
 }
 
-function ReadZigZagNumber(view, idx, bits) {
+function ReadVarintNumber(view, idx, bits, isZigzag = true) {
     let num = 0;
     for (let i = 0; i < bits * 8; i += 7) {
         const b = view.getUint8(idx++);
@@ -30,11 +36,15 @@ function ReadZigZagNumber(view, idx, bits) {
         }
     }
     
-    const dest = zz.encode(num, bits);
-    return [dest, idx]
+    if (isZigzag) {
+        const dest = zz.encode(num, bits);
+        return [dest, idx];
+    } else {
+        return [num, idx];
+    }
 }
 
-function ReadZigZagNumber64(view, idx) {
+function ReadVarintNumber64(view, idx, isZigzag = true) {
     let num = BigInt(0);
     for (let i = 0n; i < 64n; i += 7n) {
         const b = BigInt(view.getUint8(idx++));
@@ -44,13 +54,17 @@ function ReadZigZagNumber64(view, idx) {
         }
     }
     
-    const dest = zz.decode64(num);
-    return [dest, idx]
+    if (isZigzag) {
+        const dest = zz.decode64(num);
+        return [dest, idx];
+    } else {
+        return [num, idx];
+    }
 }
 
 module.exports = {
-    WriteZigZagNumber: WriteZigZagNumber,
-    WriteZigZagNumber64: WriteZigZagNumber64,
-    ReadZigZagNumber: ReadZigZagNumber,
-    ReadZigZagNumber64: ReadZigZagNumber64,
+    WriteVarintNumber: WriteVarintNumber,
+    WriteVarintNumber64: WriteVarintNumber64,
+    ReadVarintNumber: ReadVarintNumber,
+    ReadVarintNumber64: ReadVarintNumber64,
 }

@@ -4,6 +4,7 @@ const Ping = require("../pkg/Ping")
 const Pong = require("../pkg/Pong")
 const FrameEvents = require("../pkg/FrameEvents")
 const Events = require("../pkg/Events")
+const Fire = require("../pkg/CatchFish/Events/Event/Fire")
 
 const print = (data) => {
 	if (typeof(data) == 'string') {
@@ -27,14 +28,15 @@ class MsgDecoder {
     pkgMap = new Map();
 
     constructor() {
-        this.register(5, Ping);
-        this.register(6, Pong);
-        this.register(11, FrameEvents);
-        this.register(12, Events);
+        this.register(Ping);
+        this.register(Pong);
+        this.register(FrameEvents);
+        this.register(Events);
+        this.register(Fire);
     }
 
-    register = (id, pkgClass) => {
-        this.pkgMap.set(id, pkgClass);
+    register = (pkgClass) => {
+        this.pkgMap.set(pkgClass.typeId, pkgClass);
     }
 
     _createPkg = (buffer) => {
@@ -42,7 +44,7 @@ class MsgDecoder {
 
         if (this.pkgMap.has(pkgId)) {
             const class1 = this.pkgMap.get(pkgId);
-            const idx = buffer.readZigzagInt32();
+            const idx = buffer.readVarintInt32();
             const destObj = buffer.getObj(idx);
             if (destObj) {
                 return destObj;
@@ -50,9 +52,11 @@ class MsgDecoder {
                 const obj = new class1();
                 buffer.setObj(idx, obj);
                 obj.decode(buffer, this._createPkg);
+                console.dir(obj);
                 return obj;
             }
         } else {
+            console.log(`can't find pkg id:${pkgId}.`)
             return;
         }
     }

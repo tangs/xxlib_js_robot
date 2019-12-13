@@ -1,7 +1,7 @@
 const { PkgBase, DataType } = require("./PkgBase")
 
 class Ping extends PkgBase {
-    typeId = 5;
+    typeId = Ping.typeId;
     ticks = BigInt(0); // int64
     datas = [
         {
@@ -10,5 +10,7 @@ class Ping extends PkgBase {
         }
     ];
 }
+
+Ping.typeId = 5;
 
 module.exports = Ping;

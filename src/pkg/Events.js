@@ -1,12 +1,12 @@
 const { PkgBase, DataType } = require("./PkgBase")
 class Events extends PkgBase {
-    typeId = 12;// int32
-    len = 0;
+    typeId = Events.typeId;// int32
+    children = [];
 
     datas = [
         {
-            type: DataType.INT32,
-            key: 'len',
+            type: DataType.LIST,
+            key: 'children',
         },
     ];
 }

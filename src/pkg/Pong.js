@@ -1,7 +1,7 @@
 const { PkgBase, DataType } = require("./PkgBase")
 
 class Pong extends PkgBase {
-    typeId = 6;
+    typeId = Pong.typeId;
     ticks = BigInt(0); // int64
     datas = [
         {
@@ -10,5 +10,6 @@ class Pong extends PkgBase {
         }
     ];
 }
+Pong.typeId = 6;
 
 module.exports = Pong;

@@ -34,7 +34,7 @@ class Buffer {
     }
 
     saveObj(obj) {
-        const key = this.readZigzagInt32();
+        const key = this.readVarintInt32();
         this.setObj(key, obj);
     }
 
@@ -49,14 +49,14 @@ class Buffer {
     //     }
     // }
 
-    _readZigzagInt(bits) {
-        const [ret, offset] = Tools.ReadZigZagNumber(this.view, this.offset, bits);
+    _readVarintInt(bits, isZigzag = true) {
+        const [ret, offset] = Tools.ReadVarintNumber(this.view, this.offset, bits, isZigzag);
         this.offset = offset;
         return ret;
     }
 
-    _writeZigzagInt(value, bits) {
-        this.offset = Tools.WriteZigZagNumber(this.view, this.offset, value, bits);
+    _writeVarintInt(value, bits, isZigzag = true) {
+        this.offset = Tools.WriteVarintNumber(this.view, this.offset, value, bits, isZigzag);
     }
 
     readUInt8() {
@@ -69,21 +69,27 @@ class Buffer {
         return ret;
     }
 
-    readZigzagInt8() {
-        return this._readZigzagInt(1);
+    readVarintInt8(isZigzag = true) {
+        return this._readVarintInt(1, isZigzag);
     }
 
-    readZigzagInt16() {
-        return this._readZigzagInt(2);
+    readVarintInt16(isZigzag = true) {
+        return this._readVarintInt(2, isZigzag);
     }
 
-    readZigzagInt32() {
-        return this._readZigzagInt(4);
+    readVarintInt32(isZigzag = true) {
+        return this._readVarintInt(4, isZigzag);
     }
 
-    readZigzagInt64() {
-        const [ret, offset] = Tools.ReadZigZagNumber64(this.view, this.offset);
+    readVarintInt64(isZigzag = true) {
+        const [ret, offset] = Tools.ReadVarintNumber64(this.view, this.offset, isZigzag);
         this.offset = offset;
+        return ret;
+    }
+
+    readFloat() {
+        const ret = this.view.getFloat32(this.offset, true);
+        this.offset += 4;
         return ret;
     }
 
@@ -91,20 +97,25 @@ class Buffer {
         this.view.setUint8(this.offset++, value);
     }
 
-    writeZigzagInt8(value) {
-        this._writeZigzagInt(value, 1);
+    writeVarintInt8(value, isZigzag = true) {
+        this._writeVarintInt(value, 1, isZigzag);
     }
 
-    writeZigzagInt16(value) {
-        this._writeZigzagInt(value, 2);
+    writeVarintInt16(value, isZigzag = true) {
+        this._writeVarintInt(value, 2, isZigzag);
     }
 
-    writeZigzagInt32(value) {
-        this._writeZigzagInt(value, 4);
+    writeVarintInt32(value, isZigzag = true) {
+        this._writeVarintInt(value, 4, isZigzag);
     }
 
-    writeZigzagInt64(value) {
-        this.offset = Tools.WriteZigZagNumber64(this.view, this.offset, value);
+    writeVarintInt64(value, isZigzag = true) {
+        this.offset = Tools.WriteVarintNumber64(this.view, this.offset, value, isZigzag);
+    }
+
+    writeFloat(value) {
+        this.view.setFloat32(this.offset, value);
+        this.offset += 4;
     }
 
 }
