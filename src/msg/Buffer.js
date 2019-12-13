@@ -6,10 +6,36 @@ class Buffer {
     // view = new DataView(buffer)
     offset = 0;
     length = 0;
+    objMap = new Map();
 
     setBuffer(buffer) {
         this.buffer = buffer;
         this.view = new DataView(buffer);
+    }
+
+    reset() {
+        this.offset = 0;
+        this.length = 0;
+        this.objMap.clear();
+    }
+
+    skip(len) {
+        this.offset += len;
+    }
+
+    setObj(key, obj) {
+        this.objMap.set(key, obj);
+    }
+
+    getObj(key) {
+        if (this.objMap.has(key)) {
+            return this.objMap.get(key);
+        }
+    }
+
+    saveObj(obj) {
+        const key = this.readZigzagInt32();
+        this.setObj(key, obj);
     }
 
     // _expansionIfNeed(bits) {
@@ -31,15 +57,6 @@ class Buffer {
 
     _writeZigzagInt(value, bits) {
         this.offset = Tools.WriteZigZagNumber(this.view, this.offset, value, bits);
-    }
-
-    skip(len) {
-        this.offset += len;
-    }
-
-    reset() {
-        this.offset = 0;
-        this.length = 0;
     }
 
     readUInt8() {

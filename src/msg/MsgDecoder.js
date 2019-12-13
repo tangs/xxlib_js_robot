@@ -33,6 +33,26 @@ class MsgDecoder {
         this.pkgMap.set(id, pkgClass);
     }
 
+    _createPkg(buffer) {
+        const pkgId = buffer.readUInt8();
+
+        if (this.pkgMap.has(pkgId)) {
+            const class1 = this.pkgMap.get(pkgId);
+            const idx = buffer.readZigzagInt32();
+            const destObj = buffer.getObj(idx);
+            if (destObj) {
+                return destObj;
+            } else {
+                const obj = new class1();
+                buffer.setObj(idx, obj);
+                obj.decode(buffer);
+                return obj;
+            }
+        } else {
+            return;
+        }
+    }
+
     decode(msg) {
         const bytes = msg.buffer;
         const buffer = this.buffer;
@@ -45,24 +65,7 @@ class MsgDecoder {
         // skip seral id.
         buffer.skip(1);
 
-        const pkgId = this.buffer.readUInt8();
-        // buffer.skip(1);
-        const idx = this.buffer.readZigzagInt32();
-        // console.log(`pkgId:${pkgId}, len:${len}, id:${id}.`);
-
-        // if (pkgId == 11 || pkgId == 6) {
-        //     print(msg);
-        // }
-
-        if (this.pkgMap.has(pkgId)) {
-            const class1 = this.pkgMap.get(pkgId);
-            const obj = new class1();
-            obj.decode(buffer);
-            // console.dir(obj);
-            return obj;
-        } else {
-            return;
-        }
+        return this._createPkg(buffer);
     }
 }
 

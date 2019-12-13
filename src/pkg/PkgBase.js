@@ -7,7 +7,8 @@ const DataType = Object.freeze({
     INT32: Symbol("INT32"),
     INT64: Symbol("INT64"),
     STRING: Symbol("STRING"),
-    OBJ: Symbol("OBJ")
+    LIST: Symbol("LIST"),
+    OBJ: Symbol("OBJ"),
 });
 
 class PkgBase {
@@ -48,6 +49,18 @@ class PkgBase {
         for (const {type, key} of this.datas) {
             console.log(key);
             switch (type) {
+                case DataType.INT8: {
+                    this[key] = buffer.readZigzagInt8();
+                }
+                break;
+                case DataType.INT16: {
+                    this[key] = buffer.readZigzagInt16();
+                }
+                break;
+                case DataType.INT32: {
+                    this[key] = buffer.readZigzagInt32();
+                }
+                break;
                 case DataType.INT64: {
                     // [this[key], idx] = Tools.ReadZigZagNumber64(view, idx);
                     this[key] = buffer.readZigzagInt64();
