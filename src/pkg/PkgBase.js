@@ -19,6 +19,7 @@ class PkgBase {
     ];
 
     decode(buffer, createFunc) {
+        // buffer = new Buffer()
         for (const {type, key} of this.datas) {
             // console.log(key);
             switch (type) {
@@ -43,7 +44,7 @@ class PkgBase {
                     const len = buffer.readVarintInt32(false);
                     for (let i = 0; i < len; ++i) {
                         // console.log(i, len);
-                        const obj = createFunc(buffer);
+                        const obj = createFunc();
                         if (obj == null) break;
                         list.push(obj);
                     }
@@ -62,32 +63,82 @@ class PkgBase {
                 }
                 break;
                 case DataType.OBJ: {
-                    this[key] = createFunc(buffer);
+                    this[key] = createFunc();
                 }
                 break;
             }
         }
     }
 
-    encode(buffer, idx) {
-        const view = new DataView(buffer);
-        // serial number
-        view.setUint8(idx++, 1);
-        // type id
-        view.setUint8(idx++, this.typeId);
-        // idx
-        view.setUint8(idx++, idx - 4 - 2);
+    encode(buffer, encodeFunc) {
+        // const view = new DataView(buffer);
+        // // serial number
+        // view.setUint8(idx++, 1);
+        // // type id
+        // view.setUint8(idx++, this.typeId);
+        // // idx
+        // view.setUint8(idx++, idx - 4 - 2);
+        // for (const {type, key} of this.datas) {
+        //     switch (type) {
+        //         case DataType.INT64: {
+        //             idx = Tools.WriteVarintNumber64(view, idx, this.ticks);
+        //         }
+        //         break;
+        //     }
+        // }
+
+        // // buffer.length = idx;
+        // return idx;
         for (const {type, key} of this.datas) {
+            // console.log(key);
             switch (type) {
+                case DataType.INT8: {
+                    buffer.writeVarintInt8(this[key]);
+                }
+                break;
+                case DataType.INT16: {
+                    buffer.writeVarintInt16(this[key]);
+                }
+                break;
+                case DataType.INT32: {
+                    buffer.writeVarintInt32(this[key]);
+                }
+                break;
                 case DataType.INT64: {
-                    idx = Tools.WriteVarintNumber64(view, idx, this.ticks);
+                    buffer.writeVarintInt64(this[key]);
+                }
+                break;
+                case DataType.LIST: {
+                    const list = this[key];
+                    buffer.writeVarintInt32(list.length, false);
+                    for (let i = 0; i < len; ++i) {
+                        encodeFunc(list[i]);
+                        // console.log(i, len);
+                        // const obj = createFunc(buffer);
+                        // if (obj == null) break;
+                        // list.push(obj);
+                    }
+                }
+                break;
+                case DataType.LIST_INT32: {
+                    const list = this[key];
+                    buffer.writeVarintInt32(list.length, false);
+                    for (let i = 0; i < len; ++i) {
+                        buffer.writeVarintInt32(list[i]);
+                    }
+                }
+                break;
+                case DataType.FLOAT: {
+                    buffer.writeFloat(this[key]);
+                }
+                break;
+                case DataType.OBJ: {
+                    encodeFunc(this[key]);
+                    // this[key] = createFunc(buffer);
                 }
                 break;
             }
         }
-
-        // buffer.length = idx;
-        return idx;
     }
 }
 

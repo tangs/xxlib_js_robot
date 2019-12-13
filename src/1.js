@@ -2,10 +2,12 @@ const net = require('net');
 const zz = require('./tools/zigzag')
 
 const MsgDispatcher = require('./MsgDispatcher')
+const { MsgEncoder } = require('./msg/MsgEncoder')
 const Ping = require('./pkg/Ping')
 
 const client = new net.Socket();
 const md = new MsgDispatcher();
+const msgEncoder = new MsgEncoder();
 
 // const test = () => {
 // 	let num = 3636;
@@ -59,16 +61,18 @@ client.connect(45621, '192.168.1.240', function() {
 	const updatePing = () => {
 		const ping = new Ping();
 		ping.ticks = BigInt(new Date().getTime());
-		const buffer = new ArrayBuffer(32);
-		const len = ping.encode(buffer, 4);
-		const view = new DataView(buffer);
-		view.setUint32(0, len - 4, true);
+		const enterPing = msgEncoder.encode(ping);
+		// const buffer = new ArrayBuffer(32);
+		// const len = ping.encode(buffer, 4);
+		// const view = new DataView(buffer);
+		// view.setUint32(0, len - 4, true);
 
-		const enterPing = new Uint8Array(buffer, 0, len);
+		// const enterPing = new Uint8Array(buffer, 0, len);
 		// print(enterPing);
 		// console.dir(ping);
 		// arr[0] = 0;
 		sendMsg(enterPing);
+		print(enterPing);
 		setTimeout(updatePing, 5000);
 	};
 	setTimeout(updatePing, 1000);

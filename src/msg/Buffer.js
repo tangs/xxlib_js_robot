@@ -23,6 +23,14 @@ class Buffer {
         this.offset += len;
     }
 
+    setOffset(offset) {
+        this.offset = offset;
+    }
+
+    getOffset() {
+        return this.offset;
+    }
+
     setObj(key, obj) {
         this.objMap.set(key, obj);
     }
@@ -30,6 +38,12 @@ class Buffer {
     getObj(key) {
         if (this.objMap.has(key)) {
             return this.objMap.get(key);
+        }
+    }
+
+    getKeyByObj(obj) {
+        for (const [key, v] of this.objMap) {
+            if (v == obj) return key;
         }
     }
 
@@ -93,8 +107,13 @@ class Buffer {
         return ret;
     }
 
-    writeInt8(value) {
+    writeUInt8(value) {
         this.view.setUint8(this.offset++, value);
+    }
+
+    writeInt32(value) {
+        this.view.setInt32(this.offset, value, true);
+        this.offset += 4;
     }
 
     writeVarintInt8(value, isZigzag = true) {
@@ -116,6 +135,14 @@ class Buffer {
     writeFloat(value) {
         this.view.setFloat32(this.offset, value);
         this.offset += 4;
+    }
+
+    writeLenToHead() {
+        this.view.setInt32(0, this.offset - 4, true);
+    }
+
+    getUInt8Array() {
+        return new Uint8Array(this.buffer, 0, this.offset);
     }
 
 }

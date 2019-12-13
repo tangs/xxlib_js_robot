@@ -11,23 +11,6 @@ const Events = require("../pkg/Events")
 const Fire = require("../pkg/CatchFish/Events/Event/Fire")
 const FishDead = require("../pkg/CatchFish/Events/Event/FishDead")
 
-const print = (data) => {
-	if (typeof(data) == 'string') {
-		console.log('data: ' + data);
-	} else {
-		console.log('data: ' + data.length.toString(16));
-		let txt = '';
-		let idx = 0;
-		for (const cell of data) {
-			txt += `${('0' + cell.toString(16)).slice(-2)} `;
-			if (++idx % 16 == 0) {
-				txt += '\n';
-			}
-		}
-		console.log(txt)
-	}
-};
-
 class MsgDecoder {
     buffer = new Buffer();
     pkgMap = new Map();
@@ -46,7 +29,8 @@ class MsgDecoder {
         this.pkgMap.set(pkgClass.typeId, pkgClass);
     }
 
-    _createPkg = (buffer) => {
+    _createPkg = () => {
+        const buffer = this.buffer;
         const pkgId = buffer.readUInt8();
 
         if (this.pkgMap.has(pkgId)) {
@@ -68,8 +52,8 @@ class MsgDecoder {
         }
     }
 
-    decode = (msg) => {
-        const bytes = msg.buffer;
+    decode = (reveivedMsg) => {
+        const bytes = reveivedMsg.buffer;
         const buffer = this.buffer;
 
         // init buffer
@@ -80,7 +64,7 @@ class MsgDecoder {
         // skip seral id.
         buffer.skip(1);
 
-        return this._createPkg(buffer);
+        return this._createPkg();
     }
 }
 
