@@ -1,7 +1,7 @@
 const net = require('net');
 const zz = require('./tools/zigzag')
 
-const MsgDispatcher = require('./MsgDispatcher')
+const MsgDispatcher = require('./msg/MsgDispatcher')
 const { MsgEncoder } = require('./msg/MsgEncoder')
 const Ping = require('./pkg/Ping')
 

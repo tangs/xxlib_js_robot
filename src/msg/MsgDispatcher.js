@@ -1,5 +1,5 @@
-const Pong = require("./pkg/Pong")
-const { MsgDecoder } = require("./msg/MsgDecoder")
+const Pong = require("../pkg/Pong")
+const { MsgDecoder } = require("./MsgDecoder")
 const util = require('util')
 
 class MsgDispatcher {
