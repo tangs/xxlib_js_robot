@@ -1,5 +1,6 @@
 const Pong = require("./pkg/Pong")
 const { MsgDecoder } = require("./msg/MsgDecoder")
+const util = require('util')
 
 class MsgDispatcher {
     infos = [];
@@ -34,7 +35,8 @@ class MsgDispatcher {
     onRecivedMsg = (msg) => {
         const pkg = this.md.decode(msg);
         if (pkg) {
-            console.dir(pkg);
+            // console.dir(pkg);
+            console.log(util.inspect(pkg, false, null, true));
         } else {
             // console.log("pkg is null");
         }

@@ -3,12 +3,13 @@ class Events extends PkgBase {
     typeId = Events.typeId;// int32
     children = [];
 
-    datas = [
-        {
+    constructor() {
+        super();
+        this.datas.push({
             type: DataType.LIST,
             key: 'children',
-        },
-    ];
+        });
+    }
 }
 
 Events.typeId = 12;

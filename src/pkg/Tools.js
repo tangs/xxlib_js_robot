@@ -37,7 +37,8 @@ function ReadVarintNumber(view, idx, bits, isZigzag = true) {
     }
     
     if (isZigzag) {
-        const dest = zz.encode(num, bits);
+        const dest = zz.decode(num, bits);
+        // console.log(num, dest)
         return [dest, idx];
     } else {
         return [num, idx];

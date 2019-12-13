@@ -2,9 +2,14 @@ const { Buffer } = require("./Buffer")
 
 const Ping = require("../pkg/Ping")
 const Pong = require("../pkg/Pong")
+const List_Int32 = require("../pkg/List_Int32")
+
+
 const FrameEvents = require("../pkg/FrameEvents")
 const Events = require("../pkg/Events")
+
 const Fire = require("../pkg/CatchFish/Events/Event/Fire")
+const FishDead = require("../pkg/CatchFish/Events/Event/FishDead")
 
 const print = (data) => {
 	if (typeof(data) == 'string') {
@@ -30,9 +35,11 @@ class MsgDecoder {
     constructor() {
         this.register(Ping);
         this.register(Pong);
+        this.register(List_Int32);
         this.register(FrameEvents);
         this.register(Events);
         this.register(Fire);
+        this.register(FishDead);
     }
 
     register = (pkgClass) => {
@@ -52,7 +59,7 @@ class MsgDecoder {
                 const obj = new class1();
                 buffer.setObj(idx, obj);
                 obj.decode(buffer, this._createPkg);
-                console.dir(obj);
+                // console.dir(obj);
                 return obj;
             }
         } else {

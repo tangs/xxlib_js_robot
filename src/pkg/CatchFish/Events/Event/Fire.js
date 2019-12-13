@@ -1,7 +1,6 @@
 const Event = require("../Event")
 const { PkgBase, DataType } = require("../../../PkgBase")
 
-
 class Fire extends Event {
     typeId = Fire.typeId;
 

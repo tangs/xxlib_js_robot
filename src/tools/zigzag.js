@@ -6,12 +6,12 @@ module.exports = {
 }
 
 function encode(num, bits) {
-  return (num << 1) ^ (num >>> (bits - 1))
+  return (num << 1) ^ (num >>> (bits * 8 - 1))
 }
 
 function decode(num, bits) {
   return (num >> 1) ^ ((num & 1) == 1 ? 
-    (0xffffffffffffffff >> (64 - num)) : 0)
+    (0xffffffffffffffff >> (64 - bits * 8)) : 0)
 }
 
 function encode32(num) {

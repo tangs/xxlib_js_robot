@@ -7,6 +7,17 @@ const Ping = require('./pkg/Ping')
 const client = new net.Socket();
 const md = new MsgDispatcher();
 
+// const test = () => {
+// 	let num = 3636;
+// 	console.log(zz.encode(3636, 4));
+// 	console.log(zz.encode64(3636n));
+// 	console.log(zz.decode(3636, 4));
+// 	console.log(zz.decode64(3636n));
+// }
+
+// test();
+// return;
+
 const print = (data) => {
 	if (typeof(data) == 'string') {
 		console.log('data: ' + data);
@@ -48,7 +59,7 @@ client.connect(45621, '192.168.1.240', function() {
 	const updatePing = () => {
 		const ping = new Ping();
 		ping.ticks = BigInt(new Date().getTime());
-		const buffer = new ArrayBuffer(16);
+		const buffer = new ArrayBuffer(32);
 		const len = ping.encode(buffer, 4);
 		const view = new DataView(buffer);
 		view.setUint32(0, len - 4, true);

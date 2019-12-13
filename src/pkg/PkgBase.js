@@ -9,6 +9,7 @@ const DataType = Object.freeze({
     FLOAT: Symbol("FLOAT"),
     STRING: Symbol("STRING"),
     LIST: Symbol("LIST"),
+    LIST_INT32: Symbol("LIST_INT32"),
     OBJ: Symbol("OBJ"),
 });
 
@@ -41,10 +42,18 @@ class PkgBase {
                     const list = this[key];
                     const len = buffer.readVarintInt32(false);
                     for (let i = 0; i < len; ++i) {
-                        console.log(i, len);
+                        // console.log(i, len);
                         const obj = createFunc(buffer);
                         if (obj == null) break;
                         list.push(obj);
+                    }
+                }
+                break;
+                case DataType.LIST_INT32: {
+                    const list = this[key];
+                    const len = buffer.readVarintInt32(false);
+                    for (let i = 0; i < len; ++i) {
+                        list.push(buffer.readVarintInt32(true));
                     }
                 }
                 break;
