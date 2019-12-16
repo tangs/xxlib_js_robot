@@ -1,8 +1,13 @@
-const { PkgBase, DataType } = require("./PkgBase");
+﻿// @flow
 
+const { PkgBase, DataType } = require("../../PkgBase");
+
+// 心跳保持兼延迟测试 -- 请求
 class Ping extends PkgBase {
     typeId = Ping.typeId;
-    ticks = BigInt(0); // int64
+    // int64_t
+    // $FlowFixMe
+    ticks: any = BigInt(0);
 
     constructor() {
         super();
@@ -13,8 +18,9 @@ class Ping extends PkgBase {
             },
         );
     }
-}
 
-Ping.typeId = 5;
+    static typeId = 5;
+
+}
 
 module.exports = Ping;

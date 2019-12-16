@@ -1,15 +1,19 @@
-const Event = require("../Event")
-const { PkgBase, DataType } = require("../../../PkgBase")
+﻿// @flow
 
-class Fire extends Event {
+const { PkgBase, DataType } = require("../../PkgBase");
+
+// 开火
+class Fire extends PkgBase {
     typeId = Fire.typeId;
+    // int32_t
+    frameNumber: number = 0;
+    // int32_t
+    cannonId: number = 0;
+    // int32_t
+    bulletId: number = 0;
+    // float
+    angle: number = 0.0;
 
-    playerId = -1;       // int32
-    frameNumber = -1;    // int32
-    cannonId = -1;       // int32
-    bulletId = -1;       // int32
-    angle = -1;          // float
-    
     constructor() {
         super();
         this.datas.push(
@@ -32,8 +36,8 @@ class Fire extends Event {
         );
     }
 
-}
+    static typeId = 15;
 
-Fire.typeId = 50;
+}
 
 module.exports = Fire;

@@ -109,6 +109,44 @@ class Buffer {
         return ret;
     }
 
+    readDouble() {
+        if (this.offset >= this.view.byteLength) return -13;
+        switch(this.view.getUint8(this.offset++)) {
+            case 0: {
+                return 0;
+            }
+            case 1: {
+                return Number.NaN;
+            }
+            case 2: {
+                return Number.MIN_VALUE;
+            }
+            case 3: {
+                return Number.MAX_VALUE;
+            }
+            case 4: {
+                return this.readVarintInt32();
+            }
+            case 5: {
+                if (this.offset >= this.view.byteLength) return -14;
+                const ret = this.view.getFloat64(this.offset);
+                this.offset += 8;
+                return ret;
+            }
+            default:
+                return -15;
+        }
+        // const ret = this.view.getFloat64(this.offset, true);
+        // this.offset += 8;
+        // return ret;
+    }
+
+    readRandom() {
+        // TODO
+        this.offset += 232;
+        return 0;
+    }
+
     writeUInt8(value: number) {
         this.view.setUint8(this.offset++, value);
     }
@@ -137,6 +175,15 @@ class Buffer {
     writeFloat(value: number) {
         this.view.setFloat32(this.offset, value);
         this.offset += 4;
+    }
+
+    writeDouble(value: number) {
+        this.view.setFloat32(this.offset, value);
+        this.offset += 8;
+    }
+
+    writeRandom(obj: any) {
+        this.offset += 232;
     }
 
     writeLenToHead() {
