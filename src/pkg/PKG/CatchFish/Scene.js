@@ -124,7 +124,7 @@ class Scene extends PkgBase {
                 key: 'stage',
             },
             {
-                type: DataType.LIST,
+                type: DataType.xx_LIST_SITS,
                 key: 'freeSits',
             },
             {

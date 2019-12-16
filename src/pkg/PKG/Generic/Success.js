@@ -6,6 +6,14 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Success extends PkgBase {
     typeId = Success.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 3;
+
 }
 
 module.exports = Success;

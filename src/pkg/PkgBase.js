@@ -15,6 +15,8 @@ const DataType = Object.freeze({
     LIST_INT32: Symbol("LIST_INT32"),
     OBJ: Symbol("OBJ"),
     XX_RANDOM: Symbol("XX_RANDOM"),
+    XX_POS: Symbol("XX_POS"),
+    xx_LIST_SITS: Symbol("xx_LIST_SITS"),
 });
 
 class PkgBase {
@@ -53,12 +55,20 @@ class PkgBase {
                     this.setValue(key, buffer.readVarintInt64());
                 }
                 break;
-                case DataType.XX_RANDOM: {
-
+                case DataType.FLOAT: {
+                    this.setValue(key, buffer.readFloat());
+                }
+                break;
+                case DataType.DOUBLE: {
+                    this.setValue(key, buffer.readDouble());
+                }
+                break;
+                case DataType.STRING: {
                     const typeId = buffer.readVarintInt16(false);
+                    if (typeId != 1) return -1;
                     const idx = buffer.readVarintInt32(false);
-                    console.log(`random.id=${typeId}, idx=${idx}`);
-                    this.setValue(key, buffer.readRandom());
+                    this.setValue(key, buffer.readString());
+
                 }
                 break;
                 case DataType.LIST: {
@@ -83,16 +93,37 @@ class PkgBase {
                     }
                 }
                 break;
-                case DataType.FLOAT: {
-                    this.setValue(key, buffer.readFloat());
-                }
-                break;
-                case DataType.DOUBLE: {
-                    this.setValue(key, buffer.readDouble());
-                }
-                break;
                 case DataType.OBJ: {
+                    if (key == "way")
+                        console.log(`new obj,key=${key}`);
                     this.setValue(key, createFunc());
+                }
+                break;
+                case DataType.XX_RANDOM: {
+                    const typeId = buffer.readVarintInt16(false);
+                    const idx = buffer.readVarintInt32(false);
+                    console.log(`random.id=${typeId}, idx=${idx}`);
+                    this.setValue(key, buffer.readRandom());
+                }
+                break;
+                case DataType.XX_POS: {
+                    const x = buffer.readFloat();
+                    const y = buffer.readFloat();
+                    this.setValue(key, {
+                        x: x,
+                        y: y,
+                    });
+                }
+                break;
+                case DataType.xx_LIST_SITS: {
+                    const typeId = buffer.readVarintInt16(false);
+                    const idx = buffer.readVarintInt32(false);
+                    const len = buffer.readVarintInt32(false);
+                    const list = this.getValue(key);
+                    console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
+                    for (let i = 0; i < len; ++i) {
+                        list.push(buffer.readVarintInt32(true));
+                    }
                 }
                 break;
             }
@@ -122,26 +153,19 @@ class PkgBase {
             // console.log(key);
             switch (type) {
                 case DataType.INT8: {
-                    buffer.writeVarintInt8(this[key]);
+                    buffer.writeVarintInt8(this.getValue(key));
                 }
                 break;
                 case DataType.INT16: {
-                    buffer.writeVarintInt16(this[key]);
+                    buffer.writeVarintInt16(this.getValue(key));
                 }
                 break;
                 case DataType.INT32: {
-                    buffer.writeVarintInt32(this[key]);
+                    buffer.writeVarintInt32(this.getValue(key));
                 }
                 break;
                 case DataType.INT64: {
-                    buffer.writeVarintInt64(this[key]);
-                }
-                break;
-                case DataType.XX_RANDOM: {
-                    buffer.writeVarintInt16(17, false);
-                    // TODO
-                    buffer.writeVarintInt32(buffer.getOffset(), false);
-                    buffer.writeRandom(this[key]);
+                    buffer.writeVarintInt64(this.getValue(key));
                 }
                 break;
                 case DataType.LIST: {
@@ -165,16 +189,27 @@ class PkgBase {
                 }
                 break;
                 case DataType.FLOAT: {
-                    buffer.writeFloat(this[key]);
+                    buffer.writeFloat(this.getValue(key));
                 }
                 break;
                 case DataType.DOUBLE: {
-                    buffer.writeDouble(this[key]);
+                    buffer.writeDouble(this.getValue(key));
                 }
                 break;
                 case DataType.OBJ: {
-                    encodeFunc(this[key]);
-                    // this[key] = createFunc(buffer);
+                    encodeFunc(this.getValue(key));
+                    // this.getValue(key) = createFunc(buffer);
+                }
+                break;
+                case DataType.XX_RANDOM: {
+                    buffer.writeVarintInt16(17, false);
+                    // TODO
+                    buffer.writeVarintInt32(buffer.getOffset(), false);
+                    buffer.writeRandom(this.getValue(key));
+                }
+                break;
+                case DataType.XX_POS: {
+
                 }
                 break;
             }

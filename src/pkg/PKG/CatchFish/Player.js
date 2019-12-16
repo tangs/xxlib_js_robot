@@ -21,7 +21,7 @@ class Player extends Item {
     coin: any = BigInt(0);
     // 座位
     // PKG::CatchFish::Sits
-    sit: any = null;
+    sit: number = 0;
     // 自动锁定状态
     // bool
     autoLock: bool = false;
@@ -61,7 +61,7 @@ class Player extends Item {
                 key: 'coin',
             },
             {
-                type: DataType.OBJ,
+                type: DataType.INT32,
                 key: 'sit',
             },
             {

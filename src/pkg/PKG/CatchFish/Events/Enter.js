@@ -21,7 +21,7 @@ class Enter extends Event {
     coin: any = BigInt(0);
     // 座位
     // PKG::CatchFish::Sits
-    sit: any = null;
+    sit: number = 0;
     // 炮台配置id
     // int32_t
     cannonCfgId: number = 0;
@@ -50,7 +50,7 @@ class Enter extends Event {
                 key: 'coin',
             },
             {
-                type: DataType.OBJ,
+                type: DataType.INT32,
                 key: 'sit',
             },
             {

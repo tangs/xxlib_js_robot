@@ -7,6 +7,14 @@ const ColorFish = require("../../PKG/CatchFish/ColorFish");
 class BombFish extends ColorFish {
     typeId = BombFish.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 96;
+
 }
 
 module.exports = BombFish;

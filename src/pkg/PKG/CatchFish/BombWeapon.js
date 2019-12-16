@@ -7,6 +7,14 @@ const Weapon = require("../../PKG/CatchFish/Weapon");
 class BombWeapon extends Weapon {
     typeId = BombWeapon.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 110;
+
 }
 
 module.exports = BombWeapon;

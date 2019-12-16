@@ -7,6 +7,14 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class NoMoney extends Event {
     typeId = NoMoney.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 39;
+
 }
 
 module.exports = NoMoney;

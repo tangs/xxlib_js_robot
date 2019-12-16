@@ -7,6 +7,14 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class OpenAutoFire extends Event {
     typeId = OpenAutoFire.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 48;
+
 }
 
 module.exports = OpenAutoFire;

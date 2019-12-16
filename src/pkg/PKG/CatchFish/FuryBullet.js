@@ -7,6 +7,14 @@ const Bullet = require("../../PKG/CatchFish/Bullet");
 class FuryBullet extends Bullet {
     typeId = FuryBullet.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 100;
+
 }
 
 module.exports = FuryBullet;

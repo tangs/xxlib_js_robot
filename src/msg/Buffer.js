@@ -141,6 +141,16 @@ class Buffer {
         // return ret;
     }
 
+    readString() {
+        const len = this.readVarintInt32(false);
+        let str = '';
+        for (let i = 0; i < len; ++i) {
+            str += String.fromCharCode(this.readUInt8());
+        }
+        // this.offset += len;
+        return str;
+    }
+
     readRandom() {
         // TODO
         this.offset += 232;

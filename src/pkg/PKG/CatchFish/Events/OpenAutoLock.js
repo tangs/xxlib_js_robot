@@ -7,6 +7,14 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class OpenAutoLock extends Event {
     typeId = OpenAutoLock.typeId;
 
+    constructor() {
+        super();
+        this.datas.push(
+        );
+    }
+
+    static typeId = 45;
+
 }
 
 module.exports = OpenAutoLock;
