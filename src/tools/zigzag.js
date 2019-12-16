@@ -1,10 +1,3 @@
-module.exports = {
-  encode: encode,
-  decode: decode,
-  encode64: encode64,
-  decode64: decode64
-}
-
 function encode(num, bits) {
   return (num << 1) ^ (num >>> (bits * 8 - 1))
 }
@@ -44,4 +37,11 @@ function decode64low(low, high) {
 
 function decode64high(low, high) {
   return (high >>> 1) ^ -(low & 1)
+}
+
+module.exports = {
+  encode: encode,
+  decode: decode,
+  encode64: encode64,
+  decode64: decode64
 }

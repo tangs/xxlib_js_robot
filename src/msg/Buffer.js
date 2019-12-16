@@ -1,14 +1,16 @@
+// @flow
+
 const Tools = require("../pkg/Tools")
+const { PkgBase, DataType } = require("../pkg/PkgBase")
 
 class Buffer {
-    // capacity = 1024 * 1024;
-    // buffer = new ArrayBuffer(this.capacity);
-    // view = new DataView(buffer)
-    offset = 0;
-    length = 0;
-    objMap = new Map();
+    buffer: ArrayBuffer;
+    view: DataView;
+    offset: number = 0;
+    length: number = 0;
+    objMap: Map<number, PkgBase> = new Map();
 
-    setBuffer(buffer) {
+    setBuffer(buffer: ArrayBuffer) {
         this.buffer = buffer;
         this.view = new DataView(buffer);
     }
@@ -19,11 +21,11 @@ class Buffer {
         this.objMap.clear();
     }
 
-    skip(len) {
+    skip(len: number) {
         this.offset += len;
     }
 
-    setOffset(offset) {
+    setOffset(offset: number) {
         this.offset = offset;
     }
 
@@ -31,23 +33,23 @@ class Buffer {
         return this.offset;
     }
 
-    setObj(key, obj) {
+    setObj(key: number, obj: PkgBase) {
         this.objMap.set(key, obj);
     }
 
-    getObj(key) {
+    getObj(key: number) {
         if (this.objMap.has(key)) {
             return this.objMap.get(key);
         }
     }
 
-    getKeyByObj(obj) {
+    getKeyByObj(obj: PkgBase) {
         for (const [key, v] of this.objMap) {
             if (v == obj) return key;
         }
     }
 
-    saveObj(obj) {
+    saveObj(obj: PkgBase) {
         const key = this.readVarintInt32();
         this.setObj(key, obj);
     }
@@ -63,13 +65,13 @@ class Buffer {
     //     }
     // }
 
-    _readVarintInt(bits, isZigzag = true) {
+    _readVarintInt(bits: number, isZigzag: bool = true) {
         const [ret, offset] = Tools.ReadVarintNumber(this.view, this.offset, bits, isZigzag);
         this.offset = offset;
         return ret;
     }
 
-    _writeVarintInt(value, bits, isZigzag = true) {
+    _writeVarintInt(value: number, bits: number, isZigzag: bool = true) {
         this.offset = Tools.WriteVarintNumber(this.view, this.offset, value, bits, isZigzag);
     }
 
@@ -83,19 +85,19 @@ class Buffer {
         return ret;
     }
 
-    readVarintInt8(isZigzag = true) {
+    readVarintInt8(isZigzag: bool = true) {
         return this._readVarintInt(1, isZigzag);
     }
 
-    readVarintInt16(isZigzag = true) {
+    readVarintInt16(isZigzag: bool = true) {
         return this._readVarintInt(2, isZigzag);
     }
 
-    readVarintInt32(isZigzag = true) {
+    readVarintInt32(isZigzag: bool = true) {
         return this._readVarintInt(4, isZigzag);
     }
 
-    readVarintInt64(isZigzag = true) {
+    readVarintInt64(isZigzag: bool = true) {
         const [ret, offset] = Tools.ReadVarintNumber64(this.view, this.offset, isZigzag);
         this.offset = offset;
         return ret;
@@ -107,32 +109,32 @@ class Buffer {
         return ret;
     }
 
-    writeUInt8(value) {
+    writeUInt8(value: number) {
         this.view.setUint8(this.offset++, value);
     }
 
-    writeInt32(value) {
+    writeInt32(value: number) {
         this.view.setInt32(this.offset, value, true);
         this.offset += 4;
     }
 
-    writeVarintInt8(value, isZigzag = true) {
+    writeVarintInt8(value: number, isZigzag: bool = true) {
         this._writeVarintInt(value, 1, isZigzag);
     }
 
-    writeVarintInt16(value, isZigzag = true) {
+    writeVarintInt16(value: number, isZigzag: bool = true) {
         this._writeVarintInt(value, 2, isZigzag);
     }
 
-    writeVarintInt32(value, isZigzag = true) {
+    writeVarintInt32(value: number, isZigzag: bool = true) {
         this._writeVarintInt(value, 4, isZigzag);
     }
 
-    writeVarintInt64(value, isZigzag = true) {
+    writeVarintInt64(value: any, isZigzag: bool = true) {
         this.offset = Tools.WriteVarintNumber64(this.view, this.offset, value, isZigzag);
     }
 
-    writeFloat(value) {
+    writeFloat(value: number) {
         this.view.setFloat32(this.offset, value);
         this.offset += 4;
     }
@@ -141,7 +143,7 @@ class Buffer {
         this.view.setInt32(0, this.offset - 4, true);
     }
 
-    getUInt8Array() {
+    getUInt8Array(): Uint8Array {
         return new Uint8Array(this.buffer, 0, this.offset);
     }
 

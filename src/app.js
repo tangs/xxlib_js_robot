@@ -12,17 +12,6 @@ const client = new net.Socket();
 const md = new MsgDispatcher();
 const msgEncoder = new MsgEncoder();
 
-// const test = () => {
-// 	let num = 3636;
-// 	console.log(zz.encode(3636, 4));
-// 	console.log(zz.encode64(3636n));
-// 	console.log(zz.decode(3636, 4));
-// 	console.log(zz.decode64(3636n));
-// }
-
-// test();
-// return;
-
 const print = (data) => {
 	if (typeof(data) == 'string') {
 		console.log('data: ' + data);

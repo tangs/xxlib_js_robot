@@ -1,5 +1,8 @@
-const { Buffer } = require("./Buffer")
+// @flow
 
+const { Buffer: Buffer1 } = require("./Buffer")
+
+const { PkgBase, DataType } = require("../pkg/PkgBase")
 const Ping = require("../pkg/Ping")
 const Pong = require("../pkg/Pong")
 const List_Int32 = require("../pkg/List_Int32")
@@ -14,8 +17,8 @@ const OpenAutoLock = require("../pkg/CatchFish/Events/Event/OpenAutoLock")
 const CloseAutoLock = require("../pkg/CatchFish/Events/Event/CloseAutoLock")
 
 class MsgDecoder {
-    buffer = new Buffer();
-    pkgMap = new Map();
+    buffer: Buffer1 = new Buffer1();
+    pkgMap: Map<number, Function> = new Map();
 
     constructor() {
         this.register(Ping);
@@ -29,7 +32,7 @@ class MsgDecoder {
         this.register(CloseAutoLock);
     }
 
-    register = (pkgClass) => {
+    register = (pkgClass: Function) => {
         this.pkgMap.set(pkgClass.typeId, pkgClass);
     }
 
@@ -38,7 +41,7 @@ class MsgDecoder {
         const pkgId = buffer.readUInt8();
 
         if (this.pkgMap.has(pkgId)) {
-            const class1 = this.pkgMap.get(pkgId);
+            const class1: any = this.pkgMap.get(pkgId);
             const idx = buffer.readVarintInt32();
             const destObj = buffer.getObj(idx);
             if (destObj) {
@@ -47,7 +50,6 @@ class MsgDecoder {
                 const obj = new class1();
                 buffer.setObj(idx, obj);
                 obj.decode(buffer, this._createPkg);
-                // console.dir(obj);
                 return obj;
             }
         } else {
@@ -56,7 +58,7 @@ class MsgDecoder {
         }
     }
 
-    decode = (reveivedMsg) => {
+    decode = (reveivedMsg: Buffer) => {
         const bytes = reveivedMsg.buffer;
         const buffer = this.buffer;
 

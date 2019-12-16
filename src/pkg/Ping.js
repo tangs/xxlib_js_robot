@@ -6,10 +6,12 @@ class Ping extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push({
-            type: DataType.INT64,
-            key: 'ticks',
-        });
+        this.datas.push(
+            {
+                type: DataType.INT64,
+                key: 'ticks',
+            },
+        );
     }
 }
 
