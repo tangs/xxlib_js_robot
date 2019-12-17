@@ -1,7 +1,7 @@
 const { Buffer } = require("./Buffer")
 
-let seralId = 1;
 class MsgEncoder {
+    static seralId = 1;
     buffer = new Buffer();
     
     constructor() {
@@ -27,14 +27,17 @@ class MsgEncoder {
         pkg.encode(buffer, this._encode);
     }
 
-    encode = (pkg) => {
+    encode = (pkg, seralId) => {
         const buffer = this.buffer;
         buffer.reset();
         // len
         buffer.skip(4);
         // seral id
-        buffer.writeUInt8((seralId++));
-
+        if (seralId != null) {
+            buffer.writeUInt8(seralId);
+        } else {
+            buffer.writeUInt8(MsgEncoder.seralId++);
+        }
         this._encode(pkg);
 
         // set len

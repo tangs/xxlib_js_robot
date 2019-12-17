@@ -152,8 +152,8 @@ class PkgBase {
                 break;
                 case DataType.STRING: {
                     // string typeid = 1
-                    buffer.writeVarintInt16(1);
-                    buffer.writeVarintInt32(buffer.getOffset() - 1);
+                    buffer.writeVarintInt16(1, false);
+                    buffer.writeVarintInt32(buffer.getOffset() - 5, false);
                     buffer.writeString(this.getValue(key));
                     // const idx = buffer.readVarintInt32(false);
                     // this.setValue(key, buffer.readString());

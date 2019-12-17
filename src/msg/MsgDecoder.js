@@ -1,35 +1,13 @@
 // @flow
 
 const { Buffer: Buffer1 } = require("./Buffer")
-
 const { PkgBase, DataType } = require("../pkg/PkgBase")
-const Ping = require("../pkg/Ping")
-const Pong = require("../pkg/Pong")
-const List_Int32 = require("../pkg/List_Int32")
-
-
-const FrameEvents = require("../pkg/FrameEvents")
-const Events = require("../pkg/Events")
-
-// const Fire = require("../pkg/CatchFish/Events/Event/Fire")
-// const FishDead = require("../pkg/CatchFish/Events/Event/FishDead")
-// const OpenAutoLock = require("../pkg/CatchFish/Events/Event/OpenAutoLock")
-// const CloseAutoLock = require("../pkg/CatchFish/Events/Event/CloseAutoLock")
 
 class MsgDecoder {
     buffer: Buffer1 = new Buffer1();
     pkgMap: Map<number, Function> = new Map();
 
     constructor() {
-        // this.register(Ping);
-        // this.register(Pong);
-        // this.register(List_Int32);
-        // this.register(FrameEvents);
-        // this.register(Events);
-        // this.register(Fire);
-        // this.register(FishDead);
-        // this.register(OpenAutoLock);
-        // this.register(CloseAutoLock);
         require("../pkg/RegiserPkgs")(this);
     }
 

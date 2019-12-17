@@ -3,10 +3,9 @@ const zz = require('./tools/zigzag')
 
 const MsgDispatcher = require('./msg/MsgDispatcher')
 const { MsgEncoder } = require('./msg/MsgEncoder')
-const Ping = require('./pkg/Ping')
 
-const OpenAutoLock = require("./pkg/CatchFish/Events/Event/OpenAutoLock")
-const CloseAutoLock = require("./pkg/CatchFish/Events/Event/CloseAutoLock")
+const Ping = require('./pkg/PKG/Generic/Ping')
+const Enter = require("./pkg/PKG/Client_CatchFish/Enter")
 
 const client = new net.Socket();
 const md = new MsgDispatcher();
@@ -36,34 +35,28 @@ client.connect(45621, '192.168.1.240', function() {
 		console.log('send:' + bin.length);
 		print(bin);
 		client.write(bin, (err) => {
-			if (err)
-				console.log(err);
+			if (err) console.log(err);
 		});
 	}
-	// client.write('Hello, server! Love, Client.');
-	const enterBin = new Uint8Array([
-		// 0xD0, 0x58, 0x08, 0x44,
-		// 0xF9, 0x7F, 0x00, 0x00,
-		0x06, 0x00, 0x00, 0x00,
-		0x00, 0x0e, 0x01, 0x01,
-		0x03, 0x00,
-	]);
-	// arr[0] = 0;
-	sendMsg(enterBin);
 
-	// let ifOpen = false;
+	// const enterBin = new Uint8Array([
+	// 	// 0xD0, 0x58, 0x08, 0x44,
+	// 	// 0xF9, 0x7F, 0x00, 0x00,
+	// 	0x06, 0x00, 0x00, 0x00,
+	// 	0x00, 0x0e, 0x01, 0x01,
+	// 	0x03, 0x00,
+	// ]);
+	// send enter msg.
+	const enter = new Enter();
+	const enterMsg = msgEncoder.encode(enter, 0);
+	sendMsg(enterMsg);
 
 	const updatePing = () => {
 		const ping = new Ping();
 		ping.ticks = BigInt(new Date().getTime());
-		const enterPing = msgEncoder.encode(ping);
+		const enterMsg = msgEncoder.encode(ping);
 
-		sendMsg(enterPing);
-		// const obj = ifOpen ? new CloseAutoLock() : new OpenAutoLock();
-		// obj.playerId = 145;
-		// ifOpen != ifOpen;
-		// sendMsg(msgEncoder.encode(obj))
-		// print(enterPing);
+		sendMsg(enterMsg);
 		setTimeout(updatePing, 5000);
 	};
 	setTimeout(updatePing, 1000);
