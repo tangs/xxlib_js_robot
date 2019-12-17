@@ -80,7 +80,7 @@ client.connect(45621, '192.168.1.240', function() {
 		const pingMsg = msgEncoder.encode(ping);
 
 		sendMsg(pingMsg);
-		setTimeout(updatePing, 3000);
+		setTimeout(updatePing, 10);
 	};
 	setTimeout(updatePing, 1000);
 

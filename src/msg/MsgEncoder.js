@@ -38,6 +38,7 @@ class MsgEncoder {
         if (seralId != null) {
             buffer.writeVarintInt32(seralId);
         } else {
+            console.log(`seral id: ${MsgEncoder.seralId}`);
             MsgEncoder.seralId = (MsgEncoder.seralId + 1) & 0x7FFFFFFF;
             buffer.writeVarintInt32(-MsgEncoder.seralId);
         }
