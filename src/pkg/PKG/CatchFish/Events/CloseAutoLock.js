@@ -7,8 +7,6 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class CloseAutoLock extends Event {
     typeId = CloseAutoLock.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

@@ -7,23 +7,21 @@ const Item = require("../../../PKG/CatchFish/Configs/Item");
 class Weapon extends Item {
     typeId = Weapon.typeId;
 
-    props: {}  = {
-        // 展示文本( 为简化设计先这样 )
-        // std::string_s
-        txt: "",
-        // 展示时长 ( 帧数 )
-        // int32_t
-        showNumFrames: 0,
-        // 每帧移动距离
-        // float
-        distance: 0.0,
-        // 爆炸半径( for bomb, light... )
-        // float
-        explodeRadius: 0.0,
-        // 飞到玩家坐标之后变化出来的炮台 cfg 之基类
-        // PKG::CatchFish::Configs::Cannon_s
-        cannon: null,
-    };
+    // 展示文本( 为简化设计先这样 )
+    // std::string_s
+    txt: string = "";
+    // 展示时长 ( 帧数 )
+    // int32_t
+    showNumFrames: number = 0;
+    // 每帧移动距离
+    // float
+    distance: number = 0.0;
+    // 爆炸半径( for bomb, light... )
+    // float
+    explodeRadius: number = 0.0;
+    // 飞到玩家坐标之后变化出来的炮台 cfg 之基类
+    // PKG::CatchFish::Configs::Cannon_s
+    cannon: any = null;
 
     constructor() {
         super();

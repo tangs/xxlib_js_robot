@@ -7,11 +7,9 @@ const Fish = require("../../PKG/CatchFish/Fish");
 class BigFish extends Fish {
     typeId = BigFish.typeId;
 
-    props: {}  = {
-        // 围在身边的小鱼( Update, HitCheck 时级联处理 )
-        // xx::List_s<PKG::CatchFish::RoundFish_s>
-        childs: [],
-    };
+    // 围在身边的小鱼( Update, HitCheck 时级联处理 )
+    // xx::List_s<PKG::CatchFish::RoundFish_s>
+    childs: [] = [];
 
     constructor() {
         super();

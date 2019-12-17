@@ -7,31 +7,29 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class Enter extends Event {
     typeId = Enter.typeId;
 
-    props: {}  = {
-        // 昵称
-        // std::string_s
-        nickname: "",
-        // 头像id
-        // int32_t
-        avatar_id: 0,
-        // 破产标识
-        // bool
-        noMoney: false,
-        // 剩余金币值
-        // int64_t
-        // $FlowFixMe
-        coin: BigInt(0),
-        // 座位
-        // PKG::CatchFish::Sits
-        sit: 0,
-        // 炮台配置id
-        // int32_t
-        cannonCfgId: 0,
-        // 炮台币值
-        // int64_t
-        // $FlowFixMe
-        cannonCoin: BigInt(0),
-    };
+    // 昵称
+    // std::string_s
+    nickname: string = "";
+    // 头像id
+    // int32_t
+    avatar_id: number = 0;
+    // 破产标识
+    // bool
+    noMoney: bool = false;
+    // 剩余金币值
+    // int64_t
+    // $FlowFixMe
+    coin: any = BigInt(0);
+    // 座位
+    // PKG::CatchFish::Sits
+    sit: number = 0;
+    // 炮台配置id
+    // int32_t
+    cannonCfgId: number = 0;
+    // 炮台币值
+    // int64_t
+    // $FlowFixMe
+    cannonCoin: any = BigInt(0);
 
     constructor() {
         super();

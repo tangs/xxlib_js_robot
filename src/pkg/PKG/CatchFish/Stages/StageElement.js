@@ -6,14 +6,12 @@ const { PkgBase, DataType } = require("../../../PkgBase");
 class StageElement extends PkgBase {
     typeId = StageElement.typeId;
 
-    props: {}  = {
-        // 生效时间点
-        // int32_t
-        cfg_beginTicks: 0,
-        // 结束时间点
-        // int32_t
-        cfg_endTicks: 0,
-    };
+    // 生效时间点
+    // int32_t
+    cfg_beginTicks: number = 0;
+    // 结束时间点
+    // int32_t
+    cfg_endTicks: number = 0;
 
     constructor() {
         super();

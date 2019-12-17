@@ -6,14 +6,12 @@ const { PkgBase, DataType } = require("../../../PkgBase");
 class SpriteFrame extends PkgBase {
     typeId = SpriteFrame.typeId;
 
-    props: {}  = {
-        // plist资源名
-        // std::string_s
-        plistName: "",
-        // 帧名
-        // std::string_s
-        frameName: "",
-    };
+    // plist资源名
+    // std::string_s
+    plistName: string = "";
+    // 帧名
+    // std::string_s
+    frameName: string = "";
 
     constructor() {
         super();

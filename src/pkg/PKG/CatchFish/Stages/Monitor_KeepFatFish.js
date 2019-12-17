@@ -7,14 +7,12 @@ const Emitter_RandomFishs = require("../../../PKG/CatchFish/Stages/Emitter_Rando
 class Monitor_KeepFatFish extends Emitter_RandomFishs {
     typeId = Monitor_KeepFatFish.typeId;
 
-    props: {}  = {
-        // 配置: 鱼总数限制
-        // int32_t
-        cfg_numFishsLimit: 0,
-        // 配置: 预约延迟
-        // int32_t
-        cfg_bornDelayFrameNumber: 0,
-    };
+    // 配置: 鱼总数限制
+    // int32_t
+    cfg_numFishsLimit: number = 0;
+    // 配置: 预约延迟
+    // int32_t
+    cfg_bornDelayFrameNumber: number = 0;
 
     constructor() {
         super();

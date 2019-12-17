@@ -6,11 +6,9 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Pong extends PkgBase {
     typeId = Pong.typeId;
 
-    props: {}  = {
-        // int64_t
-        // $FlowFixMe
-        ticks: BigInt(0),
-    };
+    // int64_t
+    // $FlowFixMe
+    ticks: any = BigInt(0);
 
     constructor() {
         super();

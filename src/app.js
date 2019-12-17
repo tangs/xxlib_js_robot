@@ -73,14 +73,22 @@ client.connect(45621, '192.168.1.240', function() {
 
 	let enterMsg: EnterSuccess;
 	let frame = 0;
-	// game update.
-	const gameUpdate = () => {
-		if (!isConnect) return;
 
-		const fire = new Fire();
-		// fire.
+	// game loop.
+	const gameUpdate = () => {
+		if (!isConnect) return
 
 		++frame;
+		if (frame % 30 == 0) {
+			const fire = new Fire();
+			const self = enterMsg.self;
+			fire.frameNumber = enterMsg.scene.frameNumber + frame;
+			fire.cannonId = self.cannons[0].id;
+			fire.bulletId = ++self.autoIncId;
+			fire.angle = (frame / 100) % 31 * 0.1;
+			console.log(`angle:${fire.angle}`);
+			sendMsg(msgEncoder.encode(fire, 0));
+		}
 		// 60 PFS
 		setTimeout(gameUpdate, 1000 / 60);
 	};
@@ -89,12 +97,12 @@ client.connect(45621, '192.168.1.240', function() {
 		enterMsg = msg;
 		gameUpdate();
 		// $FlowFixMe
-		console.log(util.inspect(msg, false, null, true));
+		// console.log(util.inspect(msg, false, null, true));
 	});
 
 	md.register(Pong.typeId, this, (msg) => {
 		// $FlowFixMe
-		console.log(util.inspect(msg, false, null, true));
+		// console.log(util.inspect(msg, false, null, true));
 		console.log(`ping:${new Date().getTime() - lastPingTime}`);
 	});
 

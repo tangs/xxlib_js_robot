@@ -7,8 +7,6 @@ const Bullet = require("../../PKG/CatchFish/Bullet");
 class FuryBullet extends Bullet {
     typeId = FuryBullet.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

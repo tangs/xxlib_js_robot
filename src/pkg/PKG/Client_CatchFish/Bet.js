@@ -6,13 +6,11 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Bet extends PkgBase {
     typeId = Bet.typeId;
 
-    props: {}  = {
-        // int32_t
-        cannonId: 0,
-        // int64_t
-        // $FlowFixMe
-        coin: BigInt(0),
-    };
+    // int32_t
+    cannonId: number = 0;
+    // int64_t
+    // $FlowFixMe
+    coin: any = BigInt(0);
 
     constructor() {
         super();

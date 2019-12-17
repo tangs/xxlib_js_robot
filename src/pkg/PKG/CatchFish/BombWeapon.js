@@ -7,8 +7,6 @@ const Weapon = require("../../PKG/CatchFish/Weapon");
 class BombWeapon extends Weapon {
     typeId = BombWeapon.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

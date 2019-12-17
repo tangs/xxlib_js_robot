@@ -7,8 +7,6 @@ const Monitor_KeepBigFish = require("../../../PKG/CatchFish/Stages/Monitor_KeepB
 class Monitor_KeepBombFish extends Monitor_KeepBigFish {
     typeId = Monitor_KeepBombFish.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

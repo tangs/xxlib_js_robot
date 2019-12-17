@@ -7,20 +7,18 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class Fire extends Event {
     typeId = Fire.typeId;
 
-    props: {}  = {
-        // 起始帧编号 ( 来自客户端 )
-        // int32_t
-        frameNumber: 0,
-        // 炮台id
-        // int32_t
-        cannonId: 0,
-        // 子弹id
-        // int32_t
-        bulletId: 0,
-        // 发射角度
-        // float
-        angle: 0.0,
-    };
+    // 起始帧编号 ( 来自客户端 )
+    // int32_t
+    frameNumber: number = 0;
+    // 炮台id
+    // int32_t
+    cannonId: number = 0;
+    // 子弹id
+    // int32_t
+    bulletId: number = 0;
+    // 发射角度
+    // float
+    angle: number = 0.0;
 
     constructor() {
         super();

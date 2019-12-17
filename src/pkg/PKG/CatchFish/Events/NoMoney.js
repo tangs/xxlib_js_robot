@@ -7,8 +7,6 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class NoMoney extends Event {
     typeId = NoMoney.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

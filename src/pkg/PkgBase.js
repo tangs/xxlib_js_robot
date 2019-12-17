@@ -26,12 +26,12 @@ class PkgBase {
 
     #getValue = (key: string): any => {
         // $FlowFixMe  
-        return this.props[key];
+        return this[key];
     }
 
     #setValue = (key: String, value: any) => {
         // $FlowFixMe  
-        this.props[key] = value;
+        this[key] = value;
     }
 
     decode(buffer: Buffer, createFunc: Function) {

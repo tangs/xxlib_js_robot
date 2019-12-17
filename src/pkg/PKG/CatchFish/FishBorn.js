@@ -6,14 +6,12 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class FishBorn extends PkgBase {
     typeId = FishBorn.typeId;
 
-    props: {}  = {
-        // 开始 / 生效帧编号
-        // int32_t
-        beginFrameNumber: 0,
-        // 当 currentFrameNumber == beginFrameNumber 时，将 fish 放入 Scene.fishs 并自杀
-        // PKG::CatchFish::Fish_s
-        fish: null,
-    };
+    // 开始 / 生效帧编号
+    // int32_t
+    beginFrameNumber: number = 0;
+    // 当 currentFrameNumber == beginFrameNumber 时，将 fish 放入 Scene.fishs 并自杀
+    // PKG::CatchFish::Fish_s
+    fish: any = null;
 
     constructor() {
         super();

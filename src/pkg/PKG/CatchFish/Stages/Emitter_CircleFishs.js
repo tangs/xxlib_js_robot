@@ -7,33 +7,31 @@ const StageElement = require("../../../PKG/CatchFish/Stages/StageElement");
 class Emitter_CircleFishs extends StageElement {
     typeId = Emitter_CircleFishs.typeId;
 
-    props: {}  = {
-        // 配置: 起始角度
-        // float
-        cfg_angleBegin: 0.0,
-        // 配置: 每只鱼偏转角度
-        // float
-        cfg_angleIncrease: 0.0,
-        // 配置: 两只鱼生成帧间隔
-        // int32_t
-        cfg_bornTicksInterval: 0,
-        // 配置: 每只鱼币值
-        // int64_t
-        // $FlowFixMe
-        cfg_coin: BigInt(0),
-        // 配置: 每只鱼体积
-        // float
-        cfg_scale: 0.0,
-        // 配置: 每只鱼移动速度( 帧跨越像素距离 )
-        // float
-        cfg_speed: 0.0,
-        // 记录下次生成需要的帧编号( 在生成时令该值 = Stage.ticks + cfg_bornTicksInterval )
-        // int32_t
-        bornAvaliableTicks: 0,
-        // 当前角度
-        // float
-        angle: 0.0,
-    };
+    // 配置: 起始角度
+    // float
+    cfg_angleBegin: number = 0.0;
+    // 配置: 每只鱼偏转角度
+    // float
+    cfg_angleIncrease: number = 0.0;
+    // 配置: 两只鱼生成帧间隔
+    // int32_t
+    cfg_bornTicksInterval: number = 0;
+    // 配置: 每只鱼币值
+    // int64_t
+    // $FlowFixMe
+    cfg_coin: any = BigInt(0);
+    // 配置: 每只鱼体积
+    // float
+    cfg_scale: number = 0.0;
+    // 配置: 每只鱼移动速度( 帧跨越像素距离 )
+    // float
+    cfg_speed: number = 0.0;
+    // 记录下次生成需要的帧编号( 在生成时令该值 = Stage.ticks + cfg_bornTicksInterval )
+    // int32_t
+    bornAvaliableTicks: number = 0;
+    // 当前角度
+    // float
+    angle: number = 0.0;
 
     constructor() {
         super();

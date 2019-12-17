@@ -7,17 +7,15 @@ const Fish = require("../../../PKG/CatchFish/Configs/Fish");
 class BigFish extends Fish {
     typeId = BigFish.typeId;
 
-    props: {}  = {
-        // 每帧移动距离
-        // float
-        moveFrameDistance: 0.0,
-        // 小鱼只数
-        // int32_t
-        numChilds: 0,
-        // 小鱼前进角速度
-        // float
-        childsAngleInc: 0.0,
-    };
+    // 每帧移动距离
+    // float
+    moveFrameDistance: number = 0.0;
+    // 小鱼只数
+    // int32_t
+    numChilds: number = 0;
+    // 小鱼前进角速度
+    // float
+    childsAngleInc: number = 0.0;
 
     constructor() {
         super();

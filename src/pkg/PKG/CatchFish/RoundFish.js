@@ -7,11 +7,9 @@ const Fish = require("../../PKG/CatchFish/Fish");
 class RoundFish extends Fish {
     typeId = RoundFish.typeId;
 
-    props: {}  = {
-        // 目标大鱼到当前小鱼的角度
-        // float
-        tarAngle: 0.0,
-    };
+    // 目标大鱼到当前小鱼的角度
+    // float
+    tarAngle: number = 0.0;
 
     constructor() {
         super();

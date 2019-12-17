@@ -6,13 +6,11 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Error extends PkgBase {
     typeId = Error.typeId;
 
-    props: {}  = {
-        // int64_t
-        // $FlowFixMe
-        number: BigInt(0),
-        // std::string_s
-        message: "",
-    };
+    // int64_t
+    // $FlowFixMe
+    number: any = BigInt(0);
+    // std::string_s
+    message: string = "";
 
     constructor() {
         super();

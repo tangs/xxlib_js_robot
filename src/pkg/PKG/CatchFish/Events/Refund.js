@@ -7,12 +7,10 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class Refund extends Event {
     typeId = Refund.typeId;
 
-    props: {}  = {
-        // 退款金额( coin * count )
-        // int64_t
-        // $FlowFixMe
-        coin: BigInt(0),
-    };
+    // 退款金额( coin * count )
+    // int64_t
+    // $FlowFixMe
+    coin: any = BigInt(0);
 
     constructor() {
         super();

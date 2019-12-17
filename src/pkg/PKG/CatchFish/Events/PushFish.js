@@ -7,11 +7,9 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class PushFish extends Event {
     typeId = PushFish.typeId;
 
-    props: {}  = {
-        // 已于 server 端构造好的, 无牵挂的, 能干净下发的实例
-        // PKG::CatchFish::FishBorn_s
-        born: null,
-    };
+    // 已于 server 端构造好的, 无牵挂的, 能干净下发的实例
+    // PKG::CatchFish::FishBorn_s
+    born: any = null;
 
     constructor() {
         super();

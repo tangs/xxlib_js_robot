@@ -7,8 +7,6 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class Leave extends Event {
     typeId = Leave.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

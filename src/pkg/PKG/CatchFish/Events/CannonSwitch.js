@@ -7,11 +7,9 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class CannonSwitch extends Event {
     typeId = CannonSwitch.typeId;
 
-    props: {}  = {
-        // 炮台配置id
-        // int32_t
-        cfgId: 0,
-    };
+    // 炮台配置id
+    // int32_t
+    cfgId: number = 0;
 
     constructor() {
         super();

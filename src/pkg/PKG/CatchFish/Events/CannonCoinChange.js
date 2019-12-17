@@ -7,15 +7,13 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class CannonCoinChange extends Event {
     typeId = CannonCoinChange.typeId;
 
-    props: {}  = {
-        // 炮台id
-        // int32_t
-        cannonId: 0,
-        // 币值 / 倍率
-        // int64_t
-        // $FlowFixMe
-        coin: BigInt(0),
-    };
+    // 炮台id
+    // int32_t
+    cannonId: number = 0;
+    // 币值 / 倍率
+    // int64_t
+    // $FlowFixMe
+    coin: any = BigInt(0);
 
     constructor() {
         super();

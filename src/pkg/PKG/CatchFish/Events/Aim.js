@@ -7,11 +7,9 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class Aim extends Event {
     typeId = Aim.typeId;
 
-    props: {}  = {
-        // 被瞄准的鱼id
-        // int32_t
-        fishId: 0,
-    };
+    // 被瞄准的鱼id
+    // int32_t
+    fishId: number = 0;
 
     constructor() {
         super();

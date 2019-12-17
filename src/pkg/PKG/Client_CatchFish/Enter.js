@@ -6,11 +6,9 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Enter extends PkgBase {
     typeId = Enter.typeId;
 
-    props: {}  = {
-        // 传递先前保存的 token 以便断线重连. 没有传空
-        // std::string_s
-        token: "",
-    };
+    // 传递先前保存的 token 以便断线重连. 没有传空
+    // std::string_s
+    token: string = "";
 
     constructor() {
         super();

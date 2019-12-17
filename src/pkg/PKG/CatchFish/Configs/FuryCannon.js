@@ -7,11 +7,9 @@ const Cannon = require("../../../PKG/CatchFish/Configs/Cannon");
 class FuryCannon extends Cannon {
     typeId = FuryCannon.typeId;
 
-    props: {}  = {
-        // 打击次数( fireCount = coin / hitCount )
-        // int32_t
-        hitCount: 0,
-    };
+    // 打击次数( fireCount = coin / hitCount )
+    // int32_t
+    hitCount: number = 0;
 
     constructor() {
         super();

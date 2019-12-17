@@ -129,7 +129,7 @@ class Buffer {
             }
             case 5: {
                 if (this.offset >= this.view.byteLength) return -14;
-                const ret = this.view.getFloat64(this.offset);
+                const ret = this.view.getFloat64(this.offset, true);
                 this.offset += 8;
                 return ret;
             }
@@ -183,7 +183,7 @@ class Buffer {
     }
 
     writeFloat(value: number) {
-        this.view.setFloat32(this.offset, value);
+        this.view.setFloat32(this.offset, value, true);
         this.offset += 4;
     }
 

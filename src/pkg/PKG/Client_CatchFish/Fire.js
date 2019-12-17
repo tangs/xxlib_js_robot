@@ -6,16 +6,14 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Fire extends PkgBase {
     typeId = Fire.typeId;
 
-    props: {}  = {
-        // int32_t
-        frameNumber: 0,
-        // int32_t
-        cannonId: 0,
-        // int32_t
-        bulletId: 0,
-        // float
-        angle: 0.0,
-    };
+    // int32_t
+    frameNumber: number = 0;
+    // int32_t
+    cannonId: number = 0;
+    // int32_t
+    bulletId: number = 0;
+    // float
+    angle: number = 0.0;
 
     constructor() {
         super();

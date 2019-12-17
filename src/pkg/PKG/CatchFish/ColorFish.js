@@ -7,8 +7,6 @@ const Fish = require("../../PKG/CatchFish/Fish");
 class ColorFish extends Fish {
     typeId = ColorFish.typeId;
 
-    props: {}  = {
-    };
 
     constructor() {
         super();

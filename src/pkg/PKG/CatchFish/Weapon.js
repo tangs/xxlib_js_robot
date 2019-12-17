@@ -7,18 +7,16 @@ const MoveItem = require("../../PKG/CatchFish/MoveItem");
 class Weapon extends MoveItem {
     typeId = Weapon.typeId;
 
-    props: {}  = {
-        // 配置id
-        // int32_t
-        cfgId: 0,
-        // 开始起作用的帧编号( 和预约下发相关 )
-        // int32_t
-        beginFrameNumber: 0,
-        // 币值 / 倍率( 填充自死鱼 )
-        // int64_t
-        // $FlowFixMe
-        coin: BigInt(0),
-    };
+    // 配置id
+    // int32_t
+    cfgId: number = 0;
+    // 开始起作用的帧编号( 和预约下发相关 )
+    // int32_t
+    beginFrameNumber: number = 0;
+    // 币值 / 倍率( 填充自死鱼 )
+    // int64_t
+    // $FlowFixMe
+    coin: any = BigInt(0);
 
     constructor() {
         super();

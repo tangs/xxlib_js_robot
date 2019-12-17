@@ -7,12 +7,10 @@ const MoveItem = require("../../PKG/CatchFish/MoveItem");
 class Bullet extends MoveItem {
     typeId = Bullet.typeId;
 
-    props: {}  = {
-        // 金币 / 倍率( 记录炮台开火时的 Bet 值 )
-        // int64_t
-        // $FlowFixMe
-        coin: BigInt(0),
-    };
+    // 金币 / 倍率( 记录炮台开火时的 Bet 值 )
+    // int64_t
+    // $FlowFixMe
+    coin: any = BigInt(0);
 
     constructor() {
         super();
