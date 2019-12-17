@@ -19,7 +19,8 @@ class MsgDecoder {
         const buffer = this.buffer;
         const pkgId = buffer.readUInt8();
 
-        // console.log(`pkgId: ${pkgId}`);
+        if (pkgId == 1) return null;
+        console.log(`pkgId: ${pkgId}`);
 
         if (this.pkgMap.has(pkgId)) {
             const class1: any = this.pkgMap.get(pkgId);

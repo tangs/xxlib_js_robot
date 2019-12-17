@@ -21,7 +21,8 @@ class MsgEncoder {
         if (key) {
             buffer.writeVarintInt32(key);
         } else {
-            const idx = buffer.getOffset() - 4 - 1;
+            // const idx = buffer.getOffset() - 4 - 1;
+            const idx = buffer.getOffsetWithoutSeriaId();
             buffer.writeVarintInt32(idx, false);
             buffer.setObj(idx, pkg);
         }
@@ -37,10 +38,12 @@ class MsgEncoder {
         // seral id
         if (seralId != null) {
             buffer.writeVarintInt32(seralId);
+            buffer.saveFactOffset();
         } else {
             console.log(`seral id: ${MsgEncoder.seralId}`);
             MsgEncoder.seralId = (MsgEncoder.seralId + 1) & 0x7FFFFFFF;
             buffer.writeVarintInt32(-MsgEncoder.seralId);
+            buffer.saveFactOffset();
         }
         this._encode(pkg);
 

@@ -7,6 +7,8 @@ class Buffer {
     buffer: ArrayBuffer;
     view: DataView;
     offset: number = 0;
+    // offset without seral id.
+    factOffset: number = 0;
     length: number = 0;
     objMap: Map<number, PkgBase> = new Map();
 
@@ -17,6 +19,7 @@ class Buffer {
 
     reset() {
         this.offset = 0;
+        this.factOffset = 0;
         this.length = 0;
         this.objMap.clear();
     }
@@ -31,6 +34,14 @@ class Buffer {
 
     getOffset() {
         return this.offset;
+    }
+
+    saveFactOffset() {
+        this.factOffset = this.offset;
+    }
+
+    getOffsetWithoutSeriaId() {
+        return this.offset - this.factOffset;
     }
 
     setObj(key: number, obj: PkgBase) {

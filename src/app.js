@@ -48,7 +48,7 @@ const print = (data: any) => {
 };
 
 let isConnect = true;
-client.connect(45621, '192.168.1.240', function() {
+client.connect(45621, '127.0.0.1', function() {
 	console.log('Connected');
 
 	const sendMsg = (bin: Uint8Array) => {
@@ -80,7 +80,7 @@ client.connect(45621, '192.168.1.240', function() {
 		const pingMsg = msgEncoder.encode(ping);
 
 		sendMsg(pingMsg);
-		setTimeout(updatePing, 10);
+		setTimeout(updatePing, 3000);
 	};
 	setTimeout(updatePing, 1000);
 
