@@ -22,7 +22,7 @@ class MsgDispatcher {
     infos: Info[] = [];
     md = new MsgDecoder();
 
-    #dispatch = (pkg: PkgBase) => {
+    dispatch = (pkg: PkgBase) => {
         const infos = this.infos;
         const len = infos.length;
         for (let i = 0; i < len; ++i) {
@@ -64,7 +64,7 @@ class MsgDispatcher {
             // $FlowFixMe
             // console.log(util.inspect(pkg, false, null, true));
             // $FlowFixMe
-            this.#dispatch(pkg);
+            this.dispatch(pkg);
         } else {
             // console.log("pkg is null");
         }

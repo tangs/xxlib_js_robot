@@ -7,19 +7,21 @@ const util = require('util')
 const MsgDispatcher = require('./msg/MsgDispatcher')
 const { MsgEncoder } = require('./msg/MsgEncoder')
 
+const { PkgBase } = require("./pkg/PkgBase")
+
 const Ping = require('./pkg/PKG/Generic/Ping')
 const Pong = require('./pkg/PKG/Generic/Pong')
 
 const Enter = require("./pkg/PKG/Client_CatchFish/Enter")
 const Fire = require("./pkg/PKG/Client_CatchFish/Fire")
 const Hit = require("./pkg/PKG/Client_CatchFish/Hit")
-const EnterSuccess = require("./pkg/PKG/CatchFish_Client/EnterSuccess")
 
+const EnterSuccess = require("./pkg/PKG/CatchFish_Client/EnterSuccess")
+const FrameEvents = require("./pkg/PKG/CatchFish_Client/FrameEvents")
 
 const PushFishEvent = require('./pkg/PKG/CatchFish/Events/PushFish')
 const FireEvent = require('./pkg/PKG/CatchFish/Events/Fire')
 const FishDeadEvent = require('./pkg/PKG/CatchFish/Events/FishDead')
-
 
 const Bullet = require('./pkg/PKG/CatchFish/Bullet')
 const Fish = require('./pkg/PKG/CatchFish/Fish')
@@ -105,15 +107,10 @@ client.connect(45621, '192.168.1.240', function() {
 			fire.cannonId = cannon.id;
 			fire.bulletId = ++self.autoIncId;
 			fire.angle = (frame / 100) % 31 * 0.1;
-			// console.log(`angle:${fire.angle}`);
+			if (self.sit == 2 || self.sit == 3) {
+				fire.angle += 3.14;
+			}
 			sendMsg(msgEncoder.encode(fire, 0));
-			// $FlowFixMe
-			// console.log(util.inspect(fire, false, null, true));
-
-			const bullet: Bullet = new Bullet();
-			bullet.id = fire.bulletId;
-			bullet.angle = fire.angle;
-			bullets.push(bullet);
 		}
 
 		// update fish born
@@ -124,10 +121,11 @@ client.connect(45621, '192.168.1.240', function() {
 		}
 
 		if (fishes.length > 0 && bullets.length > 5) {
+			const fishIdx = Math.floor(Math.random() * fishes.length);
 			const hit = new Hit();
 			hit.cannonId = cannon.id;
 			hit.bulletId = bullets[0].id;
-			hit.fishId = fishes[0].id;
+			hit.fishId = fishes[fishIdx].id;
 			sendMsg(msgEncoder.encode(hit, 0));
 			bullets.splice(0, 1);
 		}
@@ -152,30 +150,38 @@ client.connect(45621, '192.168.1.240', function() {
 
 	md.register(PushFishEvent.typeId, this, (msg: PushFishEvent) => {
 		// $FlowFixMe
-		console.log(util.inspect(pkg, false, null, true));
+		console.log(util.inspect(msg, false, null, true));
 		bornFishes.push(msg);
 	});
 
 	md.register(FireEvent.typeId, this, (msg: FireEvent) => {
 		// $FlowFixMe
-		console.log(util.inspect(pkg, false, null, true));
-		// if (msg.playerId == enterMsg.self.id) {
-		// 	const bullet: Bullet = new Bullet();
-		// 	bullet.id = msg.bulletId;
-		// 	bullet.angle = msg.angle;
-		// 	enterMsg.self.cannons[0].bullets.push(bullet);
-		// }
+		console.log(util.inspect(msg, false, null, true));
+		if (msg.playerId == enterMsg.self.id) {
+			const bullet: Bullet = new Bullet();
+			bullet.id = msg.bulletId;
+			bullet.angle = msg.angle;
+			enterMsg.self.cannons[0].bullets.push(bullet);
+		}
 	});
 
 	md.register(FishDeadEvent.typeId, this, (msg: FishDeadEvent) => {
 		// $FlowFixMe
-		console.log(util.inspect(pkg, false, null, true));
+		console.log(util.inspect(msg, false, null, true));
 		const fishes: Fish[] = enterMsg.scene.fishs;
 		for (const id: number of msg.ids) {
 			const idx = fishes.findIndex((fish) => fish.id == id);
 			if (idx != -1) {
 				fishes.splice(idx, 1);
 			}
+		}
+	});
+
+	md.register(FrameEvents.typeId, this, (msg: FrameEvents) => {
+		// $FlowFixMe
+		console.log(util.inspect(msg, false, null, true));
+		for (const event of msg.events) {
+			md.dispatch(event);
 		}
 	});
 
