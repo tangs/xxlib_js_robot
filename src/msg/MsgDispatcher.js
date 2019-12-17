@@ -21,7 +21,7 @@ class Info {
 class MsgDispatcher {
     infos: Info[] = [];
     md = new MsgDecoder();
-    
+
     #dispatch = (pkg: PkgBase) => {
         const infos = this.infos;
         const len = infos.length;
@@ -60,7 +60,7 @@ class MsgDispatcher {
     onRecivedMsg = (msg: Buffer) => {
         const pkg = this.md.decode(msg);
         if (pkg instanceof PkgBase) {
-            // console.log(pkg.typeId);
+            console.log(pkg.typeId);
             // $FlowFixMe
             // console.log(util.inspect(pkg, false, null, true));
             // $FlowFixMe

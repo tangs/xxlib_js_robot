@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+const Fish = require("../../PKG/CatchFish/Fish");
 
 // 预约出鱼
 class FishBorn extends PkgBase {
@@ -11,7 +12,7 @@ class FishBorn extends PkgBase {
     beginFrameNumber: number = 0;
     // 当 currentFrameNumber == beginFrameNumber 时，将 fish 放入 Scene.fishs 并自杀
     // PKG::CatchFish::Fish_s
-    fish: any = null;
+    fish: Fish;
 
     constructor() {
         super();

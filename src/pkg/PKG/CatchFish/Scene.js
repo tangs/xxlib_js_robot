@@ -44,7 +44,7 @@ class Scene extends PkgBase {
     autoIncId: number = 0;
     // 所有活鱼 ( 乱序 )
     // xx::List_s<PKG::CatchFish::Fish_s>
-    fishs: [] = [];
+    fishs = [];
     // 所有已创建非活鱼 ( 乱序 )
     // xx::List_s<PKG::CatchFish::Item_s>
     items: [] = [];

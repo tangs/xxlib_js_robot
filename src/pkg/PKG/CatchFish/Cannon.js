@@ -19,7 +19,7 @@ class Cannon extends Item {
     angle: number = 0.0;
     // 所有子弹
     // xx::List_s<PKG::CatchFish::Bullet_s>
-    bullets: [] = [];
+    bullets = [];
 
     constructor() {
         super();
