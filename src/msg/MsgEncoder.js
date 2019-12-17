@@ -1,3 +1,5 @@
+// @flow
+
 const { Buffer } = require("./Buffer")
 
 class MsgEncoder {
@@ -10,7 +12,7 @@ class MsgEncoder {
         this.buffer.setBuffer(arr)
     }
 
-    _encode = (pkg) => {
+    _encode = (pkg: Object) => {
         const buffer = this.buffer;
 
         buffer.writeVarintInt32(pkg.typeId, false);
@@ -27,7 +29,7 @@ class MsgEncoder {
         pkg.encode(buffer, this._encode);
     }
 
-    encode = (pkg, seralId) => {
+    encode = (pkg: Object, seralId?: number) => {
         const buffer = this.buffer;
         buffer.reset();
         // len

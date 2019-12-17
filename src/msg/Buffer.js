@@ -211,7 +211,7 @@ class Buffer {
     writeString(txt: string) {
         // TODO
         const len = txt.length;
-        this.writeVarintInt32(len)
+        this.writeVarintInt32(len, false)
         for (let i = 0; i < len; ++i) {
             this.writeUInt8(txt.charCodeAt(i));
         }
