@@ -1,28 +1,40 @@
-const Pong = require("../pkg/Pong")
+// @flow
+
+const Pong = require("../pkg/PKG/Generic/Pong")
 const { MsgDecoder } = require("./MsgDecoder")
 const util = require('util')
 
+class Info {
+    type: number;
+    target: any;
+    cb: Function;
+
+    constructor(type: number, target: any, cb: Function) {
+        this.type = type;
+        this.target = target;
+        this.cb = cb;
+    }
+}
+
 class MsgDispatcher {
-    infos = [];
+    infos: Info[] = [];
     md = new MsgDecoder();
 
-    register = (type, target, cb) => {
-        // this.infos.push([cb, type, target]);
-        this.infos.push({
-            cb: cb, 
-            type: type, 
-            target: target
-        });
+    register = (type: number, target: any, cb: Function) => {
+        this.infos.push(new Info(cb, type, target));
     }
 
-    unregister = (cb) => {
-        const idx = this.infos.indexOf(cb);
-        if (idx != -1) {
-            this.infos.splice(idx, 1);
+    unregister = (target: any, cb: Function) => {
+        const infos = this.infos;
+        for (let i = infos.length - 1; i >= 0; --i) {
+            const info = infos[i];
+            if (target = info.target && cb == info.cb) {
+                infos.splice(i, 1);
+            }
         }
     }
 
-    unregisterAll = (target) => {
+    unregisterAll = (target: any) => {
         const infos = this.infos;
         const len = infos.length;
         for (let i = len - 1; i >= 0; --i) {
@@ -32,12 +44,11 @@ class MsgDispatcher {
         }
     }
 
-    onRecivedMsg = (msg) => {
+    onRecivedMsg = (msg: Buffer) => {
         const pkg = this.md.decode(msg);
         if (pkg) {
             console.log(pkg.typeId);
-            // console.dir(pkg);
-            console.log(util.inspect(pkg, false, null, true));
+            console.log(util.inspect(pkg));
         } else {
             // console.log("pkg is null");
         }
