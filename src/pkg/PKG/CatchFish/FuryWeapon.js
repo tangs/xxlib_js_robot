@@ -7,6 +7,9 @@ const Weapon = require("../../PKG/CatchFish/Weapon");
 class FuryWeapon extends Weapon {
     typeId = FuryWeapon.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(

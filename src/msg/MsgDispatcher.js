@@ -1,6 +1,8 @@
 // @flow
 
-const Pong = require("../pkg/PKG/Generic/Pong")
+// const Pong = require("../pkg/PKG/Generic/Pong")
+const { PkgBase } = require("../pkg/PkgBase")
+
 const { MsgDecoder } = require("./MsgDecoder")
 const util = require('util')
 
@@ -19,9 +21,20 @@ class Info {
 class MsgDispatcher {
     infos: Info[] = [];
     md = new MsgDecoder();
+    
+    #dispatch = (pkg: PkgBase) => {
+        const infos = this.infos;
+        const len = infos.length;
+        for (let i = 0; i < len; ++i) {
+            const info = infos[i];
+            if (info.type == pkg.typeId) {
+                info.cb.call(info.target, pkg);
+            }
+        }
+    }
 
     register = (type: number, target: any, cb: Function) => {
-        this.infos.push(new Info(cb, type, target));
+        this.infos.push(new Info(type, target, cb));
     }
 
     unregister = (target: any, cb: Function) => {
@@ -46,9 +59,12 @@ class MsgDispatcher {
 
     onRecivedMsg = (msg: Buffer) => {
         const pkg = this.md.decode(msg);
-        if (pkg) {
-            console.log(pkg.typeId);
-            console.log(util.inspect(pkg));
+        if (pkg instanceof PkgBase) {
+            // console.log(pkg.typeId);
+            // $FlowFixMe
+            // console.log(util.inspect(pkg, false, null, true));
+            // $FlowFixMe
+            this.#dispatch(pkg);
         } else {
             // console.log("pkg is null");
         }

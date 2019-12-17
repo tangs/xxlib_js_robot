@@ -5,12 +5,15 @@ const { PkgBase, DataType } = require("../../PkgBase");
 // 碰撞检测
 class Hit extends PkgBase {
     typeId = Hit.typeId;
-    // int32_t
-    cannonId: number = 0;
-    // int32_t
-    bulletId: number = 0;
-    // int32_t
-    fishId: number = 0;
+
+    props: {}  = {
+        // int32_t
+        cannonId: 0,
+        // int32_t
+        bulletId: 0,
+        // int32_t
+        fishId: 0,
+    };
 
     constructor() {
         super();

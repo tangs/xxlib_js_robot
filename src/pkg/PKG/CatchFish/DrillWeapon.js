@@ -7,6 +7,9 @@ const Weapon = require("../../PKG/CatchFish/Weapon");
 class DrillWeapon extends Weapon {
     typeId = DrillWeapon.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(

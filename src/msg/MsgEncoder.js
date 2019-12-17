@@ -3,7 +3,7 @@
 const { Buffer } = require("./Buffer")
 
 class MsgEncoder {
-    static seralId = 1;
+    static seralId = 0;
     buffer = new Buffer();
     
     constructor() {
@@ -36,9 +36,10 @@ class MsgEncoder {
         buffer.skip(4);
         // seral id
         if (seralId != null) {
-            buffer.writeUInt8(seralId);
+            buffer.writeVarintInt32(seralId);
         } else {
-            buffer.writeUInt8(MsgEncoder.seralId++);
+            MsgEncoder.seralId = (MsgEncoder.seralId + 1) & 0x7FFFFFFF;
+            buffer.writeVarintInt32(-MsgEncoder.seralId);
         }
         this._encode(pkg);
 

@@ -6,9 +6,12 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 // 调试信息( 开发阶段校验用 )
 class DebugInfo extends Event {
     typeId = DebugInfo.typeId;
-    // 鱼id集合
-    // xx::List_s<int32_t>
-    fishIds: [] = [];
+
+    props: {}  = {
+        // 鱼id集合
+        // xx::List_s<int32_t>
+        fishIds: [],
+    };
 
     constructor() {
         super();

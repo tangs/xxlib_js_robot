@@ -7,6 +7,9 @@ const Event = require("../../../PKG/CatchFish/Events/Event");
 class OpenAutoLock extends Event {
     typeId = OpenAutoLock.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(

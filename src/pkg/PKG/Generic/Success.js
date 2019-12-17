@@ -6,6 +6,9 @@ const { PkgBase, DataType } = require("../../PkgBase");
 class Success extends PkgBase {
     typeId = Success.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(

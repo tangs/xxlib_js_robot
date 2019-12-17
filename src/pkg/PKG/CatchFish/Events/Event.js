@@ -5,9 +5,12 @@ const { PkgBase, DataType } = require("../../../PkgBase");
 // 事件基类
 class Event extends PkgBase {
     typeId = Event.typeId;
-    // 相关玩家id
-    // int32_t
-    playerId: number = 0;
+
+    props: {}  = {
+        // 相关玩家id
+        // int32_t
+        playerId: 0,
+    };
 
     constructor() {
         super();

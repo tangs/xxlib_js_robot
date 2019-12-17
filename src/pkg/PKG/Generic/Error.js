@@ -5,11 +5,14 @@ const { PkgBase, DataType } = require("../../PkgBase");
 // 通用错误返回
 class Error extends PkgBase {
     typeId = Error.typeId;
-    // int64_t
-    // $FlowFixMe
-    number: any = BigInt(0);
-    // std::string_s
-    message: string = "";
+
+    props: {}  = {
+        // int64_t
+        // $FlowFixMe
+        number: BigInt(0),
+        // std::string_s
+        message: "",
+    };
 
     constructor() {
         super();

@@ -15,11 +15,11 @@ class MsgDecoder {
         this.pkgMap.set(pkgClass.typeId, pkgClass);
     }
 
-    _createPkg = () => {
+    _createPkg = (): (PkgBase | null) => {
         const buffer = this.buffer;
         const pkgId = buffer.readUInt8();
 
-        console.log(`pkgId: ${pkgId}`);
+        // console.log(`pkgId: ${pkgId}`);
 
         if (this.pkgMap.has(pkgId)) {
             const class1: any = this.pkgMap.get(pkgId);
@@ -34,12 +34,12 @@ class MsgDecoder {
                 return obj;
             }
         } else {
-            console.log(`can't find pkg id:${pkgId}.`)
-            return;
+            console.log(`can't find pkg id:${pkgId}.`);
+            return null;
         }
     }
 
-    decode = (reveivedMsg: Buffer) => {
+    decode = (reveivedMsg: Buffer): (PkgBase | null) => {
         const bytes = reveivedMsg.buffer;
         const buffer = this.buffer;
 

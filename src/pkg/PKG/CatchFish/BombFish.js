@@ -7,6 +7,9 @@ const ColorFish = require("../../PKG/CatchFish/ColorFish");
 class BombFish extends ColorFish {
     typeId = BombFish.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(

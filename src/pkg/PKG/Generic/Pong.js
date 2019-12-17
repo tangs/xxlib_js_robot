@@ -5,9 +5,12 @@ const { PkgBase, DataType } = require("../../PkgBase");
 // 心跳保持兼延迟测试 -- 回应
 class Pong extends PkgBase {
     typeId = Pong.typeId;
-    // int64_t
-    // $FlowFixMe
-    ticks: any = BigInt(0);
+
+    props: {}  = {
+        // int64_t
+        // $FlowFixMe
+        ticks: BigInt(0),
+    };
 
     constructor() {
         super();

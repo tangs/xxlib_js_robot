@@ -7,6 +7,9 @@ const Cannon = require("../../PKG/CatchFish/Cannon");
 class DrillCannon extends Cannon {
     typeId = DrillCannon.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(

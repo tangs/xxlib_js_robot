@@ -7,6 +7,9 @@ const Bullet = require("../../PKG/CatchFish/Bullet");
 class DrillBullet extends Bullet {
     typeId = DrillBullet.typeId;
 
+    props: {}  = {
+    };
+
     constructor() {
         super();
         this.datas.push(
