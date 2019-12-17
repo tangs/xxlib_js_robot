@@ -68,7 +68,6 @@ class PkgBase {
                     if (typeId != 1) return -1;
                     const idx = buffer.readVarintInt32(false);
                     this.setValue(key, buffer.readString());
-
                 }
                 break;
                 case DataType.LIST: {
@@ -78,7 +77,6 @@ class PkgBase {
                     const len = buffer.readVarintInt32(false);
                     console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
                     for (let i = 0; i < len; ++i) {
-                        // console.log(i, len);
                         const obj = createFunc();
                         if (obj == null) break;
                         list.push(obj);
@@ -126,29 +124,13 @@ class PkgBase {
                     }
                 }
                 break;
+                default:
+                    
             }
         }
     }
 
     encode(buffer: Buffer, encodeFunc: Function) {
-        // const view = new DataView(buffer);
-        // // serial number
-        // view.setUint8(idx++, 1);
-        // // type id
-        // view.setUint8(idx++, this.typeId);
-        // // idx
-        // view.setUint8(idx++, idx - 4 - 2);
-        // for (const {type, key} of this.datas) {
-        //     switch (type) {
-        //         case DataType.INT64: {
-        //             idx = Tools.WriteVarintNumber64(view, idx, this.ticks);
-        //         }
-        //         break;
-        //     }
-        // }
-
-        // // buffer.length = idx;
-        // return idx;
         for (const {type, key} of this.datas) {
             // console.log(key);
             switch (type) {
@@ -168,15 +150,20 @@ class PkgBase {
                     buffer.writeVarintInt64(this.getValue(key));
                 }
                 break;
+                case DataType.STRING: {
+                    // string typeid = 1
+                    buffer.writeVarintInt16(1);
+                    buffer.writeVarintInt32(buffer.getOffset() - 1);
+                    buffer.writeString(this.getValue(key));
+                    // const idx = buffer.readVarintInt32(false);
+                    // this.setValue(key, buffer.readString());
+                }
+                break;
                 case DataType.LIST: {
                     const list = this.getValue(key);
                     buffer.writeVarintInt32(list.length, false);
                     for (let i = 0; i < list.length; ++i) {
                         encodeFunc(list[i]);
-                        // console.log(i, len);
-                        // const obj = createFunc(buffer);
-                        // if (obj == null) break;
-                        // list.push(obj);
                     }
                 }
                 break;
@@ -209,7 +196,9 @@ class PkgBase {
                 }
                 break;
                 case DataType.XX_POS: {
-
+                    const value = this.getValue(key);
+                    buffer.writeFloat(value.x);
+                    buffer.writeFloat(value.y);
                 }
                 break;
             }

@@ -65,13 +65,13 @@ class Buffer {
     //     }
     // }
 
-    _readVarintInt(bits: number, isZigzag: bool = true) {
+    _readVarint(bits: number, isZigzag: bool = true) {
         const [ret, offset] = Tools.ReadVarintNumber(this.view, this.offset, bits, isZigzag);
         this.offset = offset;
         return ret;
     }
 
-    _writeVarintInt(value: number, bits: number, isZigzag: bool = true) {
+    _writeVarint(value: number, bits: number, isZigzag: bool = true) {
         this.offset = Tools.WriteVarintNumber(this.view, this.offset, value, bits, isZigzag);
     }
 
@@ -86,15 +86,15 @@ class Buffer {
     }
 
     readVarintInt8(isZigzag: bool = true) {
-        return this._readVarintInt(1, isZigzag);
+        return this._readVarint(1, isZigzag);
     }
 
     readVarintInt16(isZigzag: bool = true) {
-        return this._readVarintInt(2, isZigzag);
+        return this._readVarint(2, isZigzag);
     }
 
     readVarintInt32(isZigzag: bool = true) {
-        return this._readVarintInt(4, isZigzag);
+        return this._readVarint(4, isZigzag);
     }
 
     readVarintInt64(isZigzag: bool = true) {
@@ -119,7 +119,7 @@ class Buffer {
                 return Number.NaN;
             }
             case 2: {
-                return Number.MIN_VALUE;
+                return -Number.MAX_VALUE;
             }
             case 3: {
                 return Number.MAX_VALUE;
@@ -167,15 +167,15 @@ class Buffer {
     }
 
     writeVarintInt8(value: number, isZigzag: bool = true) {
-        this._writeVarintInt(value, 1, isZigzag);
+        this._writeVarint(value, 1, isZigzag);
     }
 
     writeVarintInt16(value: number, isZigzag: bool = true) {
-        this._writeVarintInt(value, 2, isZigzag);
+        this._writeVarint(value, 2, isZigzag);
     }
 
     writeVarintInt32(value: number, isZigzag: bool = true) {
-        this._writeVarintInt(value, 4, isZigzag);
+        this._writeVarint(value, 4, isZigzag);
     }
 
     writeVarintInt64(value: any, isZigzag: bool = true) {
@@ -188,8 +188,33 @@ class Buffer {
     }
 
     writeDouble(value: number) {
-        this.view.setFloat32(this.offset, value);
-        this.offset += 8;
+        // TODO 待验证
+        if (value == 0) {
+            this.writeUInt8(0);
+        } else if (Number.isNaN(value)) {
+            this.writeUInt8(1);
+        } else if (value == -Number.MAX_VALUE) {
+            this.writeUInt8(2);
+        } else if (value == Number.MAX_VALUE) {
+            this.writeUInt8(3);
+        } else {
+            const num1 = Math.floor(value);
+            if (value == num1) {
+                this.writeVarintInt32(num1);
+            } else {
+                this.view.setFloat64(this.offset, value, true);
+                this.offset += 8;
+            }
+        }
+    }
+
+    writeString(txt: string) {
+        // TODO
+        const len = txt.length;
+        this.writeVarintInt32(len)
+        for (let i = 0; i < len; ++i) {
+            this.writeUInt8(txt.charCodeAt(i));
+        }
     }
 
     writeRandom(obj: any) {
