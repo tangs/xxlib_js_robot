@@ -2,6 +2,8 @@
 
 const { PkgBase, DataType } = require("../../../PkgBase");
 
+const PKG__CatchFish__Stages__StageElement = require("../../../PKG/CatchFish/Stages/StageElement");
+
 // 游戏关卡. 一切元素皆使用 Stage.ticks 来计算时间. 可弱引用 Stage 本身. 需要可以干净序列化
 class Stage extends PkgBase {
     typeId = Stage.typeId;
@@ -17,10 +19,10 @@ class Stage extends PkgBase {
     ticks: number = 0;
     // 元素集合
     // xx::List_s<PKG::CatchFish::Stages::StageElement_s>
-    elements: [] = [];
+    elements: PKG__CatchFish__Stages__StageElement[] = [];
     // 监视器集合, 服务端专用
     // xx::List_s<PKG::CatchFish::Stages::StageElement_s>
-    monitors: [] = [];
+    monitors: PKG__CatchFish__Stages__StageElement[] = [];
 
     constructor() {
         super();

@@ -50,7 +50,6 @@ class MsgEncoder {
     }
 }
 
-
 module.exports = {
     MsgEncoder: MsgEncoder,
 }

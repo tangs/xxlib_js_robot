@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../../PkgBase");
 
+
 // 关卡元素基类
 class StageElement extends PkgBase {
     typeId = StageElement.typeId;

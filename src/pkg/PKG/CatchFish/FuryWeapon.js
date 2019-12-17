@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
 const Weapon = require("../../PKG/CatchFish/Weapon");
 
 // 狂暴鱼武器

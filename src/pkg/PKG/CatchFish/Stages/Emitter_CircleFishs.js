@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const StageElement = require("../../../PKG/CatchFish/Stages/StageElement");
 
 // 发射器: 从屏幕中间 0 度开始旋转式出小鱼

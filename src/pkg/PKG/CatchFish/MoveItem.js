@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
 const Item = require("../../PKG/CatchFish/Item");
 
 // 子弹 & 鱼 & 武器 的基类

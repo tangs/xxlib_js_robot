@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 场景元素的共通基类
 class Item extends PkgBase {
     typeId = Item.typeId;

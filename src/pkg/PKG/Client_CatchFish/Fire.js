@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 开火
 class Fire extends PkgBase {
     typeId = Fire.typeId;

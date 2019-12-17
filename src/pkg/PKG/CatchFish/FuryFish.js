@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
 const ColorFish = require("../../PKG/CatchFish/ColorFish");
 
 // 狂暴鱼( 绿 )

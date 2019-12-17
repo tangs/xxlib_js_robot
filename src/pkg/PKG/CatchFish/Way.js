@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 路径. 预约下发安全, 将复制路径完整数据
 class Way extends PkgBase {
     typeId = Way.typeId;
@@ -20,7 +21,7 @@ class Way extends PkgBase {
         super();
         this.datas.push(
             {
-                type: DataType.LIST,
+                type: DataType.LIST_WAY_POINT,
                 key: 'points',
             },
             {

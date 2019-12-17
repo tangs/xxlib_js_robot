@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 心跳保持兼延迟测试 -- 回应
 class Pong extends PkgBase {
     typeId = Pong.typeId;

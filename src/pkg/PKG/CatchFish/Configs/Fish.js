@@ -1,6 +1,9 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
+const PKG__CatchFish__Configs__FishSpriteFrame = require("../../../PKG/CatchFish/Configs/FishSpriteFrame");
+const PKG__CatchFish__Configs__SpriteFrame = require("../../../PKG/CatchFish/Configs/SpriteFrame");
 const Item = require("../../../PKG/CatchFish/Configs/Item");
 
 // 鱼配置基类 ( 派生类中不再包含 sprite frame 相关, 以便于资源加载管理扫描 )
@@ -23,10 +26,10 @@ class Fish extends Item {
     minDetectRadius: number = 0.0;
     // 移动帧集合 ( 部分鱼可能具有多种移动状态, 硬编码确定下标范围 )
     // xx::List_s<PKG::CatchFish::Configs::FishSpriteFrame_s>
-    moveFrames: [] = [];
+    moveFrames: PKG__CatchFish__Configs__FishSpriteFrame[] = [];
     // 鱼死帧集合
     // xx::List_s<PKG::CatchFish::Configs::SpriteFrame_s>
-    dieFrames: [] = [];
+    dieFrames: PKG__CatchFish__Configs__SpriteFrame[] = [];
     // 点选优先级说明参数, 越大越优先
     // int32_t
     touchRank: number = 0;

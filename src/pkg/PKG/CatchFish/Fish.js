@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
 const MoveItem = require("../../PKG/CatchFish/MoveItem");
 
 // 鱼基类( 支持每帧 pos += moveInc 简单移动 )

@@ -2,6 +2,8 @@
 
 const { PkgBase, DataType } = require("../../../PkgBase");
 
+const PKG__CatchFish__Configs__SpriteFrame = require("../../../PKG/CatchFish/Configs/SpriteFrame");
+
 // 配置基类
 class Item extends PkgBase {
     typeId = Item.typeId;
@@ -17,7 +19,7 @@ class Item extends PkgBase {
     zOrder: number = 0;
     // 帧集合 ( 用于贴图动态加载 / 卸载管理. 派生类所有帧都应该在此放一份 )
     // xx::List_s<PKG::CatchFish::Configs::SpriteFrame_s>
-    frames: [] = [];
+    frames: PKG__CatchFish__Configs__SpriteFrame[] = [];
 
     constructor() {
         super();

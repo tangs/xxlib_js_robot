@@ -2,16 +2,19 @@
 
 const { PkgBase, DataType } = require("../../../PkgBase");
 
+const PKG__CatchFish__Configs__SpriteFrame = require("../../../PKG/CatchFish/Configs/SpriteFrame");
+const PKG__CatchFish__Configs__Physics = require("../../../PKG/CatchFish/Configs/Physics");
+
 // 带物理检测区和锁定线等附加数据的鱼移动帧动画
 class FishSpriteFrame extends PkgBase {
     typeId = FishSpriteFrame.typeId;
 
     // 指向精灵帧
     // PKG::CatchFish::Configs::SpriteFrame_s
-    frame: any = null;
+    frame: PKG__CatchFish__Configs__SpriteFrame;
     // 指向物理建模
     // PKG::CatchFish::Configs::Physics_s
-    physics: any = null;
+    physics: PKG__CatchFish__Configs__Physics;
     // 首选锁定点( 如果该点还在屏幕上, 则 lock 准星一直在其上 )
     // ::xx::Pos
     lockPoint: any = null;

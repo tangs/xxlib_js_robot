@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 碰撞检测
 class Hit extends PkgBase {
     typeId = Hit.typeId;

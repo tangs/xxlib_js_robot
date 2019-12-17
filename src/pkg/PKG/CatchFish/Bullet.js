@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
 const MoveItem = require("../../PKG/CatchFish/MoveItem");
 
 // 子弹基类

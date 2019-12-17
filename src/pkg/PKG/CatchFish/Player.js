@@ -1,9 +1,11 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
-const Item = require("../../PKG/CatchFish/Item");
-const Cannon = require("../../PKG/CatchFish/Cannon");
 
+const PKG__CatchFish__Fish = require("../../PKG/CatchFish/Fish");
+const PKG__CatchFish__Cannon = require("../../PKG/CatchFish/Cannon");
+const PKG__CatchFish__Weapon = require("../../PKG/CatchFish/Weapon");
+const Item = require("../../PKG/CatchFish/Item");
 
 // 玩家 ( 存在于服务 players 容器. 被 Scene.players 弱引用 )
 class Player extends Item {
@@ -33,16 +35,16 @@ class Player extends Item {
     autoFire: bool = false;
     // 锁定瞄准的鱼
     // std::weak_ptr<PKG::CatchFish::Fish>
-    aimFish: any = null;
+    aimFish: PKG__CatchFish__Fish;
     // 自增id ( 从 1 开始, 用于填充 炮台, 子弹 id )
     // int32_t
     autoIncId: number = 0;
     // 炮台堆栈 ( 例如: 常规炮 打到 钻头, 钻头飞向玩家变为 钻头炮, 覆盖在常规炮上 )
     // xx::List_s<PKG::CatchFish::Cannon_s>
-    cannons: Cannon[] = [];
+    cannons: PKG__CatchFish__Cannon[] = [];
     // 武器集合 ( 被打死的特殊鱼转为武器对象, 飞向玩家, 变炮消失前都在这里 )
     // xx::List_s<PKG::CatchFish::Weapon_s>
-    weapons: [] = [];
+    weapons: PKG__CatchFish__Weapon[] = [];
 
     constructor() {
         super();

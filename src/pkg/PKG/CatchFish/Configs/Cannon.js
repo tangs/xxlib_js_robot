@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const Item = require("../../../PKG/CatchFish/Configs/Item");
 
 // 炮台 & 子弹配置基类

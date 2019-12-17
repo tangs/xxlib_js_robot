@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 通用错误返回
 class Error extends PkgBase {
     typeId = Error.typeId;

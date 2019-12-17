@@ -80,7 +80,7 @@ client.connect(45621, '192.168.1.240', function() {
 		const pingMsg = msgEncoder.encode(ping);
 
 		sendMsg(pingMsg);
-		setTimeout(updatePing, 5000);
+		setTimeout(updatePing, 3000);
 	};
 	setTimeout(updatePing, 1000);
 
@@ -144,19 +144,19 @@ client.connect(45621, '192.168.1.240', function() {
 
 	md.register(Pong.typeId, this, (msg: Pong) => {
 		// $FlowFixMe
-		// console.log(util.inspect(msg, false, null, true));
+		console.log(util.inspect(msg, false, null, true));
 		console.log(`ping:${new Date().getTime() - lastPingTime}`);
 	});
 
 	md.register(PushFishEvent.typeId, this, (msg: PushFishEvent) => {
 		// $FlowFixMe
-		console.log(util.inspect(msg, false, null, true));
+		// console.log(util.inspect(msg, false, null, true));
 		bornFishes.push(msg);
 	});
 
 	md.register(FireEvent.typeId, this, (msg: FireEvent) => {
 		// $FlowFixMe
-		console.log(util.inspect(msg, false, null, true));
+		// console.log(util.inspect(msg, false, null, true));
 		if (msg.playerId == enterMsg.self.id) {
 			const bullet: Bullet = new Bullet();
 			bullet.id = msg.bulletId;
@@ -167,7 +167,7 @@ client.connect(45621, '192.168.1.240', function() {
 
 	md.register(FishDeadEvent.typeId, this, (msg: FishDeadEvent) => {
 		// $FlowFixMe
-		console.log(util.inspect(msg, false, null, true));
+		// console.log(util.inspect(msg, false, null, true));
 		const fishes: Fish[] = enterMsg.scene.fishs;
 		for (const id: number of msg.ids) {
 			const idx = fishes.findIndex((fish) => fish.id == id);
@@ -179,7 +179,7 @@ client.connect(45621, '192.168.1.240', function() {
 
 	md.register(FrameEvents.typeId, this, (msg: FrameEvents) => {
 		// $FlowFixMe
-		console.log(util.inspect(msg, false, null, true));
+		// console.log(util.inspect(msg, false, null, true));
 		for (const event of msg.events) {
 			md.dispatch(event);
 		}

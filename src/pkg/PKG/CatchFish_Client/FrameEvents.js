@@ -2,6 +2,8 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+const PKG__CatchFish__Events__Event = require("../../PKG/CatchFish/Events/Event");
+
 // 帧事件同步包
 class FrameEvents extends PkgBase {
     typeId = FrameEvents.typeId;
@@ -11,7 +13,7 @@ class FrameEvents extends PkgBase {
     frameNumber: number = 0;
     // 帧事件集合
     // xx::List_s<PKG::CatchFish::Events::Event_s>
-    events: [] = [];
+    events: PKG__CatchFish__Events__Event[] = [];
 
     constructor() {
         super();

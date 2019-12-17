@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const Event = require("../../../PKG/CatchFish/Events/Event");
 
 // 通知: 玩家破产

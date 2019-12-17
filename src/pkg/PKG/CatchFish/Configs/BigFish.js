@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const Fish = require("../../../PKG/CatchFish/Configs/Fish");
 
 // 小鱼环绕的大鱼的特殊配置

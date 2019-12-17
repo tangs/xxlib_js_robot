@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 心跳保持兼延迟测试 -- 请求
 class Ping extends PkgBase {
     typeId = Ping.typeId;

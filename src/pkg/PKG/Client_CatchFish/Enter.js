@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 申请进入游戏. 成功返回 EnterSuccess. 失败直接被 T
 class Enter extends PkgBase {
     typeId = Enter.typeId;

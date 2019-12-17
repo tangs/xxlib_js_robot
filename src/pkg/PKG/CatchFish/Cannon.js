@@ -1,6 +1,8 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
+const PKG__CatchFish__Bullet = require("../../PKG/CatchFish/Bullet");
 const Item = require("../../PKG/CatchFish/Item");
 
 // 炮台基类. 下列属性适合大多数炮
@@ -19,7 +21,7 @@ class Cannon extends Item {
     angle: number = 0.0;
     // 所有子弹
     // xx::List_s<PKG::CatchFish::Bullet_s>
-    bullets = [];
+    bullets: PKG__CatchFish__Bullet[] = [];
 
     constructor() {
         super();

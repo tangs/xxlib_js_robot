@@ -13,6 +13,7 @@ const DataType = Object.freeze({
     STRING: Symbol("STRING"),
     LIST: Symbol("LIST"),
     LIST_INT32: Symbol("LIST_INT32"),
+    LIST_WAY_POINT: Symbol("LIST_WAY_POINT"),
     OBJ: Symbol("OBJ"),
     XX_RANDOM: Symbol("XX_RANDOM"),
     XX_POS: Symbol("XX_POS"),
@@ -92,11 +93,32 @@ class PkgBase {
                 }
                 break;
                 case DataType.LIST_INT32: {
+                    // TODO
+                    const typeId = buffer.readVarintInt16(false);
+                    const idx = buffer.readVarintInt32(false);
                     // $FlowFixMe  
                     const list = this.#getValue(key);
                     const len = buffer.readVarintInt32(false);
                     for (let i = 0; i < len; ++i) {
                         list.push(buffer.readVarintInt32(true));
+                    }
+                }
+                break;
+                case DataType.LIST_WAY_POINT: {
+                    // TODO
+                    const typeId = buffer.readVarintInt16(false);
+                    const idx = buffer.readVarintInt32(false);
+                    // $FlowFixMe  
+                    const list = this.#getValue(key);
+                    const len = buffer.readVarintInt32(false);
+                    for (let i = 0; i < len; ++i) {
+                        const obj = {};
+                        obj.pos = {};
+                        obj.pos.x = buffer.readFloat();
+                        obj.pos.y = buffer.readFloat();
+                        obj.angle = buffer.readFloat();
+                        obj.distance = buffer.readFloat();
+                        list.push(obj);
                     }
                 }
                 break;
@@ -187,11 +209,30 @@ class PkgBase {
                 }
                 break;
                 case DataType.LIST_INT32: {
+                    // TODO
+                    buffer.writeVarintInt16(1, false);
+                    buffer.writeVarintInt32(buffer.getOffset() - 5, false);
                     // $FlowFixMe  
                     const list = this.#getValue(key);
                     buffer.writeVarintInt32(list.length, false);
                     for (let i = 0; i < list.length; ++i) {
                         buffer.writeVarintInt32(list[i]);
+                    }
+                }
+                break;
+                case DataType.LIST_WAY_POINT: {
+                    // TODO
+                    buffer.writeVarintInt16(1, false);
+                    buffer.writeVarintInt32(buffer.getOffset() - 5, false);
+                    // $FlowFixMe  
+                    const list = this.#getValue(key);
+                    buffer.writeVarintInt32(list.length, false);
+                    for (let i = 0; i < list.length; ++i) {
+                        const obj = list[i];
+                        buffer.writeFloat(obj.pos.x);
+                        buffer.writeFloat(obj.pos.y);
+                        buffer.writeFloat(obj.angle);
+                        buffer.writeFloat(obj.distance);
                     }
                 }
                 break;

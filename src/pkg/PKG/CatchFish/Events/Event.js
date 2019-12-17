@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../../PkgBase");
 
+
 // 事件基类
 class Event extends PkgBase {
     typeId = Event.typeId;

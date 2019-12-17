@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const Cannon = require("../../../PKG/CatchFish/Configs/Cannon");
 
 // 钻头炮台( 穿刺 )

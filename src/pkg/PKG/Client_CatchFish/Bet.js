@@ -2,6 +2,7 @@
 
 const { PkgBase, DataType } = require("../../PkgBase");
 
+
 // 调整炮台倍率
 class Bet extends PkgBase {
     typeId = Bet.typeId;

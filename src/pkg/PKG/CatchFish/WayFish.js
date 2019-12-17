@@ -1,6 +1,8 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../PkgBase");
+
+const PKG__CatchFish__Way = require("../../PKG/CatchFish/Way");
 const Fish = require("../../PKG/CatchFish/Fish");
 
 // 基于路径移动的鱼基类
@@ -9,7 +11,7 @@ class WayFish extends Fish {
 
     // 移动路径. 动态生成, 不引用自 cfg. 同步时被复制. 如果该值为空, 则启用 wayTypeIndex / wayIndex
     // PKG::CatchFish::Way_s
-    way: any = null;
+    way: PKG__CatchFish__Way;
     // cfg.ways[wayTypeIndex]
     // int32_t
     wayTypeIndex: number = 0;

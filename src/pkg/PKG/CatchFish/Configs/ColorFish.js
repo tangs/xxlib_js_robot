@@ -1,6 +1,8 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
+const PKG__CatchFish__Configs__Weapon = require("../../../PKG/CatchFish/Configs/Weapon");
 const Fish = require("../../../PKG/CatchFish/Configs/Fish");
 
 // 彩色鱼特殊配置( 红: 炸弹  绿：狂暴  蓝：钻头  白: 闪电 )
@@ -21,7 +23,7 @@ class ColorFish extends Fish {
     b: number = 0;
     // 鱼死后变的 weapon( 根据这个来选择创建相应类型的 Fish )
     // PKG::CatchFish::Configs::Weapon_s
-    weapon: any = null;
+    weapon: PKG__CatchFish__Configs__Weapon;
 
     constructor() {
         super();

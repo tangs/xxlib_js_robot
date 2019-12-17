@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const Emitter_RandomFishs = require("../../../PKG/CatchFish/Stages/Emitter_RandomFishs");
 
 // 监视器: 自动再生肥鱼, 服务端预约下发

@@ -1,6 +1,7 @@
 ﻿// @flow
 
 const { PkgBase, DataType } = require("../../../PkgBase");
+
 const Event = require("../../../PKG/CatchFish/Events/Event");
 
 // 通知: 鱼被打死
@@ -22,7 +23,7 @@ class FishDead extends Event {
     coin: any = BigInt(0);
     // 死鱼id列表
     // xx::List_s<int32_t>
-    ids: [] = [];
+    ids: number[] = [];
 
     constructor() {
         super();
@@ -44,7 +45,7 @@ class FishDead extends Event {
                 key: 'coin',
             },
             {
-                type: DataType.LIST,
+                type: DataType.LIST_INT32,
                 key: 'ids',
             },
         );
