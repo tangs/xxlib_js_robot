@@ -3,7 +3,7 @@
 const { Buffer } = require("./Buffer")
 
 class MsgEncoder {
-    static seralId = 0;
+    static serialId = 0;
     buffer = new Buffer();
     
     constructor() {
@@ -12,7 +12,7 @@ class MsgEncoder {
         this.buffer.setBuffer(arr)
     }
 
-    _encode = (pkg: Object) => {
+    #encode = (pkg: Object) => {
         const buffer = this.buffer;
 
         buffer.writeVarintInt32(pkg.typeId, false);
@@ -27,25 +27,25 @@ class MsgEncoder {
             buffer.setObj(idx, pkg);
         }
 
-        pkg.encode(buffer, this._encode);
+        pkg.encode(buffer, this.#encode);
     }
 
-    encode = (pkg: Object, seralId?: number) => {
+    encode = (pkg: Object, serialId?: number) => {
         const buffer = this.buffer;
         buffer.reset();
         // len
         buffer.skip(4);
         // seral id
-        if (seralId != null) {
-            buffer.writeVarintInt32(seralId);
+        if (serialId != null) {
+            buffer.writeVarintInt32(serialId);
             buffer.saveFactOffset();
         } else {
-            console.log(`seral id: ${MsgEncoder.seralId}`);
-            MsgEncoder.seralId = (MsgEncoder.seralId + 1) & 0x7FFFFFFF;
-            buffer.writeVarintInt32(-MsgEncoder.seralId);
+            console.log(`serial id: ${MsgEncoder.serialId}`);
+            MsgEncoder.serialId = (MsgEncoder.serialId + 1) & 0x7FFFFFFF;
+            buffer.writeVarintInt32(-MsgEncoder.serialId);
             buffer.saveFactOffset();
         }
-        this._encode(pkg);
+        this.#encode(pkg);
 
         // set len
         buffer.writeLenToHead()
