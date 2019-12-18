@@ -1,6 +1,6 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
 
 
 // 申请进入游戏. 成功返回 EnterSuccess. 失败直接被 T

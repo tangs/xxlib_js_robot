@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
+const MoveItem = require("../../pkg/catchfish/move-item");
 
-const MoveItem = require("../../PKG/CatchFish/MoveItem");
 
 // 武器基类 ( 有一些特殊鱼死后会变做 某种武器 / 炮台，死时有个滞空展示时间，被用于解决网络同步延迟。所有端应该在展示时间结束前收到该预约。展示完成后武器将飞向炮台变为附加炮台 )
 class Weapon extends MoveItem {

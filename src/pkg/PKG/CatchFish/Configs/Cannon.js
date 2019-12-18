@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
+const Item = require("../../../pkg/catchfish/configs/item");
 
-const Item = require("../../../PKG/CatchFish/Configs/Item");
 
 // 炮台 & 子弹配置基类
 class Cannon extends Item {

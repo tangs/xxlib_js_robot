@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
+const Event = require("../../../pkg/catchfish/events/event");
 
-const Event = require("../../../PKG/CatchFish/Events/Event");
 
 // 通知: 退钱( 常见于子弹并发打中某鱼产生 miss 或鱼id未找到 或子弹生命周期结束 )
 class Refund extends Event {

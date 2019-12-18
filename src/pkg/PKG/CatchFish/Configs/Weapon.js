@@ -1,9 +1,9 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
+const Item = require("../../../pkg/catchfish/configs/item");
 
-const PKG__CatchFish__Configs__Cannon = require("../../../PKG/CatchFish/Configs/Cannon");
-const Item = require("../../../PKG/CatchFish/Configs/Item");
+const PKG__CatchFish__Configs__Cannon = require("../../../pkg/catchfish/configs/cannon");
 
 // 打爆彩色鱼出现的特殊武器配置基类
 class Weapon extends Item {

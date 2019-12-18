@@ -1,12 +1,12 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
 
-const PKG__CatchFish__Fish = require("../../PKG/CatchFish/Fish");
-const PKG__CatchFish__Item = require("../../PKG/CatchFish/Item");
-const PKG__CatchFish__FishBorn = require("../../PKG/CatchFish/FishBorn");
-const PKG__CatchFish__Stages__Stage = require("../../PKG/CatchFish/Stages/Stage");
-const PKG__CatchFish__Player = require("../../PKG/CatchFish/Player");
+const PKG__CatchFish__Fish = require("../../pkg/catchfish/fish");
+const PKG__CatchFish__Item = require("../../pkg/catchfish/item");
+const PKG__CatchFish__FishBorn = require("../../pkg/catchfish/fish-born");
+const PKG__CatchFish__Stages__Stage = require("../../pkg/catchfish/stages/stage");
+const PKG__CatchFish__Player = require("../../pkg/catchfish/player");
 
 // 场景
 class Scene extends PkgBase {

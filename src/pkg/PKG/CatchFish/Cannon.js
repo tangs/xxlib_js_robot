@@ -1,9 +1,9 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
+const Item = require("../../pkg/catchfish/item");
 
-const PKG__CatchFish__Bullet = require("../../PKG/CatchFish/Bullet");
-const Item = require("../../PKG/CatchFish/Item");
+const PKG__CatchFish__Bullet = require("../../pkg/catchfish/bullet");
 
 // 炮台基类. 下列属性适合大多数炮
 class Cannon extends Item {

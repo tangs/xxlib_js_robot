@@ -1,6 +1,6 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
 
 
 // 通用错误返回

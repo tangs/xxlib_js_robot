@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
+const Event = require("../../../pkg/catchfish/events/event");
 
-const Event = require("../../../PKG/CatchFish/Events/Event");
 
 // 转发: 玩家锁定后瞄准某鱼
 class Aim extends Event {

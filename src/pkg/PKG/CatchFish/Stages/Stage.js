@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
 
-const PKG__CatchFish__Stages__StageElement = require("../../../PKG/CatchFish/Stages/StageElement");
+const PKG__CatchFish__Stages__StageElement = require("../../../pkg/catchfish/stages/stage-element");
 
 // 游戏关卡. 一切元素皆使用 Stage.ticks 来计算时间. 可弱引用 Stage 本身. 需要可以干净序列化
 class Stage extends PkgBase {

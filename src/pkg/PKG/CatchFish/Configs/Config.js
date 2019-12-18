@@ -1,12 +1,12 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
 
-const PKG__CatchFish__Way = require("../../../PKG/CatchFish/Way");
-const PKG__CatchFish__Configs__Fish = require("../../../PKG/CatchFish/Configs/Fish");
-const PKG__CatchFish__Configs__Cannon = require("../../../PKG/CatchFish/Configs/Cannon");
-const PKG__CatchFish__Configs__Weapon = require("../../../PKG/CatchFish/Configs/Weapon");
-const PKG__CatchFish__Stages__Stage = require("../../../PKG/CatchFish/Stages/Stage");
+const PKG__CatchFish__Way = require("../../../pkg/catchfish/way");
+const PKG__CatchFish__Configs__Fish = require("../../../pkg/catchfish/configs/fish");
+const PKG__CatchFish__Configs__Cannon = require("../../../pkg/catchfish/configs/cannon");
+const PKG__CatchFish__Configs__Weapon = require("../../../pkg/catchfish/configs/weapon");
+const PKG__CatchFish__Stages__Stage = require("../../../pkg/catchfish/stages/stage");
 
 // 游戏配置主体
 class Config extends PkgBase {

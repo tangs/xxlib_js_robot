@@ -1,11 +1,11 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
+const Item = require("../../pkg/catchfish/item");
 
-const PKG__CatchFish__Fish = require("../../PKG/CatchFish/Fish");
-const PKG__CatchFish__Cannon = require("../../PKG/CatchFish/Cannon");
-const PKG__CatchFish__Weapon = require("../../PKG/CatchFish/Weapon");
-const Item = require("../../PKG/CatchFish/Item");
+const PKG__CatchFish__Fish = require("../../pkg/catchfish/fish");
+const PKG__CatchFish__Cannon = require("../../pkg/catchfish/cannon");
+const PKG__CatchFish__Weapon = require("../../pkg/catchfish/weapon");
 
 // 玩家 ( 存在于服务 players 容器. 被 Scene.players 弱引用 )
 class Player extends Item {

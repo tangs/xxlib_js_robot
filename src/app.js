@@ -4,27 +4,27 @@ const net = require('net');
 const zz = require('./tools/zigzag')
 const util = require('util')
 
-const MsgDispatcher = require('./msg/MsgDispatcher')
-const { MsgEncoder } = require('./msg/MsgEncoder')
+const MsgDispatcher = require('./msg/msg-dispatcher')
+const { MsgEncoder } = require('./msg/msg-encoder')
 
-const { PkgBase } = require("./pkg/PkgBase")
+const { PkgBase } = require("./pkg/pkg-base")
 
-const Ping = require('./pkg/PKG/Generic/Ping')
-const Pong = require('./pkg/PKG/Generic/Pong')
+const Ping = require('./pkg/pkg/generic/ping')
+const Pong = require('./pkg/pkg/generic/pong')
 
-const Enter = require("./pkg/PKG/Client_CatchFish/Enter")
-const Fire = require("./pkg/PKG/Client_CatchFish/Fire")
-const Hit = require("./pkg/PKG/Client_CatchFish/Hit")
+const Enter = require("./pkg/pkg/client_catchfish/enter")
+const Fire = require("./pkg/pkg/client_catchfish/fire")
+const Hit = require("./pkg/pkg/client_catchfish/hit")
 
-const EnterSuccess = require("./pkg/PKG/CatchFish_Client/EnterSuccess")
-const FrameEvents = require("./pkg/PKG/CatchFish_Client/FrameEvents")
+const EnterSuccess = require("./pkg/pkg/catchfish_client/enter-success")
+const FrameEvents = require("./pkg/pkg/catchfish_client/frame-events")
 
-const PushFishEvent = require('./pkg/PKG/CatchFish/Events/PushFish')
-const FireEvent = require('./pkg/PKG/CatchFish/Events/Fire')
-const FishDeadEvent = require('./pkg/PKG/CatchFish/Events/FishDead')
+const PushFishEvent = require('./pkg/pkg/catchfish/events/push-fish')
+const FireEvent = require('./pkg/pkg/catchfish/events/fire')
+const FishDeadEvent = require('./pkg/pkg/catchfish/events/fish-dead')
 
-const Bullet = require('./pkg/PKG/CatchFish/Bullet')
-const Fish = require('./pkg/PKG/CatchFish/Fish')
+const Bullet = require('./pkg/pkg/catchfish/bullet')
+const Fish = require('./pkg/pkg/catchfish/fish')
 
 const client = new net.Socket();
 const md = new MsgDispatcher();

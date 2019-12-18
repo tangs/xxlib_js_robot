@@ -1,10 +1,10 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
+const Item = require("../../../pkg/catchfish/configs/item");
 
-const PKG__CatchFish__Configs__FishSpriteFrame = require("../../../PKG/CatchFish/Configs/FishSpriteFrame");
-const PKG__CatchFish__Configs__SpriteFrame = require("../../../PKG/CatchFish/Configs/SpriteFrame");
-const Item = require("../../../PKG/CatchFish/Configs/Item");
+const PKG__CatchFish__Configs__FishSpriteFrame = require("../../../pkg/catchfish/configs/fish-sprite-frame");
+const PKG__CatchFish__Configs__SpriteFrame = require("../../../pkg/catchfish/configs/sprite-frame");
 
 // 鱼配置基类 ( 派生类中不再包含 sprite frame 相关, 以便于资源加载管理扫描 )
 class Fish extends Item {

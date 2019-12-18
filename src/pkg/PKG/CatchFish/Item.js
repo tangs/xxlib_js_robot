@@ -1,6 +1,6 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
 
 
 // 场景元素的共通基类

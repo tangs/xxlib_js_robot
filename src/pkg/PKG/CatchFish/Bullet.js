@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
+const MoveItem = require("../../pkg/catchfish/move-item");
 
-const MoveItem = require("../../PKG/CatchFish/MoveItem");
 
 // 子弹基类
 class Bullet extends MoveItem {

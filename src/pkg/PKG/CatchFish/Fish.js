@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
+const MoveItem = require("../../pkg/catchfish/move-item");
 
-const MoveItem = require("../../PKG/CatchFish/MoveItem");
 
 // 鱼基类( 支持每帧 pos += moveInc 简单移动 )
 class Fish extends MoveItem {

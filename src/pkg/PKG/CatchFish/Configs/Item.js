@@ -1,8 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
 
-const PKG__CatchFish__Configs__SpriteFrame = require("../../../PKG/CatchFish/Configs/SpriteFrame");
+const PKG__CatchFish__Configs__SpriteFrame = require("../../../pkg/catchfish/configs/sprite-frame");
 
 // 配置基类
 class Item extends PkgBase {

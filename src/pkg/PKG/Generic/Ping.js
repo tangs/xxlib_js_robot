@@ -1,6 +1,6 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../PkgBase");
+const { PkgBase, DataType } = require("../../pkg-base");
 
 
 // 心跳保持兼延迟测试 -- 请求

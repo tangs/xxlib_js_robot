@@ -1,7 +1,7 @@
 // @flow
 
-const Tools = require("../pkg/Tools")
-const { PkgBase, DataType } = require("../pkg/PkgBase")
+const Tools = require("../pkg/tools")
+const { PkgBase, DataType } = require("../pkg/pkg-base")
 
 class Buffer {
     buffer: ArrayBuffer;

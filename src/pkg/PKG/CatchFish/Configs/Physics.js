@@ -1,6 +1,6 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../PkgBase");
+const { PkgBase, DataType } = require("../../../pkg-base");
 
 
 // 物理建模 for 鱼与子弹碰撞检测
