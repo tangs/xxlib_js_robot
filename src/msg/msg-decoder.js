@@ -15,7 +15,7 @@ class MsgDecoder {
         this.pkgMap.set(pkgClass.typeId, pkgClass);
     }
 
-    _createPkg = (): (PkgBase | null) => {
+    createPkg = (): (PkgBase | null) => {
         const buffer = this.buffer;
         const pkgId = buffer.readUInt8();
 
@@ -31,7 +31,7 @@ class MsgDecoder {
             } else {
                 const obj = new class1();
                 buffer.setObj(idx, obj);
-                obj.decode(buffer, this._createPkg);
+                obj.decode(buffer, this.createPkg);
                 return obj;
             }
         } else {
@@ -52,7 +52,7 @@ class MsgDecoder {
         // skip seral id.
         buffer.skip(1);
 
-        return this._createPkg();
+        return this.createPkg();
     }
 }
 
