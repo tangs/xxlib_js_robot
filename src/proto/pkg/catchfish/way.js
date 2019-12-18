@@ -29,7 +29,7 @@ class Way extends PkgBase {
                 key: 'distance',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'loop',
             },
         );

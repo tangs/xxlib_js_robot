@@ -20,7 +20,7 @@ class FishSpriteFrame extends PkgBase {
     lockPoint: any = null;
     // 锁定点集合( 串成一条线的锁定点. 当首选锁定点不在屏上时, 使用该线与所在屏的边线的交点作为锁定点 )
     // xx::List_s<::xx::Pos>
-    lockPoints: [] = [];
+    lockPoints: any = null;
     // 本帧动画切到下一帧动画后应该移动的距离( 受 Fish.speedScale 影响 )
     // float
     moveDistance: number = 0.0;
@@ -41,7 +41,7 @@ class FishSpriteFrame extends PkgBase {
                 key: 'lockPoint',
             },
             {
-                type: DataType.LIST,
+                type: DataType.OBJ,
                 key: 'lockPoints',
             },
             {

@@ -52,7 +52,7 @@ class WayFish extends Fish {
                 key: 'wayPointDistance',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'reverse',
             },
         );

@@ -72,7 +72,7 @@ class Cannon extends Item {
                 key: 'distance',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'enableBulletBounce',
             },
         );

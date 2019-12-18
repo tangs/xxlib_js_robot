@@ -33,15 +33,15 @@ class ColorFish extends Fish {
                 key: 'moveFrameDistance',
             },
             {
-                type: DataType.INT8,
+                type: DataType.UINT8,
                 key: 'r',
             },
             {
-                type: DataType.INT8,
+                type: DataType.UINT8,
                 key: 'g',
             },
             {
-                type: DataType.INT8,
+                type: DataType.UINT8,
                 key: 'b',
             },
             {

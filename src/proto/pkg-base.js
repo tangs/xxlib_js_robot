@@ -4,7 +4,9 @@ const Tools = require("./tools");
 const { Buffer } = require("../msg/buffer");
 
 const DataType = Object.freeze({
+    BOOL: Symbol("BOOL"),
     INT8: Symbol("INT8"),
+    UINT8: Symbol("UINT8"),
     INT16: Symbol("INT16"),
     INT32: Symbol("INT32"),
     INT64: Symbol("INT64"),
@@ -14,6 +16,7 @@ const DataType = Object.freeze({
     LIST: Symbol("LIST"),
     LIST_INT32: Symbol("LIST_INT32"),
     LIST_WAY_POINT: Symbol("LIST_WAY_POINT"),
+    LIST_POS: Symbol("LIST_POS"),
     OBJ: Symbol("OBJ"),
     XX_RANDOM: Symbol("XX_RANDOM"),
     XX_POS: Symbol("XX_POS"),
@@ -35,14 +38,53 @@ class PkgBase {
         this[key] = value;
     }
 
+    dealList(key: string, buffer: Buffer, createFunc: Function, cb: Function) {
+        // $FlowFixMe  
+        const list = this.#getValue(key);
+        const typeId = buffer.readVarintInt16(false);
+        if (typeId == 0) {
+            return;
+        }
+        const idx = buffer.readVarintInt32(false);
+
+        const destObj = buffer.getObj(idx);
+        if (destObj) {
+            // list = destObj;
+            // $FlowFixMe  
+            this.#setValue(key, destObj);
+            return;
+        } 
+
+        const len = buffer.readVarintInt32(false);
+        // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
+        for (let i = 0; i < len; ++i) {
+            // const obj = createFunc();
+            // if (obj == null) break;
+            const obj = cb();
+            if (obj == null) continue;
+            list.push(obj);
+        }
+        buffer.setObj(idx, list);
+    }
+
     decode(buffer: Buffer, createFunc: Function) {
         // buffer = new Buffer()
         for (const { type, key } of this.datas) {
             // console.log(key);
             switch (type) {
+                case DataType.BOOL: {
+                    // $FlowFixMe  
+                    this.#setValue(key, buffer.readUInt8() != 0);
+                }
+                break;
                 case DataType.INT8: {
                     // $FlowFixMe  
                     this.#setValue(key, buffer.readVarintInt8());
+                }
+                break;
+                case DataType.UINT8: {
+                    // $FlowFixMe  
+                    this.#setValue(key, buffer.readUInt8());
                 }
                 break;
                 case DataType.INT16: {
@@ -70,95 +112,127 @@ class PkgBase {
                     this.#setValue(key, buffer.readDouble());
                 }
                 break;
-                case DataType.STRING: {
-                    const typeId = buffer.readVarintInt16(false);
-                    if (typeId != 1) return -1;
-                    const idx = buffer.readVarintInt32(false);
-                    // $FlowFixMe  
-                    this.#setValue(key, buffer.readString());
-                }
-                break;
                 case DataType.LIST: {
-                    // $FlowFixMe  
-                    const list = this.#getValue(key);
-                    const typeId = buffer.readVarintInt16(false);
-                    const idx = buffer.readVarintInt32(false);
-                    const len = buffer.readVarintInt32(false);
-                    // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
-                    for (let i = 0; i < len; ++i) {
-                        const obj = createFunc();
-                        if (obj == null) break;
-                        list.push(obj);
-                    }
+                    // // $FlowFixMe  
+                    // const list = this.#getValue(key);
+                    // const typeId = buffer.readVarintInt16(false);
+                    // const idx = buffer.readVarintInt16(false);
+
+                    // const destObj = buffer.getObj(idx);
+                    // if (destObj) {
+                    //     list = destObj;
+                    //     break;
+                    // } 
+
+                    // const len = buffer.readVarintInt32(false);
+                    // // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
+                    // for (let i = 0; i < len; ++i) {
+                    //     const obj = createFunc();
+                    //     if (obj == null) break;
+                    //     list.push(obj);
+                    // }
+                    // buffer.setObj(idx, list);
+                    this.dealList(key, buffer, createFunc, () => {
+                        return createFunc();
+                    });
                 }
                 break;
+                case DataType.xx_LIST_SITS: 
                 case DataType.LIST_INT32: {
-                    // TODO
-                    const typeId = buffer.readVarintInt16(false);
-                    const idx = buffer.readVarintInt32(false);
                     // $FlowFixMe  
-                    const list = this.#getValue(key);
-                    const len = buffer.readVarintInt32(false);
-                    for (let i = 0; i < len; ++i) {
-                        list.push(buffer.readVarintInt32(true));
-                    }
+                    // const list = this.#getValue(key);
+                    // const typeId = buffer.readVarintInt16(false);
+                    // const idx = buffer.readVarintInt16(false);
+
+                    // const destObj = buffer.getObj(idx);
+                    // if (destObj) {
+                    //     list = destObj;
+                    //     break;
+                    // } 
+
+                    // const len = buffer.readVarintInt32(false);
+                    // for (let i = 0; i < len; ++i) {
+                    //     list.push(buffer.readVarintInt32(true));
+                    // }
+                    // buffer.setObj(idx, list);
+                    this.dealList(key, buffer, createFunc, () => {
+                        return buffer.readVarintInt32(true);
+                    });
                 }
                 break;
                 case DataType.LIST_WAY_POINT: {
                     // TODO
-                    const typeId = buffer.readVarintInt16(false);
-                    const idx = buffer.readVarintInt32(false);
-                    // $FlowFixMe  
-                    const list = this.#getValue(key);
-                    const len = buffer.readVarintInt32(false);
-                    for (let i = 0; i < len; ++i) {
+                    // const typeId = buffer.readVarintInt16(false);
+                    // const idx = buffer.readVarintInt32(false);
+                    // // $FlowFixMe  
+                    // const list = this.#getValue(key);
+                    // const len = buffer.readVarintInt32(false);
+                    // for (let i = 0; i < len; ++i) {
+                    //     const obj = {};
+                    //     obj.pos = {};
+                    //     obj.pos.x = buffer.readFloat();
+                    //     obj.pos.y = buffer.readFloat();
+                    //     obj.angle = buffer.readFloat();
+                    //     obj.distance = buffer.readFloat();
+                    //     list.push(obj);
+                    // }
+
+                    this.dealList(key, buffer, createFunc, () => {
                         const obj = {};
                         obj.pos = {};
                         obj.pos.x = buffer.readFloat();
                         obj.pos.y = buffer.readFloat();
                         obj.angle = buffer.readFloat();
                         obj.distance = buffer.readFloat();
+                        return obj;
+                    });
+                }
+                break;
+                case DataType.LIST_POS: {
+                    // $FlowFixMe  
+                    const list = this.#getValue(key);
+                    const len = buffer.readVarintInt32(false);
+                    for (let i = 0; i < len; ++i) {
+                        const obj = {};
+                        obj.pos = buffer.readXXPos();
                         list.push(obj);
                     }
                 }
                 break;
+                case DataType.STRING:
                 case DataType.OBJ: {
-                    if (key == "way")
+                    if (key == "way") {
                         console.log(`new obj,key=${key}`);
-                        // $FlowFixMe  
+                    }
+                    // $FlowFixMe  
                     this.#setValue(key, createFunc());
                 }
                 break;
                 case DataType.XX_RANDOM: {
                     const typeId = buffer.readVarintInt16(false);
-                    const idx = buffer.readVarintInt32(false);
+                    const idx = buffer.readVarintInt16(false);
                     console.log(`random.id=${typeId}, idx=${idx}`);
                     // $FlowFixMe  
                     this.#setValue(key, buffer.readRandom());
                 }
                 break;
                 case DataType.XX_POS: {
-                    const x = buffer.readFloat();
-                    const y = buffer.readFloat();
                     // $FlowFixMe  
-                    this.#setValue(key, {
-                        x: x,
-                        y: y,
-                    });
+                    this.#setValue(key, buffer.readXXPos());
                 }
                 break;
-                case DataType.xx_LIST_SITS: {
-                    const typeId = buffer.readVarintInt16(false);
-                    const idx = buffer.readVarintInt32(false);
-                    const len = buffer.readVarintInt32(false);
-                    // $FlowFixMe  
-                    const list = this.#getValue(key);
-                    // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
-                    for (let i = 0; i < len; ++i) {
-                        list.push(buffer.readVarintInt32(true));
-                    }
-                }
-                break;
+                // case DataType.xx_LIST_SITS: {
+                    // const typeId = buffer.readVarintInt16(false);
+                    // const idx = buffer.readVarintInt32(false);
+                    // const len = buffer.readVarintInt32(false);
+                    // // $FlowFixMe  
+                    // const list = this.#getValue(key);
+                    // // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
+                    // for (let i = 0; i < len; ++i) {
+                    //     list.push(buffer.readVarintInt32(true));
+                    // }
+                // }
+                // break;
                 default:
                     
             }
@@ -200,12 +274,24 @@ class PkgBase {
                 }
                 break;
                 case DataType.LIST: {
+                    buffer.writeVarintInt16(1, false);
                     // $FlowFixMe  
                     const list = this.#getValue(key);
                     buffer.writeVarintInt32(list.length, false);
                     for (let i = 0; i < list.length; ++i) {
                         encodeFunc(list[i]);
                     }
+                }
+                break;
+                case DataType.LIST_POS: {
+                    buffer.writeVarintInt16(1, false);
+                    buffer.writeVarintInt32(buffer.getOffset() - 5, false);
+                    // $FlowFixMe  
+                    const list = this.#getValue(key);
+                    buffer.writeVarintInt32(list.length, false);
+                    for (let i = 0; i < list.length; ++i) {
+                        buffer.writeXXPos(list[i]);
+                    }                    
                 }
                 break;
                 case DataType.LIST_INT32: {
@@ -262,9 +348,11 @@ class PkgBase {
                 break;
                 case DataType.XX_POS: {
                     // $FlowFixMe  
-                    const value = this.#getValue(key);
-                    buffer.writeFloat(value.x);
-                    buffer.writeFloat(value.y);
+                    // const value = this.#getValue(key);
+                    // buffer.writeFloat(value.x);
+                    // buffer.writeFloat(value.y);
+                    // $FlowFixMe  
+                    buffer.writeXXPos(this.#getValue(key));
                 }
                 break;
             }

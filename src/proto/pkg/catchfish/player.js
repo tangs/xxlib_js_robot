@@ -58,7 +58,7 @@ class Player extends Item {
                 key: 'avatar_id',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'noMoney',
             },
             {
@@ -70,11 +70,11 @@ class Player extends Item {
                 key: 'sit',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'autoLock',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'autoFire',
             },
             {

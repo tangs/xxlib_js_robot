@@ -1,5 +1,7 @@
 // @flow
 
+const utf8 = require('utf8');
+
 const Tools = require("../proto/tools");
 const { PkgBase, DataType } = require("../proto/pkg-base");
 
@@ -10,7 +12,7 @@ class Buffer {
     // offset without seral id.
     factOffset: number = 0;
     length: number = 0;
-    objMap: Map<number, PkgBase> = new Map();
+    objMap: Map<number, Object> = new Map();
 
     setBuffer(buffer: ArrayBuffer) {
         this.buffer = buffer;
@@ -44,7 +46,7 @@ class Buffer {
         return this.offset - this.factOffset;
     }
 
-    setObj(key: number, obj: PkgBase) {
+    setObj(key: number, obj: Object) {
         this.objMap.set(key, obj);
     }
 
@@ -154,6 +156,7 @@ class Buffer {
 
     readString() {
         const len = this.readVarintInt32(false);
+        // const str = utf8.decode()
         let str = '';
         for (let i = 0; i < len; ++i) {
             str += String.fromCharCode(this.readUInt8());
@@ -166,6 +169,16 @@ class Buffer {
         // TODO
         this.offset += 232;
         return 0;
+    }
+
+    readXXPos() {
+        const x = this.readFloat();
+        const y = this.readFloat();
+        // $FlowFixMe  
+        return {
+            x: x,
+            y: y,
+        };
     }
 
     writeUInt8(value: number) {
@@ -230,6 +243,12 @@ class Buffer {
 
     writeRandom(obj: any) {
         this.offset += 232;
+    }
+
+    // TODO
+    writeXXPos(obj: any) {
+        this.writeFloat(obj.x);
+        this.writeFloat(obj.y);
     }
 
     writeLenToHead() {

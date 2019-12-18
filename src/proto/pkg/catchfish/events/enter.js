@@ -44,7 +44,7 @@ class Enter extends Event {
                 key: 'avatar_id',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'noMoney',
             },
             {

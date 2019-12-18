@@ -29,7 +29,7 @@ class Config extends PkgBase {
     stages: PKG__CatchFish__Stages__Stage[] = [];
     // 基于设计尺寸为 1280 x 720, 屏中心为 0,0 点的 4 个玩家炮台的坐标( 0: 左下  1: 右下    2: 右上  3: 左上 )
     // xx::List_s<::xx::Pos>
-    sitPositons: [] = [];
+    sitPositons: any = null;
     // 锁定点击范围 ( 增加容错, 不必点的太精确. 点击作用是 枚举该范围内出现的鱼, 找出并选取 touchRank 最大值那个 )
     // float
     aimTouchRadius: number = 0.0;
@@ -64,7 +64,7 @@ class Config extends PkgBase {
                 key: 'stages',
             },
             {
-                type: DataType.LIST,
+                type: DataType.OBJ,
                 key: 'sitPositons',
             },
             {
@@ -76,7 +76,7 @@ class Config extends PkgBase {
                 key: 'normalFishMaxRadius',
             },
             {
-                type: DataType.INT8,
+                type: DataType.BOOL,
                 key: 'enableBulletFastForward',
             },
         );
