@@ -1,6 +1,6 @@
 // @flow
 
-const { Buffer } = require("./buffer")
+const { Buffer } = require("./buffer");
 
 class MsgEncoder {
     static serialId = 0;

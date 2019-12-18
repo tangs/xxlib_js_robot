@@ -1,16 +1,16 @@
 // @flow
 
 const net = require('net');
-const zz = require('./tools/zigzag')
-const util = require('util')
+const zz = require('./tools/zigzag');
+const util = require('util');
 
-const MsgDispatcher = require('./msg/msg-dispatcher')
-const { MsgEncoder } = require('./msg/msg-encoder')
+const MsgDispatcher = require('./msg/msg-dispatcher');
+const { MsgEncoder } = require('./msg/msg-encoder');
 
 const { PkgBase } = require("./proto/pkg-base")
 
-const Ping = require('./proto/pkg/generic/ping')
-const Pong = require('./proto/pkg/generic/pong')
+const Ping = require('./proto/pkg/generic/ping');
+const Pong = require('./proto/pkg/generic/pong');
 
 const Enter = require("./proto/pkg/client_catchfish/enter")
 const Fire = require("./proto/pkg/client_catchfish/fire")
@@ -19,12 +19,12 @@ const Hit = require("./proto/pkg/client_catchfish/hit")
 const EnterSuccess = require("./proto/pkg/catchfish_client/enter-success")
 const FrameEvents = require("./proto/pkg/catchfish_client/frame-events")
 
-const PushFishEvent = require('./proto/pkg/catchfish/events/push-fish')
-const FireEvent = require('./proto/pkg/catchfish/events/fire')
-const FishDeadEvent = require('./proto/pkg/catchfish/events/fish-dead')
+const PushFishEvent = require('./proto/pkg/catchfish/events/push-fish');
+const FireEvent = require('./proto/pkg/catchfish/events/fire');
+const FishDeadEvent = require('./proto/pkg/catchfish/events/fish-dead');
 
-const Bullet = require('./proto/pkg/catchfish/bullet')
-const Fish = require('./proto/pkg/catchfish/fish')
+const Bullet = require('./proto/pkg/catchfish/bullet');
+const Fish = require('./proto/pkg/catchfish/fish');
 
 const client = new net.Socket();
 const md = new MsgDispatcher();

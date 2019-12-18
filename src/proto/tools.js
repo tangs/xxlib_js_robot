@@ -1,4 +1,4 @@
-const zz = require('../tools/zigzag')
+const zz = require('../tools/zigzag');
 
 function WriteVarintNumber(view, idx, number, bits, isZigzag = true) {
     let dest = number;

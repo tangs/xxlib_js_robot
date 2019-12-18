@@ -1,7 +1,7 @@
 // @flow
 
-const Tools = require("./tools")
-const { Buffer } = require("../msg/buffer")
+const Tools = require("./tools");
+const { Buffer } = require("../msg/buffer");
 
 const DataType = Object.freeze({
     INT8: Symbol("INT8"),

@@ -1,9 +1,9 @@
 // @flow
 
-const { PkgBase } = require("../proto/pkg-base")
+const { PkgBase } = require("../proto/pkg-base");
 
-const { MsgDecoder } = require("./msg-decoder")
-const util = require('util')
+const { MsgDecoder } = require("./msg-decoder");
+const util = require('util');
 
 class Info {
     type: number;

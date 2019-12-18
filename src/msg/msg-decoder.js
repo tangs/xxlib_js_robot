@@ -1,7 +1,7 @@
 // @flow
 
-const { Buffer: Buffer1 } = require("./buffer")
-const { PkgBase, DataType } = require("../proto/pkg-base")
+const { Buffer: Buffer1 } = require("./buffer");
+const { PkgBase, DataType } = require("../proto/pkg-base");
 
 class MsgDecoder {
     buffer: Buffer1 = new Buffer1();
