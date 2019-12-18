@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/app.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir lib",
+    "build": "npx babel src --out-dir lib;npx webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +29,9 @@
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-flow": "^7.7.4",
-    "flow-bin": "^0.114.0"
+    "clean-webpack-plugin": "^3.0.0",
+    "flow-bin": "^0.114.0",
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10"
   }
 }
