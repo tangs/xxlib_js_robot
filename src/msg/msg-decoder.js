@@ -1,14 +1,14 @@
 // @flow
 
 const { Buffer: Buffer1 } = require("./buffer")
-const { PkgBase, DataType } = require("../pkg/pkg-base")
+const { PkgBase, DataType } = require("../proto/pkg-base")
 
 class MsgDecoder {
     buffer: Buffer1 = new Buffer1();
     pkgMap: Map<number, Function> = new Map();
 
     constructor() {
-        require("../pkg/regiser-pkgs")(this);
+        require("../proto/regiser-pkgs")(this);
     }
 
     register = (pkgClass: Function) => {

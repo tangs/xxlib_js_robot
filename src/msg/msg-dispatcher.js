@@ -1,7 +1,6 @@
 // @flow
 
-// const Pong = require("../pkg/PKG/Generic/Pong")
-const { PkgBase } = require("../pkg/pkg-base")
+const { PkgBase } = require("../proto/pkg-base")
 
 const { MsgDecoder } = require("./msg-decoder")
 const util = require('util')
