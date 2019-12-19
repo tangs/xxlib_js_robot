@@ -19,7 +19,7 @@ class Player extends Item {
     avatar_id: number = 0;
     // 破产标识 ( 每帧检测一次总资产是否为 0, 是就标记之. 总资产包括 coin, 已爆出的 weapons, 已获得的附加炮台, 飞行中的 bullets )
     // bool
-    noMoney: bool = false;
+    noMoney: boolean = false;
     // 剩余金币值( 不代表玩家总资产 ). 当玩家进入到游戏时, 该值填充 money * exchangeCoinRatio. 玩家退出时, 做除法还原为 money.
     // int64_t
     // $FlowFixMe
@@ -29,10 +29,10 @@ class Player extends Item {
     sit: number = 0;
     // 自动锁定状态
     // bool
-    autoLock: bool = false;
+    autoLock: boolean = false;
     // 自动开火状态
     // bool
-    autoFire: bool = false;
+    autoFire: boolean = false;
     // 锁定瞄准的鱼
     // std::weak_ptr<PKG::CatchFish::Fish>
     aimFish: PKG__CatchFish__Fish;

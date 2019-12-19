@@ -38,7 +38,7 @@ class Config extends PkgBase {
     normalFishMaxRadius: number = 0.0;
     // 显示非当前玩家子弹时是否启用追帧快进令其同步( 会导致高延迟玩家发射的子弹看上去离炮口有点远 )
     // bool
-    enableBulletFastForward: bool = false;
+    enableBulletFastForward: boolean = false;
 
     constructor() {
         super();

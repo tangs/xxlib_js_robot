@@ -15,7 +15,7 @@ class Way extends PkgBase {
     distance: number = 0.0;
     // 是否循环( 即移动到最后一个点之后又到第 1 个点, 永远走不完
     // bool
-    loop: bool = false;
+    loop: boolean = false;
 
     constructor() {
         super();

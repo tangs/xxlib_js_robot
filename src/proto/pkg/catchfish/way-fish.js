@@ -26,7 +26,7 @@ class WayFish extends Fish {
     wayPointDistance: number = 0.0;
     // 是否为在路径上倒着移动( 默认否 )
     // bool
-    reverse: bool = false;
+    reverse: boolean = false;
 
     constructor() {
         super();

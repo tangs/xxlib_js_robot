@@ -78,13 +78,13 @@ class Buffer {
     //     }
     // }
 
-    _readVarint(bits: number, isZigzag: bool = true) {
+    _readVarint(bits: number, isZigzag: boolean = true) {
         const [ret, offset] = Tools.ReadVarintNumber(this.view, this.offset, bits, isZigzag);
         this.offset = offset;
         return ret;
     }
 
-    _writeVarint(value: number, bits: number, isZigzag: bool = true) {
+    _writeVarint(value: number, bits: number, isZigzag: boolean = true) {
         this.offset = Tools.WriteVarintNumber(this.view, this.offset, value, bits, isZigzag);
     }
 
@@ -102,19 +102,19 @@ class Buffer {
         return ret;
     }
 
-    readVarintInt8(isZigzag: bool = true) {
+    readVarintInt8(isZigzag: boolean = true) {
         return this._readVarint(1, isZigzag);
     }
 
-    readVarintInt16(isZigzag: bool = true) {
+    readVarintInt16(isZigzag: boolean = true) {
         return this._readVarint(2, isZigzag);
     }
 
-    readVarintInt32(isZigzag: bool = true) {
+    readVarintInt32(isZigzag: boolean = true) {
         return this._readVarint(4, isZigzag);
     }
 
-    readVarintInt64(isZigzag: bool = true) {
+    readVarintInt64(isZigzag: boolean = true) {
         const [ret, offset] = Tools.ReadVarintNumber64(this.view, this.offset, isZigzag);
         this.offset = offset;
         return ret;
@@ -194,19 +194,19 @@ class Buffer {
         this.offset += 4;
     }
 
-    writeVarintInt8(value: number, isZigzag: bool = true) {
+    writeVarintInt8(value: number, isZigzag: boolean = true) {
         this._writeVarint(value, 1, isZigzag);
     }
 
-    writeVarintInt16(value: number, isZigzag: bool = true) {
+    writeVarintInt16(value: number, isZigzag: boolean = true) {
         this._writeVarint(value, 2, isZigzag);
     }
 
-    writeVarintInt32(value: number, isZigzag: bool = true) {
+    writeVarintInt32(value: number, isZigzag: boolean = true) {
         this._writeVarint(value, 4, isZigzag);
     }
 
-    writeVarintInt64(value: any, isZigzag: bool = true) {
+    writeVarintInt64(value: any, isZigzag: boolean = true) {
         this.offset = Tools.WriteVarintNumber64(this.view, this.offset, value, isZigzag);
     }
 

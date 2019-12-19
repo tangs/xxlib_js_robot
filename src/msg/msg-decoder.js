@@ -54,7 +54,7 @@ class MsgDecoder {
         }
     }
 
-    decode = (reveivedMsg: Buffer, skipHead: bool = false): (PkgBase | string | null) => {
+    decode = (reveivedMsg: Buffer, skipHead: boolean = false): (PkgBase | string | null) => {
         const bytes = reveivedMsg.buffer;
         const buffer = this.buffer;
 

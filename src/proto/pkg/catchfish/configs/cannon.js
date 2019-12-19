@@ -34,7 +34,7 @@ class Cannon extends Item {
     distance: number = 0.0;
     // 是否开启子弹到屏幕边缘时反弹, false: 不反弹, true: 反弹
     // bool
-    enableBulletBounce: bool = false;
+    enableBulletBounce: boolean = false;
 
     constructor() {
         super();

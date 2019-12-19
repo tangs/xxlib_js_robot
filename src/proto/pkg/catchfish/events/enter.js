@@ -16,7 +16,7 @@ class Enter extends Event {
     avatar_id: number = 0;
     // 破产标识
     // bool
-    noMoney: bool = false;
+    noMoney: boolean = false;
     // 剩余金币值
     // int64_t
     // $FlowFixMe
