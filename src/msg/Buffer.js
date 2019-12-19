@@ -176,15 +176,15 @@ class MsgBuffer {
         return 0;
     }
 
-    readXXPos() {
-        const x = this.readFloat();
-        const y = this.readFloat();
-        // $FlowFixMe  
-        return {
-            x: x,
-            y: y,
-        };
-    }
+    // readXXPos() {
+    //     const x = this.readFloat();
+    //     const y = this.readFloat();
+    //     // $FlowFixMe  
+    //     return {
+    //         x: x,
+    //         y: y,
+    //     };
+    // }
 
     writeUInt8(value: number) {
         this.view.setUint8(this.offset++, value);
@@ -258,10 +258,10 @@ class MsgBuffer {
     }
 
     // TODO
-    writeXXPos(obj: any) {
-        this.writeFloat(obj.x);
-        this.writeFloat(obj.y);
-    }
+    // writeXXPos(obj: any) {
+    //     this.writeFloat(obj.x);
+    //     this.writeFloat(obj.y);
+    // }
 }
 
 module.exports = {

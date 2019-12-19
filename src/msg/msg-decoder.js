@@ -7,6 +7,7 @@ const { PkgBase, XXList, DataType } = require("../proto/pkg-base");
 
 // const XXList = require("../proto/special/xxlist");
 const XXlistXXPos = require("../proto/special/xxlist-xxpos");
+const XXPos = require("../proto/special/xxpos");
 
 class MsgDecoder {
     buffer: MsgBuffer = new MsgBuffer();
@@ -21,7 +22,7 @@ class MsgDecoder {
         this.pkgMap.set(pkgClass.pkgTypeId, pkgClass);
     }
 
-    decodeList(key: string, buffer: MsgBuffer, cb: Function) {
+    #decodeList = (key: string, buffer: MsgBuffer, cb: Function) => {
         const typeId = buffer.readVarintInt16(false);
         if (typeId == 0) {
             return;
@@ -50,8 +51,8 @@ class MsgDecoder {
         return list;
     }
 
-    createPkg = (): (PkgBase | string | null) => {
-        const buffer = this.buffer;
+    #createPkg = (buffer: MsgBuffer): (PkgBase | string | null) => {
+        // const buffer = this.buffer;
         const pkgId = buffer.readVarintInt16(false);
 
         if (pkgId == 0) {
@@ -76,12 +77,120 @@ class MsgDecoder {
             const class1: any = this.pkgMap.get(pkgId);
             const obj = new class1();
             buffer.cacheObj(idx, obj);
-            obj.decode(buffer, this);
+            // obj.decode(buffer, this);
+            // $FlowFixMe
+            this.#decodePkg(buffer, obj);
             return obj;
         } else {
             assert(`can't find pkg id:${pkgId}.`);
             console.log(`can't find pkg id:${pkgId}.`);
             return null;
+        }
+    }
+
+    #decodePkg = (buffer: MsgBuffer, obj: PkgBase) => {
+        // buffer = new Buffer()
+        for (const { type, key } of obj.pkgDatasType) {
+            // console.log(key);
+            switch (type) {
+                case DataType.BOOL: {
+                    obj.setValue(key, buffer.readUInt8() != 0);
+                }
+                break;
+                case DataType.UINT8: {
+                    obj.setValue(key, buffer.readUInt8());
+                }
+                break;
+                case DataType.INT8: {
+                    obj.setValue(key, buffer.readInt8());
+                }
+                break;
+                case DataType.INT16: {
+                    obj.setValue(key, buffer.readVarintInt16());
+                }
+                break;
+                case DataType.INT32: {
+                    obj.setValue(key, buffer.readVarintInt32());
+                }
+                break;
+                case DataType.INT64: {
+                    obj.setValue(key, buffer.readVarintInt64());
+                }
+                break;
+                case DataType.FLOAT: {
+                    obj.setValue(key, buffer.readFloat());
+                }
+                break;
+                case DataType.DOUBLE: {
+                    obj.setValue(key, buffer.readDouble());
+                }
+                break;
+                case DataType.LIST: {
+                    // $FlowFixMe
+                    const list = this.#decodeList(key, buffer, () => {
+                        // $FlowFixMe
+                        return this.#createPkg(buffer);
+                    });
+                    obj.setValue(key, list);
+                }
+                break;
+                case DataType.xx_LIST_SITS: 
+                case DataType.LIST_INT32: {
+                    // $FlowFixMe
+                    const list = this.#decodeList(key, buffer, () => {
+                        return buffer.readVarintInt32(true);
+                    });
+                    obj.setValue(key, list);
+                }
+                break;
+                case DataType.LIST_WAY_POINT: {
+                    // $FlowFixMe
+                    const list = this.#decodeList(key, buffer, () => {
+                        const obj = {};
+                        obj.pos = {};
+                        obj.pos.x = buffer.readFloat();
+                        obj.pos.y = buffer.readFloat();
+                        obj.angle = buffer.readFloat();
+                        obj.distance = buffer.readFloat();
+                        return obj;
+                    });
+                    obj.setValue(key, list);
+                }
+                break;
+                case DataType.LIST_POS: {
+                    // 特殊处理, 这种类型list不同于其他list，这里item不需要缓存.
+                    const list = obj.getValue(key);
+                    const len = buffer.readVarintInt32(false);
+                    for (let i = 0; i < len; ++i) {
+                        list.push(new XXPos(
+                            buffer.readFloat(), 
+                            buffer.readFloat())
+                        );
+                    }
+                }
+                break;
+                case DataType.STRING:
+                case DataType.OBJ: {
+                    // $FlowFixMe
+                    obj.setValue(key, this.#createPkg(buffer));
+                }
+                break;
+                case DataType.XX_RANDOM: {
+                    const typeId = buffer.readVarintInt16(false);
+                    const idx = buffer.readVarintInt16(false);
+                    console.log(`random.id=${typeId}, idx=${idx}`);
+                    obj.setValue(key, buffer.readRandom());
+                }
+                break;
+                case DataType.XX_POS: {
+                    const x = buffer.readFloat();
+                    const y = buffer.readFloat();
+                    obj.setValue(key, new XXPos(x, y));
+                }
+                break;
+                default:
+                    assert(`undeal decode type: ${type.toString()}`);
+            }
         }
     }
 
@@ -100,7 +209,8 @@ class MsgDecoder {
         }
         buffer.saveHeadOffset();
 
-        return this.createPkg();
+        // $FlowFixMe
+        return this.#createPkg(buffer);
     }
 }
 

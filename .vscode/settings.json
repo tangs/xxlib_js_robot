@@ -1,5 +1,9 @@
 {
     "javascript.validate.enable": false,
     "flow.pathToFlow": "${workspaceFolder}/node_modules/.bin/flow",
-    "typescript.validate.enable": false
+    "typescript.validate.enable": false,
+    "files.exclude": {
+        "lib/": true,
+        "dist/": false
+    }    
 }
