@@ -22,7 +22,8 @@ class MsgDecoder {
         this.pkgMap.set(pkgClass.pkgTypeId, pkgClass);
     }
 
-    #decodeList = (key: string, buffer: MsgBuffer, cb: Function) => {
+    _decodeList = (key: string, cb: Function) => {
+        const buffer = this.buffer;
         const typeId = buffer.readVarintInt16(false);
         if (typeId == 0) {
             return;
@@ -46,12 +47,11 @@ class MsgDecoder {
             arr.push(obj);
         }
         buffer.cacheObj(idx, list);
-        // $FlowFixMe
-        // this.#setValue(key, list);
         return list;
     }
 
-    #createPkg = (buffer: MsgBuffer): (PkgBase | string | null) => {
+    _createPkg = (): (PkgBase | string | null) => {
+        const buffer = this.buffer;
         // const buffer = this.buffer;
         const pkgId = buffer.readVarintInt16(false);
 
@@ -78,8 +78,7 @@ class MsgDecoder {
             const obj = new class1();
             buffer.cacheObj(idx, obj);
             // obj.decode(buffer, this);
-            // $FlowFixMe
-            this.#decodePkg(buffer, obj);
+            this._decodePkg(buffer, obj);
             return obj;
         } else {
             assert(`can't find pkg id:${pkgId}.`);
@@ -88,7 +87,7 @@ class MsgDecoder {
         }
     }
 
-    #decodePkg = (buffer: MsgBuffer, obj: PkgBase) => {
+    _decodePkg = (buffer: MsgBuffer, obj: PkgBase) => {
         // buffer = new Buffer()
         for (const { type, key } of obj.pkgDatasType) {
             // console.log(key);
@@ -126,26 +125,22 @@ class MsgDecoder {
                 }
                 break;
                 case DataType.LIST: {
-                    // $FlowFixMe
-                    const list = this.#decodeList(key, buffer, () => {
-                        // $FlowFixMe
-                        return this.#createPkg(buffer);
+                    const list = this._decodeList(key, () => {
+                        return this._createPkg();
                     });
                     obj.setValue(key, list);
                 }
                 break;
                 case DataType.xx_LIST_SITS: 
                 case DataType.LIST_INT32: {
-                    // $FlowFixMe
-                    const list = this.#decodeList(key, buffer, () => {
+                    const list = this._decodeList(key, () => {
                         return buffer.readVarintInt32(true);
                     });
                     obj.setValue(key, list);
                 }
                 break;
                 case DataType.LIST_WAY_POINT: {
-                    // $FlowFixMe
-                    const list = this.#decodeList(key, buffer, () => {
+                    const list = this._decodeList(key, () => {
                         const obj = {};
                         obj.pos = {};
                         obj.pos.x = buffer.readFloat();
@@ -171,8 +166,7 @@ class MsgDecoder {
                 break;
                 case DataType.STRING:
                 case DataType.OBJ: {
-                    // $FlowFixMe
-                    obj.setValue(key, this.#createPkg(buffer));
+                    obj.setValue(key, this._createPkg());
                 }
                 break;
                 case DataType.XX_RANDOM: {
@@ -209,8 +203,7 @@ class MsgDecoder {
         }
         buffer.saveHeadOffset();
 
-        // $FlowFixMe
-        return this.#createPkg(buffer);
+        return this._createPkg();
     }
 }
 
