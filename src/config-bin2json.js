@@ -28,5 +28,17 @@ print(buf);
 const md = new MsgDecoder();
 const msg = md.decode(buf, true);
 
+const txt = JSON.stringify(msg, (key, value) => {
+	// $FlowFixMe
+	const type = typeof value;
+	console.log(key);
+	if (type === 'object' && value && value.datas) {
+		// console.log(value);
+		delete value.datas;
+	}
+	return type === 'bigint' ? value.toString() : value;
+}, 4);
+fs.writeFileSync("./dist/cfg.json", txt);
+
 // $FlowFixMe
-console.log(util.inspect(msg, false, null, true));
+// console.log(util.inspect(msg, false, null, true));

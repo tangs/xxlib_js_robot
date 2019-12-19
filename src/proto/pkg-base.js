@@ -1,5 +1,7 @@
 // @flow
 
+const assert = require("assert");
+
 const Tools = require("./tools");
 const { Buffer } = require("../msg/buffer");
 
@@ -38,7 +40,7 @@ class PkgBase {
         this[key] = value;
     }
 
-    dealList(key: string, buffer: Buffer, createFunc: Function, cb: Function) {
+    decodeList(key: string, buffer: Buffer, createFunc: Function, cb: Function) {
         // $FlowFixMe  
         const list = this.#getValue(key);
         const typeId = buffer.readVarintInt16(false);
@@ -113,71 +115,20 @@ class PkgBase {
                 }
                 break;
                 case DataType.LIST: {
-                    // // $FlowFixMe  
-                    // const list = this.#getValue(key);
-                    // const typeId = buffer.readVarintInt16(false);
-                    // const idx = buffer.readVarintInt16(false);
-
-                    // const destObj = buffer.getObj(idx);
-                    // if (destObj) {
-                    //     list = destObj;
-                    //     break;
-                    // } 
-
-                    // const len = buffer.readVarintInt32(false);
-                    // // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
-                    // for (let i = 0; i < len; ++i) {
-                    //     const obj = createFunc();
-                    //     if (obj == null) break;
-                    //     list.push(obj);
-                    // }
-                    // buffer.setObj(idx, list);
-                    this.dealList(key, buffer, createFunc, () => {
+                    this.decodeList(key, buffer, createFunc, () => {
                         return createFunc();
                     });
                 }
                 break;
                 case DataType.xx_LIST_SITS: 
                 case DataType.LIST_INT32: {
-                    // $FlowFixMe  
-                    // const list = this.#getValue(key);
-                    // const typeId = buffer.readVarintInt16(false);
-                    // const idx = buffer.readVarintInt16(false);
-
-                    // const destObj = buffer.getObj(idx);
-                    // if (destObj) {
-                    //     list = destObj;
-                    //     break;
-                    // } 
-
-                    // const len = buffer.readVarintInt32(false);
-                    // for (let i = 0; i < len; ++i) {
-                    //     list.push(buffer.readVarintInt32(true));
-                    // }
-                    // buffer.setObj(idx, list);
-                    this.dealList(key, buffer, createFunc, () => {
+                    this.decodeList(key, buffer, createFunc, () => {
                         return buffer.readVarintInt32(true);
                     });
                 }
                 break;
                 case DataType.LIST_WAY_POINT: {
-                    // TODO
-                    // const typeId = buffer.readVarintInt16(false);
-                    // const idx = buffer.readVarintInt32(false);
-                    // // $FlowFixMe  
-                    // const list = this.#getValue(key);
-                    // const len = buffer.readVarintInt32(false);
-                    // for (let i = 0; i < len; ++i) {
-                    //     const obj = {};
-                    //     obj.pos = {};
-                    //     obj.pos.x = buffer.readFloat();
-                    //     obj.pos.y = buffer.readFloat();
-                    //     obj.angle = buffer.readFloat();
-                    //     obj.distance = buffer.readFloat();
-                    //     list.push(obj);
-                    // }
-
-                    this.dealList(key, buffer, createFunc, () => {
+                    this.decodeList(key, buffer, createFunc, () => {
                         const obj = {};
                         obj.pos = {};
                         obj.pos.x = buffer.readFloat();
@@ -201,9 +152,9 @@ class PkgBase {
                 break;
                 case DataType.STRING:
                 case DataType.OBJ: {
-                    if (key == "way") {
-                        console.log(`new obj,key=${key}`);
-                    }
+                    // if (key == "way") {
+                    //     console.log(`new obj,key=${key}`);
+                    // }
                     // $FlowFixMe  
                     this.#setValue(key, createFunc());
                 }
@@ -221,20 +172,8 @@ class PkgBase {
                     this.#setValue(key, buffer.readXXPos());
                 }
                 break;
-                // case DataType.xx_LIST_SITS: {
-                    // const typeId = buffer.readVarintInt16(false);
-                    // const idx = buffer.readVarintInt32(false);
-                    // const len = buffer.readVarintInt32(false);
-                    // // $FlowFixMe  
-                    // const list = this.#getValue(key);
-                    // // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
-                    // for (let i = 0; i < len; ++i) {
-                    //     list.push(buffer.readVarintInt32(true));
-                    // }
-                // }
-                // break;
                 default:
-                    
+                    assert(`undeal decode type: ${type}`);
             }
         }
     }
