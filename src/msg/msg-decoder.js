@@ -3,8 +3,10 @@
 const assert = require("assert");
 
 const { MsgBuffer } = require("./buffer");
-const { PkgBase, DataType } = require("../proto/pkg-base");
-const listXXPos = require("../proto/special/list-xxpos");
+const { PkgBase, XXList, DataType } = require("../proto/pkg-base");
+
+// const XXList = require("../proto/special/xxlist");
+const XXlistXXPos = require("../proto/special/xxlist-xxpos");
 
 class MsgDecoder {
     buffer: MsgBuffer = new MsgBuffer();
@@ -12,11 +14,40 @@ class MsgDecoder {
 
     constructor() {
         require("../proto/regiser-pkgs")(this);
-        this.register(listXXPos);
+        this.register(XXlistXXPos);
     }
 
     register = (pkgClass: Object) => {
         this.pkgMap.set(pkgClass.pkgTypeId, pkgClass);
+    }
+
+    decodeList(key: string, buffer: MsgBuffer, cb: Function) {
+        const typeId = buffer.readVarintInt16(false);
+        if (typeId == 0) {
+            return;
+        }
+        const idx = buffer.readVarintInt32(false);
+
+        const destObj = buffer.findObjInCache(idx);
+        if (destObj) {
+            return destObj;
+        } 
+
+        const list: XXList<any> = new XXList();
+        const arr = list.arr;
+        // const list = [];
+        list.pkgTypeId = typeId;
+        const len = buffer.readVarintInt32(false);
+        // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
+        for (let i = 0; i < len; ++i) {
+            const obj = cb();
+            if (obj == null) continue;
+            arr.push(obj);
+        }
+        buffer.cacheObj(idx, list);
+        // $FlowFixMe
+        // this.#setValue(key, list);
+        return list;
     }
 
     createPkg = (): (PkgBase | string | null) => {
@@ -45,7 +76,7 @@ class MsgDecoder {
             const class1: any = this.pkgMap.get(pkgId);
             const obj = new class1();
             buffer.cacheObj(idx, obj);
-            obj.decode(buffer, this.createPkg);
+            obj.decode(buffer, this);
             return obj;
         } else {
             assert(`can't find pkg id:${pkgId}.`);

@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 const Item = require("../../../pkg/catchfish/configs/item");
 
 const PKG__CatchFish__Configs__Cannon = require("../../../pkg/catchfish/configs/cannon");

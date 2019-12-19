@@ -3,7 +3,9 @@
 const assert = require("assert");
 
 const Tools = require("./tools");
+
 const { MsgBuffer } = require("../msg/buffer");
+// const { MsgDecoder } = require("../msg/msg-decoder");
 
 const DataType = Object.freeze({
     BOOL: Symbol("BOOL"),
@@ -40,14 +42,47 @@ class PkgBase {
         this[key] = value;
     }
 
-    decodeList(key: string, buffer: MsgBuffer, createFunc: Function, cb: Function) {
+    // decodeList(key: string, buffer: MsgBuffer, createFunc: Function, cb: Function) {
+    //     const typeId = buffer.readVarintInt16(false);
+    //     if (typeId == 0) {
+    //         return;
+    //     }
+    //     const idx = buffer.readVarintInt32(false);
+
+    //     const destObj = buffer.findObjInCache(idx);
+    //     if (destObj) {
+    //         // $FlowFixMe
+    //         this.#setValue(key, destObj);
+    //         return;
+    //     } 
+
+    //     // $FlowFixMe
+    //     // const list = this.#getValue(key);
+    //     const list: XXList = new XXList();
+    //     const arr = list.arr;
+    //     list.pkgTypeId = typeId;
+    //     const len = buffer.readVarintInt32(false);
+    //     // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
+    //     for (let i = 0; i < len; ++i) {
+    //         const obj = cb();
+    //         if (obj == null) continue;
+    //         arr.push(obj);
+    //     }
+    //     buffer.cacheObj(idx, list);
+    //     // $FlowFixMe
+    //     this.#setValue(key, list);
+    // }
+
+    encodeList(key: string, pkgTypeId: number, buffer: MsgBuffer, cb: Function) {
         // $FlowFixMe
         const list = this.#getValue(key);
-        const typeId = buffer.readVarintInt16(false);
+        const typeId = list == null ? 0 : pkgTypeId;
         if (typeId == 0) {
+            buffer.writeVarintInt16(0, false);
             return;
         }
-        const idx = buffer.readVarintInt32(false);
+
+        const idx = buffer.getOffsetWithoutHead();
 
         const destObj = buffer.findObjInCache(idx);
         if (destObj) {
@@ -66,7 +101,7 @@ class PkgBase {
         buffer.cacheObj(idx, list);
     }
 
-    decode(buffer: MsgBuffer, createFunc: Function) {
+    decode(buffer: MsgBuffer, decoder: any) {
         // buffer = new Buffer()
         for (const { type, key } of this.pkgDatasType) {
             // console.log(key);
@@ -112,20 +147,24 @@ class PkgBase {
                 }
                 break;
                 case DataType.LIST: {
-                    this.decodeList(key, buffer, createFunc, () => {
-                        return createFunc();
+                    const list = decoder.decodeList(key, buffer, () => {
+                        return decoder.createPkg();
                     });
+                    // $FlowFixMe
+                    this.#setValue(key, list);
                 }
                 break;
                 case DataType.xx_LIST_SITS: 
                 case DataType.LIST_INT32: {
-                    this.decodeList(key, buffer, createFunc, () => {
+                    const list = decoder.decodeList(key, buffer, () => {
                         return buffer.readVarintInt32(true);
                     });
+                    // $FlowFixMe
+                    this.#setValue(key, list);
                 }
                 break;
                 case DataType.LIST_WAY_POINT: {
-                    this.decodeList(key, buffer, createFunc, () => {
+                    const list = decoder.decodeList(key, buffer, () => {
                         const obj = {};
                         obj.pos = {};
                         obj.pos.x = buffer.readFloat();
@@ -134,6 +173,8 @@ class PkgBase {
                         obj.distance = buffer.readFloat();
                         return obj;
                     });
+                    // $FlowFixMe
+                    this.#setValue(key, list);
                 }
                 break;
                 case DataType.LIST_POS: {
@@ -152,7 +193,7 @@ class PkgBase {
                 case DataType.OBJ: {
                     // if (key == "way") console.log(`new obj,key=${key}`);
                     // $FlowFixMe
-                    this.#setValue(key, createFunc());
+                    this.#setValue(key, decoder.createPkg());
                 }
                 break;
                 case DataType.XX_RANDOM: {
@@ -169,7 +210,7 @@ class PkgBase {
                 }
                 break;
                 default:
-                    assert(`undeal decode type: ${type}`);
+                    assert(`undeal decode type: ${type.toString()}`);
             }
         }
     }
@@ -178,9 +219,15 @@ class PkgBase {
         for (const {type, key} of this.pkgDatasType) {
             // console.log(key);
             switch (type) {
+                case DataType.BOOL: {
+                    // $FlowFixMe
+                    const value = this.#getValue(key) ? 1 : 0;
+                    buffer.writeUInt8(value);
+                }
+                break;
                 case DataType.UINT8: {
                     // $FlowFixMe
-                    buffer.setUint8(this.#getValue(key));
+                    buffer.writeUInt8(this.#getValue(key));
                 }
                 break;
                 case DataType.INT8: {
@@ -300,7 +347,36 @@ class PkgBase {
     }
 }
 
+// class XXList extends PkgBase {
+//     arr = [];
+
+//     constructor() {
+//         super();
+//         this.pkgDatasType.push(
+//             {
+//                 type: DataType.LIST,
+//                 key: 'arr',
+//             },
+//         );
+//     }
+// }
+
+class XXList<T> extends PkgBase {
+    arr: T[] = [];
+
+    constructor() {
+        super();
+        this.pkgDatasType.push(
+            {
+                type: DataType.LIST,
+                key: 'arr',
+            },
+        );
+    }
+}
+
 module.exports = {
     PkgBase: PkgBase,
+    XXList: XXList,
     DataType: DataType,
 }

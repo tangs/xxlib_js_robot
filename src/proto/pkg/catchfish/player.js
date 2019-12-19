@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 const Item = require("../../pkg/catchfish/item");
 
 const PKG__CatchFish__Fish = require("../../pkg/catchfish/fish");
@@ -41,10 +43,10 @@ class Player extends Item {
     autoIncId: number = 0;
     // 炮台堆栈 ( 例如: 常规炮 打到 钻头, 钻头飞向玩家变为 钻头炮, 覆盖在常规炮上 )
     // xx::List_s<PKG::CatchFish::Cannon_s>
-    cannons: PKG__CatchFish__Cannon[] = [];
+    cannons: XXList<PKG__CatchFish__Cannon>;
     // 武器集合 ( 被打死的特殊鱼转为武器对象, 飞向玩家, 变炮消失前都在这里 )
     // xx::List_s<PKG::CatchFish::Weapon_s>
-    weapons: PKG__CatchFish__Weapon[] = [];
+    weapons: XXList<PKG__CatchFish__Weapon>;
 
     constructor() {
         super();

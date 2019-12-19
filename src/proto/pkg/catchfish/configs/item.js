@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 
 const PKG__CatchFish__Configs__SpriteFrame = require("../../../pkg/catchfish/configs/sprite-frame");
 
@@ -19,7 +21,7 @@ class Item extends PkgBase {
     zOrder: number = 0;
     // 帧集合 ( 用于贴图动态加载 / 卸载管理. 派生类所有帧都应该在此放一份 )
     // xx::List_s<PKG::CatchFish::Configs::SpriteFrame_s>
-    frames: PKG__CatchFish__Configs__SpriteFrame[] = [];
+    frames: XXList<PKG__CatchFish__Configs__SpriteFrame>;
 
     constructor() {
         super();

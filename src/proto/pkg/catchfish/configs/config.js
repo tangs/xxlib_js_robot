@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 
 const PKG__CatchFish__Way = require("../../../pkg/catchfish/way");
 const PKG__CatchFish__Configs__Fish = require("../../../pkg/catchfish/configs/fish");
@@ -14,19 +16,19 @@ class Config extends PkgBase {
 
     // 所有固定路径( 工具创建 )
     // xx::List_s<PKG::CatchFish::Way_s>
-    fixedWays: PKG__CatchFish__Way[] = [];
+    fixedWays: XXList<PKG__CatchFish__Way>;
     // 所有鱼的配置信息
     // xx::List_s<PKG::CatchFish::Configs::Fish_s>
-    fishs: PKG__CatchFish__Configs__Fish[] = [];
+    fishs: XXList<PKG__CatchFish__Configs__Fish>;
     // 所有炮台的配置信息
     // xx::List_s<PKG::CatchFish::Configs::Cannon_s>
-    cannons: PKG__CatchFish__Configs__Cannon[] = [];
+    cannons: XXList<PKG__CatchFish__Configs__Cannon>;
     // 所有武器的配置信息
     // xx::List_s<PKG::CatchFish::Configs::Weapon_s>
-    weapons: PKG__CatchFish__Configs__Weapon[] = [];
+    weapons: XXList<PKG__CatchFish__Configs__Weapon>;
     // 循环关卡数据( Scene 初次创建时，从 stages[0] clone. 可以在内存中 cache 序列化后的 binary )
     // xx::List_s<PKG::CatchFish::Stages::Stage_s>
-    stages: PKG__CatchFish__Stages__Stage[] = [];
+    stages: XXList<PKG__CatchFish__Stages__Stage>;
     // 基于设计尺寸为 1280 x 720, 屏中心为 0,0 点的 4 个玩家炮台的坐标( 0: 左下  1: 右下    2: 右上  3: 左上 )
     // xx::List_s<::xx::Pos>
     sitPositons: any = null;

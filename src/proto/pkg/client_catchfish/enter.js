@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 
 
 // 申请进入游戏. 成功返回 EnterSuccess. 失败直接被 T

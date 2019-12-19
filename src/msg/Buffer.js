@@ -103,10 +103,10 @@ class MsgBuffer {
         return ret;
     }
 
-    readVarintInt8(isZigzag: boolean = true) {
-        // $FlowFixMe
-        return this.#readVarint(1, isZigzag);
-    }
+    // readVarintInt8(isZigzag: boolean = true) {
+    //     // $FlowFixMe
+    //     return this.#readVarint(1, isZigzag);
+    // }
 
     readVarintInt16(isZigzag: boolean = true) {
         // $FlowFixMe
@@ -199,10 +199,10 @@ class MsgBuffer {
         this.offset += 4;
     }
 
-    writeVarintInt8(value: number, isZigzag: boolean = true) {
-        // $FlowFixMe
-        this.#writeVarint(value, 1, isZigzag);
-    }
+    // writeVarintInt8(value: number, isZigzag: boolean = true) {
+    //     // $FlowFixMe
+    //     this.#writeVarint(value, 1, isZigzag);
+    // }
 
     writeVarintInt16(value: number, isZigzag: boolean = true) {
         // $FlowFixMe

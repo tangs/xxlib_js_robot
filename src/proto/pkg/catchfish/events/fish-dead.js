@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 const Event = require("../../../pkg/catchfish/events/event");
 
 
@@ -23,7 +25,7 @@ class FishDead extends Event {
     coin: any = BigInt(0);
     // 死鱼id列表
     // xx::List_s<int32_t>
-    ids: number[] = [];
+    ids: XXList<number>;
 
     constructor() {
         super();

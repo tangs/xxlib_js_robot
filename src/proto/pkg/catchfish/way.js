@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 
 
 // 路径. 预约下发安全, 将复制路径完整数据
@@ -9,7 +11,7 @@ class Way extends PkgBase {
 
     // 路点集合
     // xx::List_s<PKG::CatchFish::WayPoint>
-    points: [] = [];
+    points: XXList<any>;
     // 总距离长度( sum( points[all].distance ). 如果非循环线, 不包含最后一个点的距离值. )
     // float
     distance: number = 0.0;

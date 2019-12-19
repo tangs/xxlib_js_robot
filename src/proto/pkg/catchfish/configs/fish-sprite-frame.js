@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 
 const PKG__CatchFish__Configs__SpriteFrame = require("../../../pkg/catchfish/configs/sprite-frame");
 const PKG__CatchFish__Configs__Physics = require("../../../pkg/catchfish/configs/physics");
@@ -17,7 +19,7 @@ class FishSpriteFrame extends PkgBase {
     physics: PKG__CatchFish__Configs__Physics;
     // 首选锁定点( 如果该点还在屏幕上, 则 lock 准星一直在其上 )
     // ::xx::Pos
-    lockPoint: any = null;
+    lockPoint: XXPos;
     // 锁定点集合( 串成一条线的锁定点. 当首选锁定点不在屏上时, 使用该线与所在屏的边线的交点作为锁定点 )
     // xx::List_s<::xx::Pos>
     lockPoints: any = null;

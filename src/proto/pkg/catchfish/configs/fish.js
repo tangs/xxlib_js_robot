@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 const Item = require("../../../pkg/catchfish/configs/item");
 
 const PKG__CatchFish__Configs__FishSpriteFrame = require("../../../pkg/catchfish/configs/fish-sprite-frame");
@@ -26,10 +28,10 @@ class Fish extends Item {
     minDetectRadius: number = 0.0;
     // 移动帧集合 ( 部分鱼可能具有多种移动状态, 硬编码确定下标范围 )
     // xx::List_s<PKG::CatchFish::Configs::FishSpriteFrame_s>
-    moveFrames: PKG__CatchFish__Configs__FishSpriteFrame[] = [];
+    moveFrames: XXList<PKG__CatchFish__Configs__FishSpriteFrame>;
     // 鱼死帧集合
     // xx::List_s<PKG::CatchFish::Configs::SpriteFrame_s>
-    dieFrames: PKG__CatchFish__Configs__SpriteFrame[] = [];
+    dieFrames: XXList<PKG__CatchFish__Configs__SpriteFrame>;
     // 点选优先级说明参数, 越大越优先
     // int32_t
     touchRank: number = 0;
@@ -38,7 +40,7 @@ class Fish extends Item {
     shadowScale: number = 0.0;
     // 影子的偏移坐标
     // ::xx::Pos
-    shadowOffset: any = null;
+    shadowOffset: XXPos;
 
     constructor() {
         super();

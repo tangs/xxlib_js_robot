@@ -13,22 +13,30 @@ class MsgEncoder {
         this.buffer.setBuffer(arr)
     }
 
+    // writeObj = (buffer: MsgBuffer, obj: Object) => {
+    //     const key = buffer.findKeyInCache(obj);
+    //     if (key) {
+    //         buffer.writeVarintInt32(key);
+    //     } else {
+    //         const idx = buffer.getOffsetWithoutHead();
+    //         buffer.writeVarintInt32(idx, false);
+    //         buffer.cacheObj(idx, obj);
+    //     }
+    // }
+
     #encode = (pkg: PkgBase) => {
         const buffer = this.buffer;
 
-        buffer.writeVarintInt32(pkg.pkgTypeId, false);
-
+        buffer.writeVarintInt16(pkg.pkgTypeId, false);
         const key = buffer.findKeyInCache(pkg);
         if (key) {
             buffer.writeVarintInt32(key);
         } else {
-            // const idx = buffer.getOffset() - 4 - 1;
             const idx = buffer.getOffsetWithoutHead();
             buffer.writeVarintInt32(idx, false);
             buffer.cacheObj(idx, pkg);
+            pkg.encode(buffer, this.#encode);
         }
-
-        pkg.encode(buffer, this.#encode);
     }
 
     encode = (pkg: PkgBase, serialId?: number) => {

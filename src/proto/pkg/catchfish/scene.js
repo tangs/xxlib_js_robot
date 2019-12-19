@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 
 const PKG__CatchFish__Fish = require("../../pkg/catchfish/fish");
 const PKG__CatchFish__Item = require("../../pkg/catchfish/item");
@@ -50,22 +52,22 @@ class Scene extends PkgBase {
     autoIncId: number = 0;
     // 所有活鱼 ( 乱序 )
     // xx::List_s<PKG::CatchFish::Fish_s>
-    fishs: PKG__CatchFish__Fish[] = [];
+    fishs: XXList<PKG__CatchFish__Fish>;
     // 所有已创建非活鱼 ( 乱序 )
     // xx::List_s<PKG::CatchFish::Item_s>
-    items: PKG__CatchFish__Item[] = [];
+    items: XXList<PKG__CatchFish__Item>;
     // 所有鱼预约生成 ( 乱序 )
     // xx::List_s<PKG::CatchFish::FishBorn_s>
-    borns: PKG__CatchFish__FishBorn[] = [];
+    borns: XXList<PKG__CatchFish__FishBorn>;
     // 当前关卡. endFrameNumber 到达时切换到下一关( clone from cfg.stages[(stage.id + 1) % cfg.stages.len] 并修正 各种 frameNumber )
     // PKG::CatchFish::Stages::Stage_s
     stage: PKG__CatchFish__Stages__Stage;
     // 空闲座位下标( 初始时填入 Sits.LeftBottom RightBottom LeftTop RightTop )
     // xx::List_s<PKG::CatchFish::Sits>
-    freeSits: number[] = [];
+    freeSits: XXList<number>;
     // 所有玩家( 弱引用. 具体容器在 Scene 之外 )
     // xx::List_s<std::weak_ptr<PKG::CatchFish::Player>>
-    players: PKG__CatchFish__Player[] = [];
+    players: XXList<PKG__CatchFish__Player>;
 
     constructor() {
         super();

@@ -96,9 +96,9 @@ client.connect(45621, '127.0.0.1', function() {
 		++frame;
 
 		const self = enterMsg.self;
-		const fishes = enterMsg.scene.fishs;
-		const cannon = self.cannons[0];
-		const bullets = cannon.bullets;
+		const fishes = enterMsg.scene.fishs.arr;
+		const cannon = self.cannons.arr[0];
+		const bullets = cannon.bullets.arr;
 
 		// fire
 		if (frame % 30 == 0) {
@@ -158,18 +158,20 @@ client.connect(45621, '127.0.0.1', function() {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
 		if (msg.playerId == enterMsg.self.id) {
+			const cannon = enterMsg.self.cannons.arr[0];
+			const bullets = cannon.bullets.arr;
 			const bullet: Bullet = new Bullet();
 			bullet.id = msg.bulletId;
 			bullet.angle = msg.angle;
-			enterMsg.self.cannons[0].bullets.push(bullet);
+			bullets.push(bullet);
 		}
 	});
 
 	md.register(FishDeadEvent.pkgTypeId, this, (msg: FishDeadEvent) => {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
-		const fishes: Fish[] = enterMsg.scene.fishs;
-		for (const id: number of msg.ids) {
+		const fishes: Fish[] = enterMsg.scene.fishs.arr;
+		for (const id: number of msg.ids.arr) {
 			const idx = fishes.findIndex((fish) => fish.id == id);
 			if (idx != -1) {
 				fishes.splice(idx, 1);
@@ -180,7 +182,7 @@ client.connect(45621, '127.0.0.1', function() {
 	md.register(FrameEvents.pkgTypeId, this, (msg: FrameEvents) => {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
-		for (const event of msg.events) {
+		for (const event of msg.events.arr) {
 			md.dispatch(event);
 		}
 	});

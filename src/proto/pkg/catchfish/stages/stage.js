@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 
 const PKG__CatchFish__Stages__StageElement = require("../../../pkg/catchfish/stages/stage-element");
 
@@ -19,10 +21,10 @@ class Stage extends PkgBase {
     ticks: number = 0;
     // 元素集合
     // xx::List_s<PKG::CatchFish::Stages::StageElement_s>
-    elements: PKG__CatchFish__Stages__StageElement[] = [];
+    elements: XXList<PKG__CatchFish__Stages__StageElement>;
     // 监视器集合, 服务端专用
     // xx::List_s<PKG::CatchFish::Stages::StageElement_s>
-    monitors: PKG__CatchFish__Stages__StageElement[] = [];
+    monitors: XXList<PKG__CatchFish__Stages__StageElement>;
 
     constructor() {
         super();

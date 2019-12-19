@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 const Item = require("../../pkg/catchfish/item");
 
 const PKG__CatchFish__Bullet = require("../../pkg/catchfish/bullet");
@@ -21,7 +23,7 @@ class Cannon extends Item {
     angle: number = 0.0;
     // 所有子弹
     // xx::List_s<PKG::CatchFish::Bullet_s>
-    bullets: PKG__CatchFish__Bullet[] = [];
+    bullets: XXList<PKG__CatchFish__Bullet>;
 
     constructor() {
         super();

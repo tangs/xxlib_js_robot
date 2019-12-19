@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../../pkg-base");
+const XXListXXPos = require("../../../special/xxlist-xxpos");
+const XXPos = require("../../../special/xxpos");
 const Event = require("../../../pkg/catchfish/events/event");
 
 
@@ -10,7 +12,7 @@ class DebugInfo extends Event {
 
     // 鱼id集合
     // xx::List_s<int32_t>
-    fishIds: number[] = [];
+    fishIds: XXList<number>;
 
     constructor() {
         super();

@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 const Item = require("../../pkg/catchfish/item");
 
 
@@ -10,13 +12,13 @@ class MoveItem extends Item {
 
     // 中心点坐标
     // ::xx::Pos
-    pos: any = null;
+    pos: XXPos;
     // 当前角度
     // float
     angle: number = 0.0;
     // 每帧的直线移动坐标增量( 不一定用得上 )
     // ::xx::Pos
-    moveInc: any = null;
+    moveInc: XXPos;
 
     constructor() {
         super();

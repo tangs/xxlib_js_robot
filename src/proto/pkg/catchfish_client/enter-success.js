@@ -1,6 +1,8 @@
 ﻿// @flow
 
-const { PkgBase, DataType } = require("../../pkg-base");
+const { PkgBase, XXList, DataType } = require("../../pkg-base");
+const XXListXXPos = require("../../special/xxlist-xxpos");
+const XXPos = require("../../special/xxpos");
 
 const PKG__CatchFish__Scene = require("../../pkg/catchfish/scene");
 const PKG__CatchFish__Player = require("../../pkg/catchfish/player");
@@ -14,7 +16,7 @@ class EnterSuccess extends PkgBase {
     scene: PKG__CatchFish__Scene;
     // 玩家强引用容器
     // xx::List_s<PKG::CatchFish::Player_s>
-    players: PKG__CatchFish__Player[] = [];
+    players: XXList<PKG__CatchFish__Player>;
     // 指向当前玩家
     // std::weak_ptr<PKG::CatchFish::Player>
     self: PKG__CatchFish__Player;

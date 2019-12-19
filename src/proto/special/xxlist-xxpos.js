@@ -1,14 +1,12 @@
 // @flow
 
 const { PkgBase, DataType } = require("../pkg-base");
+const XXPos = require("./xxpos");
 
-// 小鱼环绕的大鱼的特殊配置
-class ListXXPos extends PkgBase {
-    pkgTypeId = ListXXPos.pkgTypeId;
+class XXListXXPos extends PkgBase {
+    pkgTypeId = XXListXXPos.pkgTypeId;
 
-    // 每帧移动距离
-    // XXPos[]
-    positions: [] = [];
+    positions: XXPos[] = [];
 
     constructor() {
         super();
@@ -23,4 +21,4 @@ class ListXXPos extends PkgBase {
     static pkgTypeId = 66;
 }
 
-module.exports = ListXXPos;
+module.exports = XXListXXPos;
