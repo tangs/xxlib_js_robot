@@ -2,12 +2,12 @@
 
 const assert = require("assert");
 
-const { Buffer: Buffer1 } = require("./buffer");
+const { MsgBuffer } = require("./buffer");
 const { PkgBase, DataType } = require("../proto/pkg-base");
 const listXXPos = require("../proto/special/list-xxpos");
 
 class MsgDecoder {
-    buffer: Buffer1 = new Buffer1();
+    buffer: MsgBuffer = new MsgBuffer();
     pkgMap: Map<number, Function> = new Map();
 
     constructor() {
@@ -67,7 +67,7 @@ class MsgDecoder {
             // skip seral id.
             buffer.skip(1);
         }
-        buffer.saveFactOffset();
+        buffer.saveHeadOffset();
 
         return this.createPkg();
     }

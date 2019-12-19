@@ -1,11 +1,11 @@
 // @flow
 
-const { Buffer } = require("./buffer");
+const { MsgBuffer } = require("./buffer");
 const { PkgBase, DataType } = require("../proto/pkg-base");
 
 class MsgEncoder {
     static serialId = 0;
-    buffer = new Buffer();
+    buffer = new MsgBuffer();
     
     constructor() {
         const capacity = 1024 * 1024;
@@ -23,7 +23,7 @@ class MsgEncoder {
             buffer.writeVarintInt32(key);
         } else {
             // const idx = buffer.getOffset() - 4 - 1;
-            const idx = buffer.getOffsetWithoutSeriaId();
+            const idx = buffer.getOffsetWithoutHead();
             buffer.writeVarintInt32(idx, false);
             buffer.setObj(idx, pkg);
         }
@@ -39,12 +39,12 @@ class MsgEncoder {
         // seral id
         if (serialId != null) {
             buffer.writeVarintInt32(serialId);
-            buffer.saveFactOffset();
+            buffer.saveHeadOffset();
         } else {
             console.log(`serial id: ${MsgEncoder.serialId}`);
             MsgEncoder.serialId = (MsgEncoder.serialId + 1) & 0x7FFFFFFF;
             buffer.writeVarintInt32(-MsgEncoder.serialId);
-            buffer.saveFactOffset();
+            buffer.saveHeadOffset();
         }
         this.#encode(pkg);
 

@@ -3,6 +3,7 @@
     "plugin:flowtype/recommended"
   ],
   "plugins": [
-    "flowtype"
+    "flowtype",
+    "classPrivateMethods"
   ]
 }

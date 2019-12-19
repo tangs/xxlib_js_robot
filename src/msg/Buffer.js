@@ -5,12 +5,12 @@ const utf8 = require('utf8');
 const Tools = require("../proto/tools");
 const { PkgBase, DataType } = require("../proto/pkg-base");
 
-class Buffer {
+class MsgBuffer {
     buffer: ArrayBuffer;
     view: DataView;
     offset: number = 0;
     // offset without seral id.
-    factOffset: number = 0;
+    headOffset: number = 0;
     length: number = 0;
     objMap: Map<number, Object> = new Map();
 
@@ -21,7 +21,7 @@ class Buffer {
 
     reset() {
         this.offset = 0;
-        this.factOffset = 0;
+        this.headOffset = 0;
         this.length = 0;
         this.objMap.clear();
     }
@@ -38,12 +38,12 @@ class Buffer {
         return this.offset;
     }
 
-    saveFactOffset() {
-        this.factOffset = this.offset;
+    saveHeadOffset() {
+        this.headOffset = this.offset;
     }
 
-    getOffsetWithoutSeriaId() {
-        return this.offset - this.factOffset;
+    getOffsetWithoutHead() {
+        return this.offset - this.headOffset;
     }
 
     setObj(key: number, obj: Object) {
@@ -67,24 +67,13 @@ class Buffer {
         this.setObj(key, obj);
     }
 
-    // _expansionIfNeed(bits) {
-    //     // TODO 未验证
-    //     if (this.offset + bits >= this.capacity) {
-    //         capacity *= 2;
-    //         const buffer = new ArrayBuffer(this.capacity);
-    //         const dd = new Uint8Array(buffer);
-    //         dd.set(this.buffer);
-    //         this.buffer = buffer;
-    //     }
-    // }
-
-    _readVarint(bits: number, isZigzag: boolean = true) {
+    #readVarint = (bits: number, isZigzag: boolean = true) => {
         const [ret, offset] = Tools.ReadVarintNumber(this.view, this.offset, bits, isZigzag);
         this.offset = offset;
         return ret;
     }
 
-    _writeVarint(value: number, bits: number, isZigzag: boolean = true) {
+    #writeVarint = (value: number, bits: number, isZigzag: boolean = true) => {
         this.offset = Tools.WriteVarintNumber(this.view, this.offset, value, bits, isZigzag);
     }
 
@@ -103,15 +92,18 @@ class Buffer {
     }
 
     readVarintInt8(isZigzag: boolean = true) {
-        return this._readVarint(1, isZigzag);
+        // $FlowFixMe
+        return this.#readVarint(1, isZigzag);
     }
 
     readVarintInt16(isZigzag: boolean = true) {
-        return this._readVarint(2, isZigzag);
+        // $FlowFixMe
+        return this.#readVarint(2, isZigzag);
     }
 
     readVarintInt32(isZigzag: boolean = true) {
-        return this._readVarint(4, isZigzag);
+        // $FlowFixMe
+        return this.#readVarint(4, isZigzag);
     }
 
     readVarintInt64(isZigzag: boolean = true) {
@@ -187,6 +179,10 @@ class Buffer {
 
     writeUInt8(value: number) {
         this.view.setUint8(this.offset++, value);
+    } 
+    
+    writeInt8(value: number) {
+        this.view.setInt8(this.offset++, value);
     }
 
     writeInt32(value: number) {
@@ -195,15 +191,18 @@ class Buffer {
     }
 
     writeVarintInt8(value: number, isZigzag: boolean = true) {
-        this._writeVarint(value, 1, isZigzag);
+        // $FlowFixMe
+        this.#writeVarint(value, 1, isZigzag);
     }
 
     writeVarintInt16(value: number, isZigzag: boolean = true) {
-        this._writeVarint(value, 2, isZigzag);
+        // $FlowFixMe
+        this.#writeVarint(value, 2, isZigzag);
     }
 
     writeVarintInt32(value: number, isZigzag: boolean = true) {
-        this._writeVarint(value, 4, isZigzag);
+        // $FlowFixMe
+        this.#writeVarint(value, 4, isZigzag);
     }
 
     writeVarintInt64(value: any, isZigzag: boolean = true) {
@@ -266,5 +265,5 @@ class Buffer {
 }
 
 module.exports = {
-    Buffer: Buffer,
+    MsgBuffer: MsgBuffer,
 }
