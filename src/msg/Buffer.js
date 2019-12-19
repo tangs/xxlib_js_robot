@@ -92,6 +92,10 @@ class Buffer {
         return this.view.getUint8(this.offset++);
     }
 
+    readInt8() {
+        return this.view.getInt8(this.offset++);
+    }
+
     readInt32() {
         const ret = this.view.getInt32(this.offset, true);
         this.offset += 4;

@@ -7,8 +7,8 @@ const { Buffer } = require("../msg/buffer");
 
 const DataType = Object.freeze({
     BOOL: Symbol("BOOL"),
-    INT8: Symbol("INT8"),
     UINT8: Symbol("UINT8"),
+    INT8: Symbol("INT8"),
     INT16: Symbol("INT16"),
     INT32: Symbol("INT32"),
     INT64: Symbol("INT64"),
@@ -51,7 +51,6 @@ class PkgBase {
 
         const destObj = buffer.getObj(idx);
         if (destObj) {
-            // list = destObj;
             // $FlowFixMe  
             this.#setValue(key, destObj);
             return;
@@ -60,8 +59,6 @@ class PkgBase {
         const len = buffer.readVarintInt32(false);
         // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
         for (let i = 0; i < len; ++i) {
-            // const obj = createFunc();
-            // if (obj == null) break;
             const obj = cb();
             if (obj == null) continue;
             list.push(obj);
@@ -79,14 +76,14 @@ class PkgBase {
                     this.#setValue(key, buffer.readUInt8() != 0);
                 }
                 break;
-                case DataType.INT8: {
-                    // $FlowFixMe  
-                    this.#setValue(key, buffer.readVarintInt8());
-                }
-                break;
                 case DataType.UINT8: {
                     // $FlowFixMe  
                     this.#setValue(key, buffer.readUInt8());
+                }
+                break;
+                case DataType.INT8: {
+                    // $FlowFixMe  
+                    this.#setValue(key, buffer.readInt8());
                 }
                 break;
                 case DataType.INT16: {
@@ -140,6 +137,7 @@ class PkgBase {
                 }
                 break;
                 case DataType.LIST_POS: {
+                    // 特殊处理, 这种类型list不同于其他list，这里item不需要缓存.
                     // $FlowFixMe  
                     const list = this.#getValue(key);
                     const len = buffer.readVarintInt32(false);
@@ -152,9 +150,7 @@ class PkgBase {
                 break;
                 case DataType.STRING:
                 case DataType.OBJ: {
-                    // if (key == "way") {
-                    //     console.log(`new obj,key=${key}`);
-                    // }
+                    // if (key == "way") console.log(`new obj,key=${key}`);
                     // $FlowFixMe  
                     this.#setValue(key, createFunc());
                 }
