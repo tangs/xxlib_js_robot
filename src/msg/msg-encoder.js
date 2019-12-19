@@ -18,14 +18,14 @@ class MsgEncoder {
 
         buffer.writeVarintInt32(pkg.pkgTypeId, false);
 
-        const key = buffer.getKeyByObj(pkg);
+        const key = buffer.findKeyInCache(pkg);
         if (key) {
             buffer.writeVarintInt32(key);
         } else {
             // const idx = buffer.getOffset() - 4 - 1;
             const idx = buffer.getOffsetWithoutHead();
             buffer.writeVarintInt32(idx, false);
-            buffer.setObj(idx, pkg);
+            buffer.cacheObj(idx, pkg);
         }
 
         pkg.encode(buffer, this.#encode);

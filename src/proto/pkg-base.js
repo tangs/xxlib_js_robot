@@ -49,7 +49,7 @@ class PkgBase {
         }
         const idx = buffer.readVarintInt32(false);
 
-        const destObj = buffer.getObj(idx);
+        const destObj = buffer.findObjInCache(idx);
         if (destObj) {
             // $FlowFixMe
             this.#setValue(key, destObj);
@@ -63,7 +63,7 @@ class PkgBase {
             if (obj == null) continue;
             list.push(obj);
         }
-        buffer.setObj(idx, list);
+        buffer.cacheObj(idx, list);
     }
 
     decode(buffer: MsgBuffer, createFunc: Function) {

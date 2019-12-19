@@ -5,14 +5,19 @@ const utf8 = require('utf8');
 const Tools = require("../proto/tools");
 const { PkgBase, DataType } = require("../proto/pkg-base");
 
+// **************************
+// *|head|serial id|content|* 
+// **************************
+// head: 4 bits(content length)
+// serial id: 1 or 2 bits(varint16)
 class MsgBuffer {
     buffer: ArrayBuffer;
     view: DataView;
     offset: number = 0;
-    // offset without seral id.
-    headOffset: number = 0;
     length: number = 0;
-    objMap: Map<number, Object> = new Map();
+    // offset without head.
+    headOffset: number = 0;
+    objCache: Map<number, Object> = new Map();
 
     setBuffer(buffer: ArrayBuffer) {
         this.buffer = buffer;
@@ -23,7 +28,7 @@ class MsgBuffer {
         this.offset = 0;
         this.headOffset = 0;
         this.length = 0;
-        this.objMap.clear();
+        this.objCache.clear();
     }
 
     skip(len: number) {
@@ -38,6 +43,11 @@ class MsgBuffer {
         return this.offset;
     }
 
+    getUInt8Array(): Uint8Array {
+        return new Uint8Array(this.buffer, 0, this.offset);
+    }
+
+    //*********** head start **************/
     saveHeadOffset() {
         this.headOffset = this.offset;
     }
@@ -46,26 +56,28 @@ class MsgBuffer {
         return this.offset - this.headOffset;
     }
 
-    setObj(key: number, obj: Object) {
-        this.objMap.set(key, obj);
+    writeLenToHead() {
+        this.view.setInt32(0, this.offset - 4, true);
+    }
+    //*********** head end **************/
+
+    //*********** cache start **************/
+    cacheObj(key: number, obj: Object) {
+        this.objCache.set(key, obj);
     }
 
-    getObj(key: number) {
-        if (this.objMap.has(key)) {
-            return this.objMap.get(key);
+    findObjInCache(key: number) {
+        if (this.objCache.has(key)) {
+            return this.objCache.get(key);
         }
     }
 
-    getKeyByObj(obj: PkgBase) {
-        for (const [key, v] of this.objMap) {
+    findKeyInCache(obj: Object) {
+        for (const [key, v] of this.objCache) {
             if (v == obj) return key;
         }
     }
-
-    saveObj(obj: PkgBase) {
-        const key = this.readVarintInt32();
-        this.setObj(key, obj);
-    }
+    //*********** cache end **************/
 
     #readVarint = (bits: number, isZigzag: boolean = true) => {
         const [ret, offset] = Tools.ReadVarintNumber(this.view, this.offset, bits, isZigzag);
@@ -145,9 +157,6 @@ class MsgBuffer {
             default:
                 return -15;
         }
-        // const ret = this.view.getFloat64(this.offset, true);
-        // this.offset += 8;
-        // return ret;
     }
 
     readString() {
@@ -253,15 +262,6 @@ class MsgBuffer {
         this.writeFloat(obj.x);
         this.writeFloat(obj.y);
     }
-
-    writeLenToHead() {
-        this.view.setInt32(0, this.offset - 4, true);
-    }
-
-    getUInt8Array(): Uint8Array {
-        return new Uint8Array(this.buffer, 0, this.offset);
-    }
-
 }
 
 module.exports = {

@@ -28,14 +28,14 @@ class MsgDecoder {
         }
 
         const idx = buffer.readVarintInt32(false);
-        const destObj = buffer.getObj(idx);
+        const destObj = buffer.findObjInCache(idx);
         if (destObj) {
             return destObj;
         } 
 
         if (pkgId == 1) {
             const ret = buffer.readString();
-            buffer.setObj(idx, ret);
+            buffer.cacheObj(idx, ret);
             return ret;
         }
 
@@ -44,7 +44,7 @@ class MsgDecoder {
         if (this.pkgMap.has(pkgId)) {
             const class1: any = this.pkgMap.get(pkgId);
             const obj = new class1();
-            buffer.setObj(idx, obj);
+            buffer.cacheObj(idx, obj);
             obj.decode(buffer, this.createPkg);
             return obj;
         } else {
