@@ -6,17 +6,16 @@ const Weapon = require("../../pkg/catchfish/weapon");
 
 // 钻头鱼武器
 class DrillWeapon extends Weapon {
-    typeId = DrillWeapon.typeId;
+    pkgTypeId = DrillWeapon.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 112;
-
+    static pkgTypeId = 112;
 }
 
 module.exports = DrillWeapon;

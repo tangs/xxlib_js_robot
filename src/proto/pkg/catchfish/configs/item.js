@@ -6,7 +6,7 @@ const PKG__CatchFish__Configs__SpriteFrame = require("../../../pkg/catchfish/con
 
 // 配置基类
 class Item extends PkgBase {
-    typeId = Item.typeId;
+    pkgTypeId = Item.pkgTypeId;
 
     // 内部编号. 通常等同于所在容器下标
     // int32_t
@@ -23,7 +23,7 @@ class Item extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'id',
@@ -43,8 +43,7 @@ class Item extends PkgBase {
         );
     }
 
-    static typeId = 67;
-
+    static pkgTypeId = 67;
 }
 
 module.exports = Item;

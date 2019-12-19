@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 场景元素的共通基类
 class Item extends PkgBase {
-    typeId = Item.typeId;
+    pkgTypeId = Item.pkgTypeId;
 
     // 标识码
     // int32_t
@@ -16,7 +16,7 @@ class Item extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'id',
@@ -28,8 +28,7 @@ class Item extends PkgBase {
         );
     }
 
-    static typeId = 21;
-
+    static pkgTypeId = 21;
 }
 
 module.exports = Item;

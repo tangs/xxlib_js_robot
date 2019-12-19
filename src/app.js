@@ -134,7 +134,7 @@ client.connect(45621, '127.0.0.1', function() {
 		setTimeout(gameUpdate, 1000 / 60);
 	};
 	
-	md.register(EnterSuccess.typeId, this, (msg: EnterSuccess) => {
+	md.register(EnterSuccess.pkgTypeId, this, (msg: EnterSuccess) => {
 		enterMsg = msg;
 		frame = enterMsg.scene.frameNumber;
 		gameUpdate();
@@ -142,19 +142,19 @@ client.connect(45621, '127.0.0.1', function() {
 		console.log(util.inspect(msg, false, null, true));
 	});
 
-	md.register(Pong.typeId, this, (msg: Pong) => {
+	md.register(Pong.pkgTypeId, this, (msg: Pong) => {
 		// $FlowFixMe
 		console.log(util.inspect(msg, false, null, true));
 		console.log(`ping:${new Date().getTime() - lastPingTime}`);
 	});
 
-	md.register(PushFishEvent.typeId, this, (msg: PushFishEvent) => {
+	md.register(PushFishEvent.pkgTypeId, this, (msg: PushFishEvent) => {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
 		bornFishes.push(msg);
 	});
 
-	md.register(FireEvent.typeId, this, (msg: FireEvent) => {
+	md.register(FireEvent.pkgTypeId, this, (msg: FireEvent) => {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
 		if (msg.playerId == enterMsg.self.id) {
@@ -165,7 +165,7 @@ client.connect(45621, '127.0.0.1', function() {
 		}
 	});
 
-	md.register(FishDeadEvent.typeId, this, (msg: FishDeadEvent) => {
+	md.register(FishDeadEvent.pkgTypeId, this, (msg: FishDeadEvent) => {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
 		const fishes: Fish[] = enterMsg.scene.fishs;
@@ -177,7 +177,7 @@ client.connect(45621, '127.0.0.1', function() {
 		}
 	});
 
-	md.register(FrameEvents.typeId, this, (msg: FrameEvents) => {
+	md.register(FrameEvents.pkgTypeId, this, (msg: FrameEvents) => {
 		// $FlowFixMe
 		// console.log(util.inspect(msg, false, null, true));
 		for (const event of msg.events) {

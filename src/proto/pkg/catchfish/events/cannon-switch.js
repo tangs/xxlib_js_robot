@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 切换炮台
 class CannonSwitch extends Event {
-    typeId = CannonSwitch.typeId;
+    pkgTypeId = CannonSwitch.pkgTypeId;
 
     // 炮台配置id
     // int32_t
@@ -14,7 +14,7 @@ class CannonSwitch extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfgId',
@@ -22,8 +22,7 @@ class CannonSwitch extends Event {
         );
     }
 
-    static typeId = 51;
-
+    static pkgTypeId = 51;
 }
 
 module.exports = CannonSwitch;

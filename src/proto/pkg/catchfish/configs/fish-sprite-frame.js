@@ -7,7 +7,7 @@ const PKG__CatchFish__Configs__Physics = require("../../../pkg/catchfish/configs
 
 // 带物理检测区和锁定线等附加数据的鱼移动帧动画
 class FishSpriteFrame extends PkgBase {
-    typeId = FishSpriteFrame.typeId;
+    pkgTypeId = FishSpriteFrame.pkgTypeId;
 
     // 指向精灵帧
     // PKG::CatchFish::Configs::SpriteFrame_s
@@ -27,7 +27,7 @@ class FishSpriteFrame extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.OBJ,
                 key: 'frame',
@@ -51,8 +51,7 @@ class FishSpriteFrame extends PkgBase {
         );
     }
 
-    static typeId = 71;
-
+    static pkgTypeId = 71;
 }
 
 module.exports = FishSpriteFrame;

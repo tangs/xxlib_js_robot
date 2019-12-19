@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 通知: 退钱( 常见于子弹并发打中某鱼产生 miss 或鱼id未找到 或子弹生命周期结束 )
 class Refund extends Event {
-    typeId = Refund.typeId;
+    pkgTypeId = Refund.pkgTypeId;
 
     // 退款金额( coin * count )
     // int64_t
@@ -15,7 +15,7 @@ class Refund extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT64,
                 key: 'coin',
@@ -23,8 +23,7 @@ class Refund extends Event {
         );
     }
 
-    static typeId = 40;
-
+    static pkgTypeId = 40;
 }
 
 module.exports = Refund;

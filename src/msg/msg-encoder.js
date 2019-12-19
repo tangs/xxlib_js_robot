@@ -1,6 +1,7 @@
 // @flow
 
 const { Buffer } = require("./buffer");
+const { PkgBase, DataType } = require("../proto/pkg-base");
 
 class MsgEncoder {
     static serialId = 0;
@@ -12,10 +13,10 @@ class MsgEncoder {
         this.buffer.setBuffer(arr)
     }
 
-    #encode = (pkg: Object) => {
+    #encode = (pkg: PkgBase) => {
         const buffer = this.buffer;
 
-        buffer.writeVarintInt32(pkg.typeId, false);
+        buffer.writeVarintInt32(pkg.pkgTypeId, false);
 
         const key = buffer.getKeyByObj(pkg);
         if (key) {
@@ -30,7 +31,7 @@ class MsgEncoder {
         pkg.encode(buffer, this.#encode);
     }
 
-    encode = (pkg: Object, serialId?: number) => {
+    encode = (pkg: PkgBase, serialId?: number) => {
         const buffer = this.buffer;
         buffer.reset();
         // len

@@ -7,7 +7,7 @@ const PKG__CatchFish__Weapon = require("../../../pkg/catchfish/weapon");
 
 // 通知: 下发已生效 Weapon, 需要判断 beginFrameNumber, 放入 player.weapon 队列, 令 fishId 的鱼死掉
 class PushWeapon extends Event {
-    typeId = PushWeapon.typeId;
+    pkgTypeId = PushWeapon.pkgTypeId;
 
     // 死鱼id
     // int32_t
@@ -18,7 +18,7 @@ class PushWeapon extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'fishId',
@@ -30,8 +30,7 @@ class PushWeapon extends Event {
         );
     }
 
-    static typeId = 43;
-
+    static pkgTypeId = 43;
 }
 
 module.exports = PushWeapon;

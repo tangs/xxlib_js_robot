@@ -6,7 +6,7 @@ const PKG__CatchFish__Stages__StageElement = require("../../../pkg/catchfish/sta
 
 // 游戏关卡. 一切元素皆使用 Stage.ticks 来计算时间. 可弱引用 Stage 本身. 需要可以干净序列化
 class Stage extends PkgBase {
-    typeId = Stage.typeId;
+    pkgTypeId = Stage.pkgTypeId;
 
     // 关卡 id( 通常等于下标值 )
     // int32_t
@@ -26,7 +26,7 @@ class Stage extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfg_id',
@@ -50,8 +50,7 @@ class Stage extends PkgBase {
         );
     }
 
-    static typeId = 24;
-
+    static pkgTypeId = 24;
 }
 
 module.exports = Stage;

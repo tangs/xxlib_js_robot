@@ -6,7 +6,7 @@ const StageElement = require("../../../pkg/catchfish/stages/stage-element");
 
 // 监视器: 自动再生大鱼, 服务端预约下发
 class Monitor_KeepBigFish extends StageElement {
-    typeId = Monitor_KeepBigFish.typeId;
+    pkgTypeId = Monitor_KeepBigFish.pkgTypeId;
 
     // 配置: 两条鱼生成帧间隔
     // int32_t
@@ -23,7 +23,7 @@ class Monitor_KeepBigFish extends StageElement {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfg_bornTicksInterval',
@@ -43,8 +43,7 @@ class Monitor_KeepBigFish extends StageElement {
         );
     }
 
-    static typeId = 86;
-
+    static pkgTypeId = 86;
 }
 
 module.exports = Monitor_KeepBigFish;

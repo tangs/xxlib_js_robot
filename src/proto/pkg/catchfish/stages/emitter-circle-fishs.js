@@ -6,7 +6,7 @@ const StageElement = require("../../../pkg/catchfish/stages/stage-element");
 
 // 发射器: 从屏幕中间 0 度开始旋转式出小鱼
 class Emitter_CircleFishs extends StageElement {
-    typeId = Emitter_CircleFishs.typeId;
+    pkgTypeId = Emitter_CircleFishs.pkgTypeId;
 
     // 配置: 起始角度
     // float
@@ -36,7 +36,7 @@ class Emitter_CircleFishs extends StageElement {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.FLOAT,
                 key: 'cfg_angleBegin',
@@ -72,8 +72,7 @@ class Emitter_CircleFishs extends StageElement {
         );
     }
 
-    static typeId = 81;
-
+    static pkgTypeId = 81;
 }
 
 module.exports = Emitter_CircleFishs;

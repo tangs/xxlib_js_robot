@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 心跳保持兼延迟测试 -- 请求
 class Ping extends PkgBase {
-    typeId = Ping.typeId;
+    pkgTypeId = Ping.pkgTypeId;
 
     // int64_t
     // $FlowFixMe
@@ -13,7 +13,7 @@ class Ping extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT64,
                 key: 'ticks',
@@ -21,8 +21,7 @@ class Ping extends PkgBase {
         );
     }
 
-    static typeId = 5;
-
+    static pkgTypeId = 5;
 }
 
 module.exports = Ping;

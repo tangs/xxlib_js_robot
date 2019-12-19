@@ -7,7 +7,7 @@ const PKG__CatchFish__RoundFish = require("../../pkg/catchfish/round-fish");
 
 // 一只大鱼, 身边围了几只小鱼. 分摊伤害. 随机直线慢移. 自动再生. 切换关卡时快速逃离
 class BigFish extends Fish {
-    typeId = BigFish.typeId;
+    pkgTypeId = BigFish.pkgTypeId;
 
     // 围在身边的小鱼( Update, HitCheck 时级联处理 )
     // xx::List_s<PKG::CatchFish::RoundFish_s>
@@ -15,7 +15,7 @@ class BigFish extends Fish {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.LIST,
                 key: 'childs',
@@ -23,8 +23,7 @@ class BigFish extends Fish {
         );
     }
 
-    static typeId = 83;
-
+    static pkgTypeId = 83;
 }
 
 module.exports = BigFish;

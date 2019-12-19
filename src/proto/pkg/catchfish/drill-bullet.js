@@ -6,17 +6,16 @@ const Bullet = require("../../pkg/catchfish/bullet");
 
 // 钻头子弹
 class DrillBullet extends Bullet {
-    typeId = DrillBullet.typeId;
+    pkgTypeId = DrillBullet.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 101;
-
+    static pkgTypeId = 101;
 }
 
 module.exports = DrillBullet;

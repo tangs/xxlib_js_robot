@@ -10,7 +10,7 @@ const PKG__CatchFish__Player = require("../../pkg/catchfish/player");
 
 // 场景
 class Scene extends PkgBase {
-    typeId = Scene.typeId;
+    pkgTypeId = Scene.pkgTypeId;
 
     // 游戏id
     // int32_t
@@ -69,7 +69,7 @@ class Scene extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'gameId',
@@ -141,8 +141,7 @@ class Scene extends PkgBase {
         );
     }
 
-    static typeId = 8;
-
+    static pkgTypeId = 8;
 }
 
 module.exports = Scene;

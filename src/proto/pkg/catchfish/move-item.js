@@ -6,7 +6,7 @@ const Item = require("../../pkg/catchfish/item");
 
 // 子弹 & 鱼 & 武器 的基类
 class MoveItem extends Item {
-    typeId = MoveItem.typeId;
+    pkgTypeId = MoveItem.pkgTypeId;
 
     // 中心点坐标
     // ::xx::Pos
@@ -20,7 +20,7 @@ class MoveItem extends Item {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.XX_POS,
                 key: 'pos',
@@ -36,8 +36,7 @@ class MoveItem extends Item {
         );
     }
 
-    static typeId = 33;
-
+    static pkgTypeId = 33;
 }
 
 module.exports = MoveItem;

@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 通知: 鱼被打死
 class FishDead extends Event {
-    typeId = FishDead.typeId;
+    pkgTypeId = FishDead.pkgTypeId;
 
     // 武器id( 非 0 则鱼被 weapon 打死. 为 0 则鱼被 cannon bullet 打死 )
     // int32_t
@@ -27,7 +27,7 @@ class FishDead extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'weaponId',
@@ -51,8 +51,7 @@ class FishDead extends Event {
         );
     }
 
-    static typeId = 41;
-
+    static pkgTypeId = 41;
 }
 
 module.exports = FishDead;

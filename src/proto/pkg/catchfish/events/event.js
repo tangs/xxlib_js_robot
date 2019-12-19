@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../../pkg-base");
 
 // 事件基类
 class Event extends PkgBase {
-    typeId = Event.typeId;
+    pkgTypeId = Event.pkgTypeId;
 
     // 相关玩家id
     // int32_t
@@ -13,7 +13,7 @@ class Event extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'playerId',
@@ -21,8 +21,7 @@ class Event extends PkgBase {
         );
     }
 
-    static typeId = 13;
-
+    static pkgTypeId = 13;
 }
 
 module.exports = Event;

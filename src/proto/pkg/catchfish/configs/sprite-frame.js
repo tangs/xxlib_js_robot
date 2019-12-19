@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../../pkg-base");
 
 // 精灵帧
 class SpriteFrame extends PkgBase {
-    typeId = SpriteFrame.typeId;
+    pkgTypeId = SpriteFrame.pkgTypeId;
 
     // plist资源名
     // std::string_s
@@ -16,7 +16,7 @@ class SpriteFrame extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.STRING,
                 key: 'plistName',
@@ -28,8 +28,7 @@ class SpriteFrame extends PkgBase {
         );
     }
 
-    static typeId = 69;
-
+    static pkgTypeId = 69;
 }
 
 module.exports = SpriteFrame;

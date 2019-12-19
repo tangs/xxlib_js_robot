@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 调试信息( 开发阶段校验用 )
 class DebugInfo extends Event {
-    typeId = DebugInfo.typeId;
+    pkgTypeId = DebugInfo.pkgTypeId;
 
     // 鱼id集合
     // xx::List_s<int32_t>
@@ -14,7 +14,7 @@ class DebugInfo extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.LIST_INT32,
                 key: 'fishIds',
@@ -22,8 +22,7 @@ class DebugInfo extends Event {
         );
     }
 
-    static typeId = 53;
-
+    static pkgTypeId = 53;
 }
 
 module.exports = DebugInfo;

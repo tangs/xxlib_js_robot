@@ -6,7 +6,7 @@ const Fish = require("../../../pkg/catchfish/configs/fish");
 
 // 小鱼环绕的大鱼的特殊配置
 class BigFish extends Fish {
-    typeId = BigFish.typeId;
+    pkgTypeId = BigFish.pkgTypeId;
 
     // 每帧移动距离
     // float
@@ -20,7 +20,7 @@ class BigFish extends Fish {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.FLOAT,
                 key: 'moveFrameDistance',
@@ -36,8 +36,7 @@ class BigFish extends Fish {
         );
     }
 
-    static typeId = 85;
-
+    static pkgTypeId = 85;
 }
 
 module.exports = BigFish;

@@ -6,17 +6,16 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 通知: 玩家离开
 class Leave extends Event {
-    typeId = Leave.typeId;
+    pkgTypeId = Leave.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 38;
-
+    static pkgTypeId = 38;
 }
 
 module.exports = Leave;

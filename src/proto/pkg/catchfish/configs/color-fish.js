@@ -7,7 +7,7 @@ const PKG__CatchFish__Configs__Weapon = require("../../../pkg/catchfish/configs/
 
 // 彩色鱼特殊配置( 红: 炸弹  绿：狂暴  蓝：钻头  白: 闪电 )
 class ColorFish extends Fish {
-    typeId = ColorFish.typeId;
+    pkgTypeId = ColorFish.pkgTypeId;
 
     // 每帧移动距离
     // float
@@ -27,7 +27,7 @@ class ColorFish extends Fish {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.FLOAT,
                 key: 'moveFrameDistance',
@@ -51,8 +51,7 @@ class ColorFish extends Fish {
         );
     }
 
-    static typeId = 104;
-
+    static pkgTypeId = 104;
 }
 
 module.exports = ColorFish;

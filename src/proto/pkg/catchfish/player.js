@@ -9,7 +9,7 @@ const PKG__CatchFish__Weapon = require("../../pkg/catchfish/weapon");
 
 // 玩家 ( 存在于服务 players 容器. 被 Scene.players 弱引用 )
 class Player extends Item {
-    typeId = Player.typeId;
+    pkgTypeId = Player.pkgTypeId;
 
     // 昵称 用于客户端显示 ( 填充自 db )
     // std::string_s
@@ -48,7 +48,7 @@ class Player extends Item {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.STRING,
                 key: 'nickname',
@@ -96,8 +96,7 @@ class Player extends Item {
         );
     }
 
-    static typeId = 10;
-
+    static pkgTypeId = 10;
 }
 
 module.exports = Player;

@@ -26,8 +26,8 @@ const DataType = Object.freeze({
 });
 
 class PkgBase {
-    typeId = 0;
-    datas = [
+    pkgTypeId = 0;
+    pkgDatasType = [
     ];
 
     #getValue = (key: string): any => {
@@ -71,7 +71,7 @@ class PkgBase {
 
     decode(buffer: Buffer, createFunc: Function) {
         // buffer = new Buffer()
-        for (const { type, key } of this.datas) {
+        for (const { type, key } of this.pkgDatasType) {
             // console.log(key);
             switch (type) {
                 case DataType.BOOL: {
@@ -179,7 +179,7 @@ class PkgBase {
     }
 
     encode(buffer: Buffer, encodeFunc: Function) {
-        for (const {type, key} of this.datas) {
+        for (const {type, key} of this.pkgDatasType) {
             // console.log(key);
             switch (type) {
                 case DataType.INT8: {

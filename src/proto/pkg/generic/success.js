@@ -5,17 +5,16 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 通用返回
 class Success extends PkgBase {
-    typeId = Success.typeId;
+    pkgTypeId = Success.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 3;
-
+    static pkgTypeId = 3;
 }
 
 module.exports = Success;

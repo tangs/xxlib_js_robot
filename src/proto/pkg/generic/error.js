@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 通用错误返回
 class Error extends PkgBase {
-    typeId = Error.typeId;
+    pkgTypeId = Error.pkgTypeId;
 
     // int64_t
     // $FlowFixMe
@@ -15,7 +15,7 @@ class Error extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT64,
                 key: 'number',
@@ -27,8 +27,7 @@ class Error extends PkgBase {
         );
     }
 
-    static typeId = 4;
-
+    static pkgTypeId = 4;
 }
 
 module.exports = Error;

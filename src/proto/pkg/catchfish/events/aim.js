@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 玩家锁定后瞄准某鱼
 class Aim extends Event {
-    typeId = Aim.typeId;
+    pkgTypeId = Aim.pkgTypeId;
 
     // 被瞄准的鱼id
     // int32_t
@@ -14,7 +14,7 @@ class Aim extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'fishId',
@@ -22,8 +22,7 @@ class Aim extends Event {
         );
     }
 
-    static typeId = 46;
-
+    static pkgTypeId = 46;
 }
 
 module.exports = Aim;

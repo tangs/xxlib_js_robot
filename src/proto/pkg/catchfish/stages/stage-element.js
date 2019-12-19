@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../../pkg-base");
 
 // 关卡元素基类
 class StageElement extends PkgBase {
-    typeId = StageElement.typeId;
+    pkgTypeId = StageElement.pkgTypeId;
 
     // 生效时间点
     // int32_t
@@ -16,7 +16,7 @@ class StageElement extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfg_beginTicks',
@@ -28,8 +28,7 @@ class StageElement extends PkgBase {
         );
     }
 
-    static typeId = 75;
-
+    static pkgTypeId = 75;
 }
 
 module.exports = StageElement;

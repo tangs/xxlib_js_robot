@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 调整炮台倍率
 class Bet extends PkgBase {
-    typeId = Bet.typeId;
+    pkgTypeId = Bet.pkgTypeId;
 
     // int32_t
     cannonId: number = 0;
@@ -15,7 +15,7 @@ class Bet extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cannonId',
@@ -27,8 +27,7 @@ class Bet extends PkgBase {
         );
     }
 
-    static typeId = 87;
-
+    static pkgTypeId = 87;
 }
 
 module.exports = Bet;

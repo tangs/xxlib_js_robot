@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 发子弹( 单次 ). 非特殊子弹, 只可能是 cannons[0] 原始炮台发射
 class Fire extends Event {
-    typeId = Fire.typeId;
+    pkgTypeId = Fire.pkgTypeId;
 
     // 起始帧编号 ( 来自客户端 )
     // int32_t
@@ -23,7 +23,7 @@ class Fire extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'frameNumber',
@@ -43,8 +43,7 @@ class Fire extends Event {
         );
     }
 
-    static typeId = 50;
-
+    static pkgTypeId = 50;
 }
 
 module.exports = Fire;

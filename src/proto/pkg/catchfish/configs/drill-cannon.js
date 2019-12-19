@@ -6,7 +6,7 @@ const Cannon = require("../../../pkg/catchfish/configs/cannon");
 
 // 钻头炮台( 穿刺 )
 class DrillCannon extends Cannon {
-    typeId = DrillCannon.typeId;
+    pkgTypeId = DrillCannon.pkgTypeId;
 
     // 碰撞CD: 限定一定时间范围内，子弹与鱼的碰撞检测次数。需要在子弹上背负 fishId : timeoutFN 白名单. 超时时间 = scene.FN + hitCD. 目标鱼不在名单内或 timeoutFN >= scene.FN 则可进行 hit. 同时记录到名单或刷新 timeoutFN
     // int32_t
@@ -17,7 +17,7 @@ class DrillCannon extends Cannon {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'hitCD',
@@ -29,8 +29,7 @@ class DrillCannon extends Cannon {
         );
     }
 
-    static typeId = 107;
-
+    static pkgTypeId = 107;
 }
 
 module.exports = DrillCannon;

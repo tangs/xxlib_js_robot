@@ -6,7 +6,7 @@ const Emitter_RandomFishs = require("../../../pkg/catchfish/stages/emitter-rando
 
 // 监视器: 自动再生肥鱼, 服务端预约下发
 class Monitor_KeepFatFish extends Emitter_RandomFishs {
-    typeId = Monitor_KeepFatFish.typeId;
+    pkgTypeId = Monitor_KeepFatFish.pkgTypeId;
 
     // 配置: 鱼总数限制
     // int32_t
@@ -17,7 +17,7 @@ class Monitor_KeepFatFish extends Emitter_RandomFishs {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfg_numFishsLimit',
@@ -29,8 +29,7 @@ class Monitor_KeepFatFish extends Emitter_RandomFishs {
         );
     }
 
-    static typeId = 77;
-
+    static pkgTypeId = 77;
 }
 
 module.exports = Monitor_KeepFatFish;

@@ -4,7 +4,7 @@ const { PkgBase, DataType } = require("../pkg-base");
 
 // 小鱼环绕的大鱼的特殊配置
 class ListXXPos extends PkgBase {
-    typeId = ListXXPos.typeId;
+    pkgTypeId = ListXXPos.pkgTypeId;
 
     // 每帧移动距离
     // XXPos[]
@@ -12,7 +12,7 @@ class ListXXPos extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.LIST_POS,
                 key: 'positions',
@@ -20,8 +20,7 @@ class ListXXPos extends PkgBase {
         );
     }
 
-    static typeId = 66;
-
+    static pkgTypeId = 66;
 }
 
 module.exports = ListXXPos;

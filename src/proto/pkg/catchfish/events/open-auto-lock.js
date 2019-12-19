@@ -6,17 +6,16 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 开启开火锁定
 class OpenAutoLock extends Event {
-    typeId = OpenAutoLock.typeId;
+    pkgTypeId = OpenAutoLock.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 45;
-
+    static pkgTypeId = 45;
 }
 
 module.exports = OpenAutoLock;

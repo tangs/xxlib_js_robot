@@ -6,7 +6,7 @@ const Item = require("../../../pkg/catchfish/configs/item");
 
 // 炮台 & 子弹配置基类
 class Cannon extends Item {
-    typeId = Cannon.typeId;
+    pkgTypeId = Cannon.pkgTypeId;
 
     // 初始角度
     // float
@@ -38,7 +38,7 @@ class Cannon extends Item {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.FLOAT,
                 key: 'angle',
@@ -78,8 +78,7 @@ class Cannon extends Item {
         );
     }
 
-    static typeId = 62;
-
+    static pkgTypeId = 62;
 }
 
 module.exports = Cannon;

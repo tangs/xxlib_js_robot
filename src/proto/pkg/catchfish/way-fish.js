@@ -7,7 +7,7 @@ const PKG__CatchFish__Way = require("../../pkg/catchfish/way");
 
 // 基于路径移动的鱼基类
 class WayFish extends Fish {
-    typeId = WayFish.typeId;
+    pkgTypeId = WayFish.pkgTypeId;
 
     // 移动路径. 动态生成, 不引用自 cfg. 同步时被复制. 如果该值为空, 则启用 wayTypeIndex / wayIndex
     // PKG::CatchFish::Way_s
@@ -30,7 +30,7 @@ class WayFish extends Fish {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.OBJ,
                 key: 'way',
@@ -58,8 +58,7 @@ class WayFish extends Fish {
         );
     }
 
-    static typeId = 80;
-
+    static pkgTypeId = 80;
 }
 
 module.exports = WayFish;

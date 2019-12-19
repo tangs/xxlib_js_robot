@@ -6,7 +6,7 @@ const MoveItem = require("../../pkg/catchfish/move-item");
 
 // 武器基类 ( 有一些特殊鱼死后会变做 某种武器 / 炮台，死时有个滞空展示时间，被用于解决网络同步延迟。所有端应该在展示时间结束前收到该预约。展示完成后武器将飞向炮台变为附加炮台 )
 class Weapon extends MoveItem {
-    typeId = Weapon.typeId;
+    pkgTypeId = Weapon.pkgTypeId;
 
     // 配置id
     // int32_t
@@ -21,7 +21,7 @@ class Weapon extends MoveItem {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfgId',
@@ -37,8 +37,7 @@ class Weapon extends MoveItem {
         );
     }
 
-    static typeId = 30;
-
+    static pkgTypeId = 30;
 }
 
 module.exports = Weapon;

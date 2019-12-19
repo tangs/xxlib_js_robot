@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 开火
 class Fire extends PkgBase {
-    typeId = Fire.typeId;
+    pkgTypeId = Fire.pkgTypeId;
 
     // int32_t
     frameNumber: number = 0;
@@ -18,7 +18,7 @@ class Fire extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'frameNumber',
@@ -38,8 +38,7 @@ class Fire extends PkgBase {
         );
     }
 
-    static typeId = 15;
-
+    static pkgTypeId = 15;
 }
 
 module.exports = Fire;

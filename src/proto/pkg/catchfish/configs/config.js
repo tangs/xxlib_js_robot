@@ -10,7 +10,7 @@ const PKG__CatchFish__Stages__Stage = require("../../../pkg/catchfish/stages/sta
 
 // 游戏配置主体
 class Config extends PkgBase {
-    typeId = Config.typeId;
+    pkgTypeId = Config.pkgTypeId;
 
     // 所有固定路径( 工具创建 )
     // xx::List_s<PKG::CatchFish::Way_s>
@@ -42,7 +42,7 @@ class Config extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.LIST,
                 key: 'fixedWays',
@@ -82,8 +82,7 @@ class Config extends PkgBase {
         );
     }
 
-    static typeId = 57;
-
+    static pkgTypeId = 57;
 }
 
 module.exports = Config;

@@ -6,7 +6,7 @@ const StageElement = require("../../../pkg/catchfish/stages/stage-element");
 
 // 发射器: 从屏幕中间圆环批量出小鱼
 class Emitter_RingFishs extends StageElement {
-    typeId = Emitter_RingFishs.typeId;
+    pkgTypeId = Emitter_RingFishs.pkgTypeId;
 
     // 配置: 每波鱼只数
     // int32_t
@@ -30,7 +30,7 @@ class Emitter_RingFishs extends StageElement {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfg_numFishsPerBatch',
@@ -58,8 +58,7 @@ class Emitter_RingFishs extends StageElement {
         );
     }
 
-    static typeId = 78;
-
+    static pkgTypeId = 78;
 }
 
 module.exports = Emitter_RingFishs;

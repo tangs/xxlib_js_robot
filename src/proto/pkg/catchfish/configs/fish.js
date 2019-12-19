@@ -8,7 +8,7 @@ const PKG__CatchFish__Configs__SpriteFrame = require("../../../pkg/catchfish/con
 
 // 鱼配置基类 ( 派生类中不再包含 sprite frame 相关, 以便于资源加载管理扫描 )
 class Fish extends Item {
-    typeId = Fish.typeId;
+    pkgTypeId = Fish.pkgTypeId;
 
     // 金币 / 倍率随机范围 ( 最小值 )
     // int64_t
@@ -42,7 +42,7 @@ class Fish extends Item {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT64,
                 key: 'minCoin',
@@ -82,8 +82,7 @@ class Fish extends Item {
         );
     }
 
-    static typeId = 60;
-
+    static pkgTypeId = 60;
 }
 
 module.exports = Fish;

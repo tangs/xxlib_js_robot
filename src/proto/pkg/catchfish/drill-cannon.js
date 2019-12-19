@@ -6,17 +6,16 @@ const Cannon = require("../../pkg/catchfish/cannon");
 
 // 钻头炮台
 class DrillCannon extends Cannon {
-    typeId = DrillCannon.typeId;
+    pkgTypeId = DrillCannon.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 103;
-
+    static pkgTypeId = 103;
 }
 
 module.exports = DrillCannon;

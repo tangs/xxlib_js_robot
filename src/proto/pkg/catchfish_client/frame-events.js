@@ -6,7 +6,7 @@ const PKG__CatchFish__Events__Event = require("../../pkg/catchfish/events/event"
 
 // 帧事件同步包
 class FrameEvents extends PkgBase {
-    typeId = FrameEvents.typeId;
+    pkgTypeId = FrameEvents.pkgTypeId;
 
     // 帧编号
     // int32_t
@@ -17,7 +17,7 @@ class FrameEvents extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'frameNumber',
@@ -29,8 +29,7 @@ class FrameEvents extends PkgBase {
         );
     }
 
-    static typeId = 11;
-
+    static pkgTypeId = 11;
 }
 
 module.exports = FrameEvents;

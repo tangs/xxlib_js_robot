@@ -6,17 +6,16 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 玩家自动开火
 class OpenAutoFire extends Event {
-    typeId = OpenAutoFire.typeId;
+    pkgTypeId = OpenAutoFire.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 48;
-
+    static pkgTypeId = 48;
 }
 
 module.exports = OpenAutoFire;

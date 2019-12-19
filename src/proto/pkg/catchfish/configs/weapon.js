@@ -7,7 +7,7 @@ const PKG__CatchFish__Configs__Cannon = require("../../../pkg/catchfish/configs/
 
 // 打爆彩色鱼出现的特殊武器配置基类
 class Weapon extends Item {
-    typeId = Weapon.typeId;
+    pkgTypeId = Weapon.pkgTypeId;
 
     // 展示文本( 为简化设计先这样 )
     // std::string_s
@@ -27,7 +27,7 @@ class Weapon extends Item {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.STRING,
                 key: 'txt',
@@ -51,8 +51,7 @@ class Weapon extends Item {
         );
     }
 
-    static typeId = 64;
-
+    static pkgTypeId = 64;
 }
 
 module.exports = Weapon;

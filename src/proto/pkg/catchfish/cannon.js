@@ -7,7 +7,7 @@ const PKG__CatchFish__Bullet = require("../../pkg/catchfish/bullet");
 
 // 炮台基类. 下列属性适合大多数炮
 class Cannon extends Item {
-    typeId = Cannon.typeId;
+    pkgTypeId = Cannon.pkgTypeId;
 
     // 配置id
     // int32_t
@@ -25,7 +25,7 @@ class Cannon extends Item {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfgId',
@@ -45,8 +45,7 @@ class Cannon extends Item {
         );
     }
 
-    static typeId = 28;
-
+    static pkgTypeId = 28;
 }
 
 module.exports = Cannon;

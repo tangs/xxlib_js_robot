@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 路径. 预约下发安全, 将复制路径完整数据
 class Way extends PkgBase {
-    typeId = Way.typeId;
+    pkgTypeId = Way.pkgTypeId;
 
     // 路点集合
     // xx::List_s<PKG::CatchFish::WayPoint>
@@ -19,7 +19,7 @@ class Way extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.LIST_WAY_POINT,
                 key: 'points',
@@ -35,8 +35,7 @@ class Way extends PkgBase {
         );
     }
 
-    static typeId = 34;
-
+    static pkgTypeId = 34;
 }
 
 module.exports = Way;

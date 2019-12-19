@@ -6,17 +6,16 @@ const ColorFish = require("../../pkg/catchfish/color-fish");
 
 // 钻头鱼( 蓝 )
 class DrillFish extends ColorFish {
-    typeId = DrillFish.typeId;
+    pkgTypeId = DrillFish.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 98;
-
+    static pkgTypeId = 98;
 }
 
 module.exports = DrillFish;

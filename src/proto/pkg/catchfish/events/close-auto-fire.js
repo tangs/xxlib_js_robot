@@ -6,17 +6,16 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 玩家解除自动开火
 class CloseAutoFire extends Event {
-    typeId = CloseAutoFire.typeId;
+    pkgTypeId = CloseAutoFire.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 49;
-
+    static pkgTypeId = 49;
 }
 
 module.exports = CloseAutoFire;

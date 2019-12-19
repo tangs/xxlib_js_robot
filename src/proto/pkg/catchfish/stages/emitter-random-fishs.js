@@ -6,7 +6,7 @@ const StageElement = require("../../../pkg/catchfish/stages/stage-element");
 
 // 发射器: 随机小鱼
 class Emitter_RandomFishs extends StageElement {
-    typeId = Emitter_RandomFishs.typeId;
+    pkgTypeId = Emitter_RandomFishs.pkgTypeId;
 
     // 配置: 两条鱼生成帧间隔
     // int32_t
@@ -27,7 +27,7 @@ class Emitter_RandomFishs extends StageElement {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfg_bornTicksInterval',
@@ -51,8 +51,7 @@ class Emitter_RandomFishs extends StageElement {
         );
     }
 
-    static typeId = 76;
-
+    static pkgTypeId = 76;
 }
 
 module.exports = Emitter_RandomFishs;

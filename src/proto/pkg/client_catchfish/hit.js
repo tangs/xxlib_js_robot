@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 碰撞检测
 class Hit extends PkgBase {
-    typeId = Hit.typeId;
+    pkgTypeId = Hit.pkgTypeId;
 
     // int32_t
     cannonId: number = 0;
@@ -16,7 +16,7 @@ class Hit extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cannonId',
@@ -32,8 +32,7 @@ class Hit extends PkgBase {
         );
     }
 
-    static typeId = 16;
-
+    static pkgTypeId = 16;
 }
 
 module.exports = Hit;

@@ -6,7 +6,7 @@ const MoveItem = require("../../pkg/catchfish/move-item");
 
 // 子弹基类
 class Bullet extends MoveItem {
-    typeId = Bullet.typeId;
+    pkgTypeId = Bullet.pkgTypeId;
 
     // 金币 / 倍率( 记录炮台开火时的 Bet 值 )
     // int64_t
@@ -15,7 +15,7 @@ class Bullet extends MoveItem {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT64,
                 key: 'coin',
@@ -23,8 +23,7 @@ class Bullet extends MoveItem {
         );
     }
 
-    static typeId = 32;
-
+    static pkgTypeId = 32;
 }
 
 module.exports = Bullet;

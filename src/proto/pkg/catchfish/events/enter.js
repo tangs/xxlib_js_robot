@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 通知: 玩家进入. 大部分字段从 Player 类复制. 添加了部分初始数值, 可还原出玩家类实例.
 class Enter extends Event {
-    typeId = Enter.typeId;
+    pkgTypeId = Enter.pkgTypeId;
 
     // 昵称
     // std::string_s
@@ -34,7 +34,7 @@ class Enter extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.STRING,
                 key: 'nickname',
@@ -66,8 +66,7 @@ class Enter extends Event {
         );
     }
 
-    static typeId = 37;
-
+    static pkgTypeId = 37;
 }
 
 module.exports = Enter;

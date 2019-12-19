@@ -7,7 +7,7 @@ const PKG__CatchFish__FishBorn = require("../../../pkg/catchfish/fish-born");
 
 // 预约: 出鱼( 需判定 beginFrameNumber ), 放入 scene.borns 队列. 用不到 playerId
 class PushFish extends Event {
-    typeId = PushFish.typeId;
+    pkgTypeId = PushFish.pkgTypeId;
 
     // 已于 server 端构造好的, 无牵挂的, 能干净下发的实例
     // PKG::CatchFish::FishBorn_s
@@ -15,7 +15,7 @@ class PushFish extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.OBJ,
                 key: 'born',
@@ -23,8 +23,7 @@ class PushFish extends Event {
         );
     }
 
-    static typeId = 44;
-
+    static pkgTypeId = 44;
 }
 
 module.exports = PushFish;

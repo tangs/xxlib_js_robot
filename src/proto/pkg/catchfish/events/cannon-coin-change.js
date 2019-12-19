@@ -6,7 +6,7 @@ const Event = require("../../../pkg/catchfish/events/event");
 
 // 转发: 切换炮台倍率
 class CannonCoinChange extends Event {
-    typeId = CannonCoinChange.typeId;
+    pkgTypeId = CannonCoinChange.pkgTypeId;
 
     // 炮台id
     // int32_t
@@ -18,7 +18,7 @@ class CannonCoinChange extends Event {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cannonId',
@@ -30,8 +30,7 @@ class CannonCoinChange extends Event {
         );
     }
 
-    static typeId = 52;
-
+    static pkgTypeId = 52;
 }
 
 module.exports = CannonCoinChange;

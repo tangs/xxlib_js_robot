@@ -15,8 +15,8 @@ class MsgDecoder {
         this.register(listXXPos);
     }
 
-    register = (pkgClass: Function) => {
-        this.pkgMap.set(pkgClass.typeId, pkgClass);
+    register = (pkgClass: Object) => {
+        this.pkgMap.set(pkgClass.pkgTypeId, pkgClass);
     }
 
     createPkg = (): (PkgBase | string | null) => {

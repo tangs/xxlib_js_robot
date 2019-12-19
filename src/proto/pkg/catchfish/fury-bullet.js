@@ -6,17 +6,16 @@ const Bullet = require("../../pkg/catchfish/bullet");
 
 // 狂暴子弹
 class FuryBullet extends Bullet {
-    typeId = FuryBullet.typeId;
+    pkgTypeId = FuryBullet.pkgTypeId;
 
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
         );
     }
 
-    static typeId = 100;
-
+    static pkgTypeId = 100;
 }
 
 module.exports = FuryBullet;

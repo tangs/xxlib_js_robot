@@ -5,7 +5,7 @@ const { PkgBase, DataType } = require("../../pkg-base");
 
 // 心跳保持兼延迟测试 -- 回应
 class Pong extends PkgBase {
-    typeId = Pong.typeId;
+    pkgTypeId = Pong.pkgTypeId;
 
     // int64_t
     // $FlowFixMe
@@ -13,7 +13,7 @@ class Pong extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT64,
                 key: 'ticks',
@@ -21,8 +21,7 @@ class Pong extends PkgBase {
         );
     }
 
-    static typeId = 6;
-
+    static pkgTypeId = 6;
 }
 
 module.exports = Pong;

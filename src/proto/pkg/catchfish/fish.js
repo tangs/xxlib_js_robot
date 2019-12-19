@@ -6,7 +6,7 @@ const MoveItem = require("../../pkg/catchfish/move-item");
 
 // 鱼基类( 支持每帧 pos += moveInc 简单移动 )
 class Fish extends MoveItem {
-    typeId = Fish.typeId;
+    pkgTypeId = Fish.pkgTypeId;
 
     // 配置id
     // int32_t
@@ -30,7 +30,7 @@ class Fish extends MoveItem {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'cfgId',
@@ -58,8 +58,7 @@ class Fish extends MoveItem {
         );
     }
 
-    static typeId = 19;
-
+    static pkgTypeId = 19;
 }
 
 module.exports = Fish;

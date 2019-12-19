@@ -7,7 +7,7 @@ const PKG__CatchFish__Player = require("../../pkg/catchfish/player");
 
 // 申请进入游戏 成功
 class EnterSuccess extends PkgBase {
-    typeId = EnterSuccess.typeId;
+    pkgTypeId = EnterSuccess.pkgTypeId;
 
     // 完整的游戏场景
     // PKG::CatchFish::Scene_s
@@ -24,7 +24,7 @@ class EnterSuccess extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.OBJ,
                 key: 'scene',
@@ -44,8 +44,7 @@ class EnterSuccess extends PkgBase {
         );
     }
 
-    static typeId = 7;
-
+    static pkgTypeId = 7;
 }
 
 module.exports = EnterSuccess;

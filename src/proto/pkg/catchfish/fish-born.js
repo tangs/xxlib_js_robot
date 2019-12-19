@@ -6,7 +6,7 @@ const PKG__CatchFish__Fish = require("../../pkg/catchfish/fish");
 
 // 预约出鱼
 class FishBorn extends PkgBase {
-    typeId = FishBorn.typeId;
+    pkgTypeId = FishBorn.pkgTypeId;
 
     // 开始 / 生效帧编号
     // int32_t
@@ -17,7 +17,7 @@ class FishBorn extends PkgBase {
 
     constructor() {
         super();
-        this.datas.push(
+        this.pkgDatasType.push(
             {
                 type: DataType.INT32,
                 key: 'beginFrameNumber',
@@ -29,8 +29,7 @@ class FishBorn extends PkgBase {
         );
     }
 
-    static typeId = 23;
-
+    static pkgTypeId = 23;
 }
 
 module.exports = FishBorn;
