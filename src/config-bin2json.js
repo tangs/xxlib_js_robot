@@ -31,10 +31,8 @@ const msg = md.decode(buf, true);
 const txt = JSON.stringify(msg, (key, value) => {
 	// $FlowFixMe
 	const type = typeof value;
-	console.log(key);
-	if (type === 'object' && value && value.datas) {
-		// console.log(value);
-		delete value.datas;
+	if (type === 'object' && value && value.pkgDatasType) {
+		delete value.pkgDatasType;
 	}
 	return type === 'bigint' ? value.toString() : value;
 }, 4);
