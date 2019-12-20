@@ -22,72 +22,68 @@ class MsgDecoder {
         this.pkgMap.set(pkgClass.pkgTypeId, pkgClass);
     }
 
-    _decodeList = (key: string, cb: Function) => {
+    _decodeObj = (creatCb: Function) => {
         const buffer = this.buffer;
-        const typeId = buffer.readVarintInt16(false);
-        if (typeId == 0) {
-            return;
-        }
-        const idx = buffer.readVarintInt32(false);
-
-        const destObj = buffer.findObjInCache(idx);
-        if (destObj) {
-            return destObj;
-        } 
-
-        const list: XXList<any> = new XXList();
-        const arr = list.arr;
-        // const list = [];
-        list.pkgTypeId = typeId;
-        const len = buffer.readVarintInt32(false);
-        // console.log(`key:${key}, typeId: ${typeId}, idx: ${idx}, len:${len}`);
-        for (let i = 0; i < len; ++i) {
-            const obj = cb();
-            if (obj == null) continue;
-            arr.push(obj);
-        }
-        buffer.cacheObj(idx, list);
-        return list;
-    }
-
-    _createPkg = (): (PkgBase | string | null) => {
-        const buffer = this.buffer;
-        // const buffer = this.buffer;
         const pkgId = buffer.readVarintInt16(false);
 
         if (pkgId == 0) {
             return null;
         }
 
-        const idx = buffer.readVarintInt32(false);
-        const destObj = buffer.findObjInCache(idx);
+        const cacheIdx = buffer.readVarintInt32(false);
+        const destObj = buffer.findObjInCache(cacheIdx);
         if (destObj) {
             return destObj;
         } 
 
         if (pkgId == 1) {
             const ret = buffer.readString();
-            buffer.cacheObj(idx, ret);
+            buffer.cacheObj(cacheIdx, ret);
             return ret;
         }
 
         console.log(`pkgId: ${pkgId}`);
 
-        if (this.pkgMap.has(pkgId)) {
-            const class1: any = this.pkgMap.get(pkgId);
-            const obj = new class1();
-            buffer.cacheObj(idx, obj);
-            // obj.decode(buffer, this);
-            this._decodePkg(buffer, obj);
-            return obj;
-        } else {
+        const obj = creatCb(cacheIdx, pkgId);
+        if (obj == null) {
             assert(`can't find pkg id:${pkgId}.`);
             console.log(`can't find pkg id:${pkgId}.`);
-            return null;
+            return;
         }
+        buffer.cacheObj(cacheIdx, obj);
+        return obj;
     }
 
-    _decodePkg = (buffer: MsgBuffer, obj: PkgBase) => {
+    _createList = (key: string, createItemCb: Function) => {
+        return this._decodeObj((cacheIdx: number, pkgId: number) => {
+            const buffer = this.buffer;
+            const list: XXList<any> = new XXList();
+            list.pkgTypeId = pkgId;
+            const arr = list.arr;
+            const len = buffer.readVarintInt32(false);
+            for (let i = 0; i < len; ++i) {
+                const obj = createItemCb();
+                if (obj == null) continue;
+                arr.push(obj);
+            }
+            return list;
+        });
+    }
+
+    _createPkg = () => {
+        return this._decodeObj((cacheIdx: number, pkgId: number) => {
+            if (!this.pkgMap.has(pkgId)) {
+                return;
+            }
+            const buffer = this.buffer;
+            const class1: any = this.pkgMap.get(pkgId);
+            const obj = new class1();
+            this._decodeProps(buffer, obj);
+            return obj;
+        });
+    }
+
+    _decodeProps = (buffer: MsgBuffer, obj: PkgBase) => {
         // buffer = new Buffer()
         for (const { type, key } of obj.pkgDatasType) {
             // console.log(key);
@@ -125,7 +121,7 @@ class MsgDecoder {
                 }
                 break;
                 case DataType.LIST: {
-                    const list = this._decodeList(key, () => {
+                    const list = this._createList(key, () => {
                         return this._createPkg();
                     });
                     obj.setValue(key, list);
@@ -133,14 +129,14 @@ class MsgDecoder {
                 break;
                 case DataType.xx_LIST_SITS: 
                 case DataType.LIST_INT32: {
-                    const list = this._decodeList(key, () => {
+                    const list = this._createList(key, () => {
                         return buffer.readVarintInt32(true);
                     });
                     obj.setValue(key, list);
                 }
                 break;
                 case DataType.LIST_WAY_POINT: {
-                    const list = this._decodeList(key, () => {
+                    const list = this._createList(key, () => {
                         const obj = {};
                         obj.pos = {};
                         obj.pos.x = buffer.readFloat();
@@ -188,7 +184,7 @@ class MsgDecoder {
         }
     }
 
-    decode = (reveivedMsg: Buffer, skipHead: boolean = false): (PkgBase | string | null) => {
+    decode = (reveivedMsg: Buffer, skipHead: boolean = false): Object => {
         const bytes = reveivedMsg.buffer;
         const buffer = this.buffer;
 
